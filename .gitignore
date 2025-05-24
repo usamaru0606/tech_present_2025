@@ -783,9 +783,13 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Draw.io temporary/backup files
+*~   
+*.tmp
 *.drawio.bak
 *.drawio~
-*.tmp
+*.bkp
+.*.drawio.bkp 
+*$* 
 
 # Optional: exclude exported images (if you auto-export and don't want them in Git)
 *.drawio.svg
