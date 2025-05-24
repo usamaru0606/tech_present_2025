@@ -782,3 +782,12 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Draw.io temporary/backup files
+*.drawio.bak
+*.drawio~
+*.tmp
+
+# Optional: exclude exported images (if you auto-export and don't want them in Git)
+*.drawio.svg
+*.drawio.png
+
