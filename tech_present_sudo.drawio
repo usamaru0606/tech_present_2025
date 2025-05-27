@@ -1,50 +1,122 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.5 Chrome/134.0.6998.205 Electron/35.3.0 Safari/537.36" version="27.0.5">
-  <diagram name="ページ1" id="6X9dbl7fI9Mc7Z8zHZxv">
-    <mxGraphModel dx="509" dy="1230" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-1" value="User1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="20" y="-450" width="30" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0vHHx9O7SJHob9zNPWDA-2">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="430" y="-329.9999999999999" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-2" value="admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="520" y="-360" width="30" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0vHHx9O7SJHob9zNPWDA-3" target="0vHHx9O7SJHob9zNPWDA-6">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="125" y="-210" />
-              <mxPoint x="125" y="-320" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-3" value="User2" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="20" y="-240" width="30" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-6" value="トレーニングの提案&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;体型管理&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;食事メニュー提案&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;モデルデータの収集&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="220" y="-450" width="190" height="200" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-7" value="ダイエットサポート&lt;div&gt;システム&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="240" y="-500" width="120" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.45;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="0vHHx9O7SJHob9zNPWDA-1" target="0vHHx9O7SJHob9zNPWDA-6">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-12" value="目標の設定" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="100" y="-455" width="110" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-15" value="アカウント登録" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="60" y="-380" width="130" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="0vHHx9O7SJHob9zNPWDA-16" value="学習データの提供" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="420" y="-450" width="130" height="80" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram name="ページ1" id="6X9dbl7fI9Mc7Z8zHZxv">
+        <mxGraphModel dx="1166" dy="1399" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-1" value="User1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="-450" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0vHHx9O7SJHob9zNPWDA-2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="430" y="-329.9999999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-2" value="admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="-360" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0vHHx9O7SJHob9zNPWDA-3" target="0vHHx9O7SJHob9zNPWDA-6" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="125" y="-210"/>
+                            <mxPoint x="125" y="-320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-3" value="User2" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="-240" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-6" value="トレーニングの提案&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;体型管理&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;食事メニュー提案&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;モデルデータの収集&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="-450" width="190" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-7" value="ダイエットサポート&lt;div&gt;システム&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="-500" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.45;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="0vHHx9O7SJHob9zNPWDA-1" target="0vHHx9O7SJHob9zNPWDA-6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-12" value="目標の設定" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="-455" width="110" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-15" value="アカウント登録" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="-380" width="130" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="0vHHx9O7SJHob9zNPWDA-16" value="学習データの提供" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="-450" width="130" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="uebpbn2puKj3zUXS4Ank" name="ページ2">
+        <mxGraphModel dx="816" dy="1519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="imovOgjUFhT3nvwSts4W-1" value="User1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="160" y="-320" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="imovOgjUFhT3nvwSts4W-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="517.5" y="-320" width="75" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="imovOgjUFhT3nvwSts4W-3" value="" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="500" y="-280" width="110" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="imovOgjUFhT3nvwSts4W-4" value="システム" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="517.5" y="-260" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-1" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="200" y="-280" as="sourcePoint"/>
+                        <mxPoint x="480" y="-280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-2" value="ユーザ登録(年齢・身長・体重)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="-305" width="190" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-3" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="480" y="-240" as="sourcePoint"/>
+                        <mxPoint x="200" y="-240" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-4" value="目標体重を提案画面表示" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="-260" width="160" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-5" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="199" y="-184" as="sourcePoint"/>
+                        <mxPoint x="479" y="-184" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-6" value="目標体重を設定" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="-210" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-8" value="運動量を予測" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="390" y="-160" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-11" value="" style="curved=1;endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="480" y="-160" as="sourcePoint"/>
+                        <mxPoint x="480" y="-140" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="420" y="-180"/>
+                            <mxPoint x="390" y="-160"/>
+                            <mxPoint x="380" y="-140"/>
+                            <mxPoint x="390" y="-120"/>
+                            <mxPoint x="440" y="-100"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-13" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="480" y="-80" as="sourcePoint"/>
+                        <mxPoint x="200" y="-80" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="h72ggMqab2FVN8E5MGnS-14" value="トレーニングメニュー表示" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="335" y="-100" width="170" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>
