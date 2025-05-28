@@ -21,9 +21,14 @@ export const LoginViewModel = () => {
     }
   };
 
+  const GoRegisterPage = async() => {
+  await router.push("/register");
+}
+
   return {
     loginForm,
     error,
     Login,
+    GoRegisterPage
   };
 };

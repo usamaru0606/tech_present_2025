@@ -11,12 +11,14 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app temporary location="end">
-      <v-list>
-        <v-list-item title="Home" />
-        <v-list-item title="Settings" />
-      </v-list>
-    </v-navigation-drawer>
+    <ClientOnly>
+      <v-navigation-drawer v-model="drawer" app temporary location="end">
+        <v-list>
+          <v-list-item title="Home" />
+          <v-list-item title="Settings" />
+        </v-list>
+      </v-navigation-drawer>
+    </ClientOnly>
 
     <v-main>
       <v-container class="pa-4">

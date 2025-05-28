@@ -73,3 +73,12 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+#　仮実装
+ヘッダー部の人アイコンを押すとログインページに遷移
+
+- ログイン
+メールアドレス：test
+パスワード：test
+
+ログインページで新規登録を押下すると新規登録画面に

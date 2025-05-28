@@ -14,5 +14,12 @@ export default defineNuxtConfig({
     ssr: {
       noExternal: ['vuetify'], 
     },
+    server:{
+      hmr:{
+        protocol:'ws',
+        host:'localhost',
+        port:3000,
+      }
+    }
   },
 })
