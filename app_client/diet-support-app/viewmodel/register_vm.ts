@@ -2,32 +2,27 @@ import type { UserInfo } from '~/model/userinfo'
 import{v4 as uuidv4} from 'uuid'
 
 export const RegisterViewModel = () => {
-  const form = ref<UserInfo>({
-  guid: uuidv4(),
-  name: '',
-  gender:'',
-  age:0,
-  birthday:'',
-  email: '',
-  password: '',
-  passwordConfirm: '',
-  })
-
-  const error = ref('')
   const router = useRouter()
 
-  const validate = (): boolean => {
-    if (
-      !form.value.name ||
-      !form.value.email ||
-      !form.value.password ||
-      !form.value.passwordConfirm
-    ) {
+  const userInfo = reactive<UserInfo>({
+    guid: uuidv4(),
+    name: '',
+    gender: '',
+    age: 0,
+    birthday: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  })
+  const error = ref('')
+  
+  const Validate = (): boolean => {
+    if (!userInfo.name || !userInfo.email || !userInfo.password || !userInfo.passwordConfirm) {
       error.value = 'すべての項目を入力してください'
       return false
     }
 
-    if (form.value.password !== form.value.passwordConfirm) {
+    if (userInfo.password !== userInfo.passwordConfirm) {
       error.value = 'パスワードと確認用パスワードが一致しません'
       return false
     }
@@ -37,9 +32,10 @@ export const RegisterViewModel = () => {
   }
 
   const Register = async () => {
-    if (!validate()) return
+    if (!Validate()) return
 
     try {
+      // API 呼び出しなどの処理をここに追加
       await router.push('/login')
     } catch (e) {
       error.value = '登録に失敗しました'
@@ -47,7 +43,7 @@ export const RegisterViewModel = () => {
   }
 
   return {
-    form,
+    userInfo,
     error,
     Register,
   }

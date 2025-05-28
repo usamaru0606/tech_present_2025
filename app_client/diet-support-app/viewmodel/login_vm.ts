@@ -1,34 +1,38 @@
 import type { LoginForm } from "~/model/loginform";
 
 export const LoginViewModel = () => {
-  const loginForm = ref<LoginForm>({
+  const router = useRouter();
+
+  const loginForm = reactive<LoginForm>({
     email: "",
     password: "",
   });
-
   const error = ref("");
-  const router = useRouter();
+
+  const Validate = (): boolean => {
+    if (loginForm.email === "test" && loginForm.password === "test") {
+      error.value = ""
+      return true
+    }
+    error.value = "メールアドレスまたはパスワードが間違っています";
+    return false
+  }
 
   const Login = async () => {
-    // 仮実装
-    if (
-      loginForm.value.email === "test" &&
-      loginForm.value.password === "test"
-    ) {
-      await router.push("/");
-    } else {
-      error.value = "メールアドレスまたはパスワードが間違っています";
+    if (!Validate()) {
+      return
     }
+    await router.push("/");
   };
 
-  const GoRegisterPage = async() => {
-  await router.push("/register");
-}
+  const GoRegisterPage = async () => {
+    await router.push("/register");
+  };
 
   return {
     loginForm,
     error,
     Login,
-    GoRegisterPage
+    GoRegisterPage,
   };
 };
