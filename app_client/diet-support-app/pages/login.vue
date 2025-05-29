@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height d-flex flex-column justify-center pb-10">
-    <v-label class="text-h5 mb-4">ログイン</v-label>
+    <p class="text-h5 mb-4">ログイン</p>
 
     <v-container max-width="600px">
       <v-card min-width="360">
