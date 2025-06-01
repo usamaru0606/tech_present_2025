@@ -14,6 +14,7 @@
 
           <CPassField
             v-model="viewmodel.loginInfo.password"
+            v-model:autoLogin="viewmodel.autoLogin.value"
             :onEnter="viewmodel.Login"
             inputRef="passwordField"
             label="パスワード（半角英数字）"
@@ -24,7 +25,7 @@
         </v-card-text>
 
         <v-card-actions class="justify-end">
-          <v-btn color="primary" @click="viewmodel.Login">ログイン</v-btn>
+          <v-btn class="cardbtn bg-primary" @click="viewmodel.Login">ログイン</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -55,5 +56,9 @@ const viewmodel = LoginViewModel();
 .container{
   width: 100%;
   max-width: 600px;
+}
+.cardbtn :deep(.v-btn__content){
+  font-size: 14px;
+  font-weight: bold;
 }
 </style>

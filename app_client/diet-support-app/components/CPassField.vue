@@ -5,8 +5,8 @@
       :ref="inputRef"
       :model-value="modelValue"
       :type="showPassword ? 'text' : 'password'"
-      :density="density"
-      :variant="variant"
+      density='compact'
+      variant='outlined'
       :hide-details="hideDetails"
       :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
       @click:append-inner="togglePasswordVisibility"
@@ -19,25 +19,18 @@
       v-model="autoLogin"
       :label="checkboxLabel"
       class="checkbox"
-      :density="density"
+      density='compact'
       :hide-details="hideDetails"
     />
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   modelValue: String,
+  autoLogin:Boolean,
   label: String,
   inputRef: String,
-  density: {
-    type: String,
-    default: 'compact'
-  },
-  variant: {
-    type: String,
-    default: 'outlined'
-  },
   hideDetails: {
     type: Boolean,
     default: false
@@ -59,11 +52,10 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'update:autoLogin'])
 
 const showPassword = ref(false)
-const autoLogin = ref(false)
-
-watch(autoLogin, (val) => {
-  emit('update:autoLogin', val)
-})
+const autoLogin = computed({
+  get: () => props.autoLogin,
+  set: (val: Boolean) => emit('update:autoLogin', val)
+});
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value

@@ -41,7 +41,7 @@
                 inputRef="text"
                 textAlign="right"
                 readonly
-                class="bg-grey-lighten-3"
+                class="input_age"
               />
             </v-col>
             <v-col class="mt-5"><label>歳</label></v-col>
@@ -79,7 +79,7 @@
         </v-card-text>
 
         <v-card-actions class="justify-end">
-          <v-btn color="primary" @click="viewmodel.Register">登録</v-btn>
+          <v-btn class="cardbtn bg-primary" @click="viewmodel.Register">登録</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -108,5 +108,12 @@ const viewmodel = RegisterViewModel();
 .gender_select
 {
   min-width:112px
+}
+.input_age ::v-deep(.v-input input) {
+  background-color: #eeeeee;
+}
+.cardbtn :deep(.v-btn__content){
+  font-size: 14px;
+  font-weight: bold;
 }
 </style>
