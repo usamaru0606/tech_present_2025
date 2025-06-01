@@ -1,7 +1,7 @@
 <template>
   <v-container max-width="600px" class="d-flex flex-column align-items-center">
-    <p class="text-h5 mb-4 mx-auto">ユーザー情報</p>
-    <v-card min-width="360" elevation="3" class="mb-4">
+    <p class="text-h5 mb-4 mx-auto">ここは使わないでください</p>
+    <v-card elevation="3" class="mb-4">
       <v-card-text>
         <v-list dense>
           <v-list-item>
@@ -48,7 +48,7 @@ const user = reactive<UserInfo>({
 });
 
 async function useFetchData() {
-  const res = await useFetch<UserInfo>("http://127.0.0.1:8000/users/", {
+  const res = await useFetch("http://127.0.0.1:8000/users/", {
     method: "POST",
     body: {
       email: credentials.email,

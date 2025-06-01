@@ -1,28 +1,22 @@
-import type { LoginForm } from "~/model/loginform";
-
 export const LoginViewModel = () => {
   const router = useRouter();
-
-  const loginForm = reactive<LoginForm>({
-    email: "",
+  const userStore = useUserStore();
+  const loginInfo = reactive({
+    mailaddress: "",
     password: "",
   });
+
   const error = ref("");
 
-  const Validate = (): boolean => {
-    if (loginForm.email === "test" && loginForm.password === "test") {
-      error.value = ""
-      return true
-    }
-    error.value = "メールアドレスまたはパスワードが間違っています";
-    return false
-  }
-
   const Login = async () => {
-    if (!Validate()) {
-      return
+    try {
+      const user = await useLogin().Execute(loginInfo);
+      userStore.setUser(user);
+      error.value = "";
+      await router.push("/");
+    } catch {
+      error.value = "メールアドレスまたはパスワードが間違っています";
     }
-    await router.push("/");
   };
 
   const GoRegisterPage = async () => {
@@ -30,7 +24,7 @@ export const LoginViewModel = () => {
   };
 
   return {
-    loginForm,
+    loginInfo,
     error,
     Login,
     GoRegisterPage,

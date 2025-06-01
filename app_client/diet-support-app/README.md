@@ -15,8 +15,8 @@ npm install
 
 Start the development server on `http://localhost:3000`:
 
-1. 「localhostに対してChromeを起動する」または「スクリプトの実行：dev」を選択
-2. 以下のコマンドを実行
+1. 「Nuxt dev + Chrome」または「スクリプトの実行：dev」を選択し実行
+2. または以下のコマンドを実行
 
 ```bash
 npm run dev
@@ -41,10 +41,6 @@ http://127.0.0.1:8000/users/
   email   : "test@example.com"
   password: "test"
 ```
-
-メールアドレス：test
-パスワード：test
-
 
 ## ログイン
 
