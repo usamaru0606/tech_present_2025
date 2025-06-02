@@ -34,3 +34,14 @@ class UserCreate(BaseModel):
 
     class Config:
         orm_mode = True  # ORMモデルとの互換性を有効化
+
+class UserLogin(BaseModel):
+    """
+    ユーザーログイン時のリクエストボディスキーマ
+    
+    Attributes:
+        email (EmailStr): メールアドレス
+        password (str): パスワード
+    """
+    email: EmailStr
+    password: str
