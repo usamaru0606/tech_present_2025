@@ -5,10 +5,11 @@ API依存関係（Dependency Injection）の定義モジュール
 依存関係（データベースセッションなど）を定義します。
 """
 
+from typing import Generator
 from sqlalchemy.orm import Session
 from app.db.sqlite import SessionLocal
 
-def get_db() -> Session:
+def get_db() -> Generator[Session, None, None]:
     """
     リクエストごとのデータベースセッションを提供する依存関係
 
