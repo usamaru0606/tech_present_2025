@@ -12,17 +12,18 @@ export const RegisterViewModel = () => {
     lastName: '',
     gender: '',
     age: 0,
-    birthday: '',
+    birthday: new Date(),
     mailAddress: '',
     password: '',
   })
   const error = ref('')
 
   const Register = async () => {
-    if (!Validate()) return
+    if (!Validate()) return;
 
     try {
-      await useAddUser().Execute(userInfo);
+      const res = await useAddUser().Execute(userInfo);
+      if(!res) return error.value = '登録に失敗しました';
       await router.push('/login')
     } catch (e) {
       error.value = '登録に失敗しました'
@@ -45,19 +46,18 @@ export const RegisterViewModel = () => {
   }
 
   const UpdateBirthday = async () => {
+    userInfo.birthday = new Date(Number(birthdayItems.year),Number(birthdayItems.month) - 1, Number(birthdayItems.day));
     userInfo.age = await CalculateAge();
-    userInfo.birthday = `${birthdayItems.year}-${String(birthdayItems.month).padStart(2, '0')}-${String(birthdayItems.day).padStart(2, '0')}`;
   };
 
   async function CalculateAge():Promise<number>{
     if(!birthdayItems.year || !birthdayItems.month || !birthdayItems.day){
       return 0;
     }
-    const birthday = new Date(Number(birthdayItems.year),Number(birthdayItems.month) - 1, Number(birthdayItems.day));
     const today = new Date();
 
-    let age = today.getFullYear() - birthday.getFullYear();
-    const isNotYetBirthday = today.getMonth() < birthday.getMonth() ||  (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate());
+    let age = today.getFullYear() - userInfo.birthday.getFullYear();
+    const isNotYetBirthday = today.getMonth() < userInfo.birthday.getMonth() ||  (today.getMonth() === userInfo.birthday.getMonth() && today.getDate() < userInfo.birthday.getDate());
     if(isNotYetBirthday) age--;
 
     return age
