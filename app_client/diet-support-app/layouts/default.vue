@@ -21,7 +21,7 @@
     </ClientOnly>
 
     <v-main>
-      <v-container class="pa-4">
+      <v-container fluid class="fill-height pa-4">
         <slot />
       </v-container>
     </v-main>

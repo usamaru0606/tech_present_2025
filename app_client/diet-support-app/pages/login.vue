@@ -29,7 +29,7 @@
         </v-card-actions>
       </v-card>
 
-      <div class="d-flex flex-column align-items-endmt-2">
+      <div class="d-flex flex-column">
         <CTextBtn label="パスワードを忘れた方はこちら" />
 
         <CTextBtn
