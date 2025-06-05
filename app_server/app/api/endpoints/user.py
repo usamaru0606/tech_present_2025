@@ -7,15 +7,16 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.user import UserCreate, UserLogin
+from app.schemas.user import UserCreate, UserLogin, UserResponse
 from app.crud.user import create_user, authenticate_user
 from app.db.deps import get_db
 from typing import Dict
+import uuid
 
 # ユーザー関連のルーターを作成
 router = APIRouter()
 
-@router.post("/users/")
+@router.post("/user/add", response_model=UserResponse)
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     """
     新規ユーザーを登録するエンドポイント
@@ -25,9 +26,19 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
         db (Session): データベースセッション（自動で注入）
 
     Returns:
-        User: 作成されたユーザーの情報
+        UserResponse: 登録成功時はsuccess=True
     """
-    return create_user(db, user)
+    try:
+        # GUIDを生成
+        user_guid = str(uuid.uuid4())
+        # ユーザーを作成
+        create_user(db, user, user_guid)
+        return UserResponse(success=True)
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
 
 @router.post("/users/login/", response_model=Dict[str, str])
 async def login_user(user_data: UserLogin, db: Session = Depends(get_db)):

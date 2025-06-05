@@ -6,7 +6,7 @@ FastAPIアプリケーションのサーバー設定モジュール
 """
 
 from fastapi import FastAPI
-#from app.api.api import api_router
+from app.api.endpoints import user  # userモジュールをインポート
 from fastapi.middleware.cors import CORSMiddleware
 
 # FastAPIアプリケーションのインスタンスを作成
@@ -20,14 +20,17 @@ app = FastAPI(
 # フロントエンド（Nuxt.js）からのリクエストを許可
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:3000"],  # Nuxt.jsの開発サーバーのデフォルトアドレス
+    allow_origins=[
+        "http://127.0.0.1:3000",  # Nuxt.jsの開発サーバーのIPアドレス
+        "http://localhost:3000",   # Nuxt.jsの開発サーバーのlocalhostアドレス
+    ],
     allow_credentials=True,
     allow_methods=["*"],  # 全HTTPメソッドを許可
     allow_headers=["*"],  # 全HTTPヘッダーを許可
 )
 
-# API ルーターの登録
-#app.include_router(api_router)
+# ユーザールーターの登録
+app.include_router(user.router)
 
 # ルートエンドポイント
 @app.get("/")

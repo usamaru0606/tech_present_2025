@@ -10,27 +10,36 @@ from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin
 from typing import Optional
 
-def create_user(db: Session, user_data: UserCreate) -> User:
+def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     """
     新規ユーザーをデータベースに作成する
 
     Args:
         db (Session): データベースセッション
         user_data (UserCreate): 作成するユーザーのデータ
+        guid (str): 生成されたGUID
 
     Returns:
-        User: 作成されたユーザーのモデルインスタンス
+        None
     """
-    # パスワード確認フィールドを除外してユーザーモデルを作成
-    new_user = User(**user_data.dict(exclude={"passwordConfirm"}))
+    # ユーザーデータを辞書に変換
+    user_dict = user_data.model_dump()
+    
+    # メールアドレスのフィールド名を変更
+    user_dict['email'] = user_dict.pop('mailAddress')
+    
+    # 名前を結合
+    user_dict['name'] = f"{user_dict.pop('lastName')} {user_dict.pop('firstName')}"
+    
+    # GUIDを追加
+    user_dict['guid'] = guid
+    
+    # ユーザーモデルを作成
+    new_user = User(**user_dict)
     
     # データベースに新規ユーザーを追加
     db.add(new_user)
     db.commit()
-    
-    # 作成したユーザーを再取得して返す
-    db.refresh(new_user)
-    return new_user
 
 def authenticate_user(db: Session, user_data: UserLogin) -> Optional[str]:
     """
