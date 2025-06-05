@@ -8,6 +8,14 @@ FastAPIアプリケーションのサーバー設定モジュール
 from fastapi import FastAPI
 from app.api.endpoints import user  # userモジュールをインポート
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+import logging
+
+# ロギングの設定
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 # FastAPIアプリケーションのインスタンスを作成
 app = FastAPI(
@@ -50,5 +58,11 @@ def start():
     - port: 8000
     - reload: 開発モードでホットリロードを有効化
     """
-    import uvicorn
-    uvicorn.run("app.server:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "app.server:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        log_level="info",
+        access_log=True
+    )

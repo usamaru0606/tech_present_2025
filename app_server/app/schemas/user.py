@@ -19,7 +19,7 @@ class UserCreate(BaseModel):
         lastName (str): 姓
         gender (str): 性別
         age (int): 年齢
-        birthday (date): 生年月日
+        birthday (str): 生年月日（YYYY-MM-DD形式の文字列）
         mailAddress (EmailStr): メールアドレス
         password (str): パスワード
     """
@@ -27,12 +27,12 @@ class UserCreate(BaseModel):
     lastName: str
     gender: str
     age: int
-    birthday: date
+    birthday: str
     mailAddress: EmailStr
     password: str
 
     class Config:
-        from_attributes = True  # V2での新しい設定名
+        from_attributes = True
 
 class UserResponse(BaseModel):
     """
