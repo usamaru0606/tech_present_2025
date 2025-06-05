@@ -12,7 +12,7 @@ export const AddUserServise = async (newUserInfo: newUserInfo) => {
         lastName: newUserInfo.lastName,
         gender: newUserInfo.gender,
         age: newUserInfo.age,
-        birthday: newUserInfo.birthday,
+        birthday: newUserInfo.birthday.toISOString().slice(0, 10),
         mailAddress: newUserInfo.mailAddress,
         password: newUserInfo.password,
       }),
