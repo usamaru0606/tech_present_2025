@@ -1,37 +1,54 @@
-import type { LoginForm } from "~/model/loginform";
-
 export const LoginViewModel = () => {
   const router = useRouter();
-
-  const loginForm = reactive<LoginForm>({
-    email: "",
+  const userIdStore = useUserIdStore();
+  const loginInfo = reactive({
+    mailaddress: "",
     password: "",
   });
   const error = ref("");
+  const autoLogin = ref(false);
 
-  const Validate = (): boolean => {
-    if (loginForm.email === "test" && loginForm.password === "test") {
-      error.value = ""
-      return true
+  onMounted(async () => {
+    const savedMailaddress = localStorage.getItem("saved_mailAddress");
+    const savedPassword = localStorage.getItem("saved_password");
+
+    if (savedMailaddress && savedPassword) {
+      loginInfo.mailaddress = savedMailaddress;
+      loginInfo.password = savedPassword;
+      Login();
     }
-    error.value = "メールアドレスまたはパスワードが間違っています";
-    return false
-  }
+  });
 
   const Login = async () => {
-    if (!Validate()) {
-      return
+    try {
+      const userId = await useLogin().Execute(loginInfo);
+      if(!userId) return  error.value = "ログインに失敗しました";
+      userIdStore.setUserId(userId);
+      error.value = "";
+
+      if (userId && autoLogin.value) {
+        SaveLoginInfo();
+      }
+
+      await router.push("/");
+    } catch {
+      error.value =  "ログインに失敗しました";
     }
-    await router.push("/");
   };
 
   const GoRegisterPage = async () => {
     await router.push("/register");
   };
 
+  const SaveLoginInfo = () => {
+    localStorage.setItem("saved_mailAddress", loginInfo.mailaddress);
+    localStorage.setItem("saved_password", loginInfo.password);
+  };
+
   return {
-    loginForm,
+    loginInfo,
     error,
+    autoLogin,
     Login,
     GoRegisterPage,
   };

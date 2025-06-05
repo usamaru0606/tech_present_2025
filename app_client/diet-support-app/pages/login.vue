@@ -1,12 +1,11 @@
 <template>
   <v-container class="fill-height d-flex flex-column justify-center pb-10">
-    <v-label class="text-h5 mb-4">ログイン</v-label>
-
-    <v-container max-width="600px">
-      <v-card min-width="360">
+    <div class="container">
+      <v-card elevation="2" class="mb-4">
+        <v-card-title class="text-h6 text-center">ログイン</v-card-title>
         <v-card-text>
           <CTextField
-            v-model="viewmodel.loginForm.email"
+            v-model="viewmodel.loginInfo.mailaddress"
             label="メールアドレス"
             type="email"
             inputRef="emailField"
@@ -14,29 +13,32 @@
           />
 
           <CPassField
-            v-model="viewmodel.loginForm.password"
+            v-model="viewmodel.loginInfo.password"
+            v-model:autoLogin="viewmodel.autoLogin.value"
             :onEnter="viewmodel.Login"
             inputRef="passwordField"
             label="パスワード（半角英数字）"
             :showAutoLoginCheckbox="true"
-            
           />
 
           <CAlert :message="viewmodel.error.value" />
-
         </v-card-text>
 
         <v-card-actions class="justify-end">
-          <v-btn color="primary" @click="viewmodel.Login">ログイン</v-btn>
+          <v-btn class="cardbtn bg-primary" @click="viewmodel.Login">ログイン</v-btn>
         </v-card-actions>
       </v-card>
 
-      <div class="d-flex flex-column align-items-endmt-2">
+      <div class="d-flex flex-column">
         <CTextBtn label="パスワードを忘れた方はこちら" />
 
-        <CTextBtn label="新規登録" color="primary" :onClick="viewmodel.GoRegisterPage"/>
+        <CTextBtn
+          label="新規登録"
+          color="primary"
+          :onClick="viewmodel.GoRegisterPage"
+        />
       </div>
-    </v-container>
+    </div>
   </v-container>
 </template>
 
@@ -49,3 +51,14 @@ definePageMeta({
 
 const viewmodel = LoginViewModel();
 </script>
+
+<style scoped>
+.container{
+  width: 100%;
+  max-width: 600px;
+}
+.cardbtn :deep(.v-btn__content){
+  font-size: 14px;
+  font-weight: bold;
+}
+</style>

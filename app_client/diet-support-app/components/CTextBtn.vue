@@ -4,10 +4,9 @@
     :variant="variant"
     :color="color"
     class="text-caption mt-1 textbtn"
+    :text="label"
     @click="onClick"
-  >
-    {{ label }}
-  </v-btn>
+  />
 </template>
 
 <script setup>
@@ -33,7 +32,10 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.textbtn {
+.textbtn{
   width: fit-content;
+}
+.textbtn :deep(.v-btn__content){
+  font-size: 14px;
 }
 </style>

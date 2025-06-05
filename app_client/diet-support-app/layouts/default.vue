@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark class="px-3">
       <v-app-bar-title>大サポくん</v-app-bar-title>
       <v-spacer />
       <v-btn icon>
@@ -21,13 +21,13 @@
     </ClientOnly>
 
     <v-main>
-      <v-container class="pa-4">
+      <v-container fluid class="fill-height pa-4">
         <slot />
       </v-container>
     </v-main>
 
-    <v-footer app color="primary" dark>
-      <v-container class="text-center">© 2025 My Nuxt App</v-container>
+    <v-footer app color="primary">
+      <v-container class="text-center">© 2025 diet-support-app</v-container>
     </v-footer>
   </v-app>
 </template>
