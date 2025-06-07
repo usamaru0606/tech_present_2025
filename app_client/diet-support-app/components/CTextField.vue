@@ -20,11 +20,11 @@
 const props = defineProps({
   modelValue: String | Number,
   label: String,
+  inputRef: String,
   type: {
     type: String,
     default: 'text'
   },
-  inputRef: String,
   density: {
     type: String,
     default: 'compact'

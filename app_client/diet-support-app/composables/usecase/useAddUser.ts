@@ -1,4 +1,4 @@
-import type { newUserInfo } from "~/model/userinfo";
+import type { newUserInfo } from "~/model/newuserinfo";
 import { AddUserServise } from "~/services/addUser";
 
 export const useAddUser = () => {

@@ -47,10 +47,11 @@
             <v-col class="mt-5"><label>歳</label></v-col>
           </v-row>
 
-          <CBirthDateSelector
-            v-model:birthYear="viewmodel.birthdayItems.year"
-            v-model:birthMonth="viewmodel.birthdayItems.month"
-            v-model:birthDay="viewmodel.birthdayItems.day"
+          <CDateSelector
+            label="生年月日"
+            v-model:Year="viewmodel.birthdayItems.year"
+            v-model:Month="viewmodel.birthdayItems.month"
+            v-model:Day="viewmodel.birthdayItems.day"
             @vue:updated="viewmodel.UpdateBirthday"
           />
 

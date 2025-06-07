@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-label class="label">{{ label }}</v-label>
+    <v-label v-if="label" class="label">{{ label }}</v-label>
     <v-select
       :items="items"
       :model-value="modelValue"

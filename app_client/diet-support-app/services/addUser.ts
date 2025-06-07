@@ -1,4 +1,4 @@
-import type { newUserInfo } from "~/model/userinfo";
+import type { newUserInfo } from "~/model/newuserinfo";
 
 export const AddUserServise = async (newUserInfo: newUserInfo) => {
   try {
@@ -12,7 +12,7 @@ export const AddUserServise = async (newUserInfo: newUserInfo) => {
         lastName: newUserInfo.lastName,
         gender: newUserInfo.gender,
         age: newUserInfo.age,
-        birthday: newUserInfo.birthday.toISOString().slice(0, 10),
+        birthday: newUserInfo.birthday.toLocaleDateString("ja-JP"),
         mailAddress: newUserInfo.mailAddress,
         password: newUserInfo.password,
       }),

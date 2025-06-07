@@ -1,5 +1,6 @@
 <template>
   <v-btn
+    density="compact"
     :class="['left_bottom_Btn', { 'text-primary': isTextPrimary }]"
     @click="onClick"
   >

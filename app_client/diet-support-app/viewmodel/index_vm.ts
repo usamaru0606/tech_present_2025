@@ -28,10 +28,6 @@ export const IndexViewModel = () => {
     chartData.value = newChartData
   };
 
-  const GoRecordWeight = async () =>{
-    if(!userId.value) return;
-  }
-
   const GoGoalSetting = async () =>{
     if(!userId.value) return;
   }
@@ -40,7 +36,6 @@ export const IndexViewModel = () => {
     userId,
     chartData,
     Reload,
-    GoRecordWeight,
     GoGoalSetting
   };
 };
