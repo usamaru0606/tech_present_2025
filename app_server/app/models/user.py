@@ -12,7 +12,8 @@ class User(Base):
     __tablename__ = "users"
 
     guid = Column(String, primary_key=True, index=True)
-    name = Column(String)
+    firstName = Column(String)
+    lastName = Column(String)
     gender = Column(String)
     age = Column(Integer)
     birthday = Column(Date)

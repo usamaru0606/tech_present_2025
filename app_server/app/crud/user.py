@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin
 from typing import Optional
+from datetime import datetime
 
 def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     """
@@ -28,8 +29,8 @@ def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     # メールアドレスのフィールド名を変更
     user_dict['email'] = user_dict.pop('mailAddress')
     
-    # 名前を結合
-    user_dict['name'] = f"{user_dict.pop('lastName')} {user_dict.pop('firstName')}"
+    # 文字列の日付をdate型に変換
+    user_dict['birthday'] = datetime.strptime(user_dict['birthday'], '%Y-%m-%d').date()
     
     # GUIDを追加
     user_dict['guid'] = guid
