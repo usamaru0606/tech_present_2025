@@ -45,7 +45,7 @@
         <v-date-picker
           title="日付選択"
           v-model="selectedDate"
-          :max="today"
+          :min="today"
           color="primary"
           @update:model-value="onDateSelected"
         />
@@ -63,7 +63,7 @@
         <v-date-picker
           title="日付選択"
           v-model="selectedDate"
-          :min="today"
+          :max="today"
           color="primary"
           @update:model-value="onDateSelected"
         />
@@ -89,6 +89,10 @@ const props = defineProps({
     default: false,
   },
   label: String,
+  minmode:{
+    type: Boolean,
+    default: false,
+  }
 });
 
 // emit
@@ -104,7 +108,6 @@ const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const computedYears = computed(() => (props.feature ? featureYears : years));
 
 // カレンダー表示管理
-const minmode = ref(false);
 const showCalendar = ref(false);
 const today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
 const selectedDate = ref(today);

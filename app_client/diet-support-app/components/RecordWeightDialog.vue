@@ -3,7 +3,7 @@
     label="体重を記録"
     icon="mdi-pencil"
     :isTextPrimary="true"
-    @click="dialog = true"
+    @click="Open"
   />
 
   <CDialog
@@ -12,7 +12,6 @@
     emitBtnLabel="記録する"
     @confirm="OnConfirm"
   >
-    <!-- 記録日 -->
     <v-row dense class="ma-0">
       <v-col cols="12" class="py-2">
         <strong>記録日</strong>
@@ -21,11 +20,11 @@
           v-model:Month="currentDate.month"
           v-model:Day="currentDate.day"
           @vue:updated="UpdateBirthday"
+          :minmode="true"
         />
       </v-col>
     </v-row>
 
-    <!-- 目標体重 -->
     <v-row dense class="ma-0">
       <v-col cols="12" class="py-2">
         <strong>記録体重</strong>
@@ -36,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+const userWeightStore = useUserWeightStore();
+const router = useRouter();
 const dialog = ref(false);
 const recordWeight = reactive({
   currentWeight: 64.5,
@@ -58,6 +59,15 @@ const OnConfirm = async () => {
   dialog.value = false;
 };
 
+const Open = async() =>{
+  try {
+      if(!userWeightStore.getUserWeight()) return await router.push('/goalsetting');
+    } catch (e) {
+      return;
+    }
+  dialog.value = true;
+}
+
 const UpdateBirthday = async () => {
     recordWeight.recordDate = new Date(Number(currentDate.year),Number(currentDate.month) - 1, Number(currentDate.day));
   };
@@ -69,7 +79,7 @@ function ResetForm() {
 }
 
 watch(dialog, (val) => {
-  if (!val) {
+  if (val) {
     ResetForm();
   }
 });

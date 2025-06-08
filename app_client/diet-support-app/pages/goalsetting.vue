@@ -1,17 +1,9 @@
 <template>
-  <CIconBtn
-    label="体重を記録"
-    icon="mdi-pencil"
-    :isTextPrimary="true"
-    @click="dialog = true"
-  />
+  <v-container class="fill-height d-flex align-center justify-center">
+    <div class="container">
+      <v-card class="pa-3" elevation="2">
+        <v-card-title class="text-h6 text-center mb-2">新規登録</v-card-title>
 
-  <CDialog
-    v-model="dialog"
-    title="体重を記録する"
-    emitBtnLabel="記録する"
-    @confirm="OnConfirm"
-  >
     <!-- 今日の日付 -->
     <v-row dense class="ma-0">
       <v-col cols="12" class="py-0">
@@ -29,7 +21,6 @@
           v-model:Month="birthdayItems.month"
           v-model:Day="birthdayItems.day"
           :feature="true"
-          :minmode="true"
         />
       </v-col>
     </v-row>
@@ -52,7 +43,9 @@
         />
       </v-col>
     </v-row>
-  </CDialog>
+     </v-card>
+    </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
