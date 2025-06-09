@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+const userIdStore = useUserIdStore();
 const userWeightStore = useUserWeightStore();
 const router = useRouter();
 const dialog = ref(false);
@@ -60,6 +61,7 @@ const OnConfirm = async () => {
 };
 
 const Open = async() =>{
+  if(!userIdStore.getUserId()) return;
   try {
       if(!userWeightStore.getUserWeight()) return await router.push('/goalsetting');
     } catch (e) {

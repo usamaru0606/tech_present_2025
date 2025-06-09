@@ -1,7 +1,7 @@
 import { useGetChartDataServise } from "~/services/getChartData";
 
 export const useGetChartData = () => {
-  const Execute = async (userId:number) => {
+  const Execute = async (userId:string) => {
 
     return useGetChartDataServise(userId);
   };

@@ -1,8 +1,9 @@
 import type { ChartData } from "chart.js";
 
 export const IndexViewModel = () => {
+  const router = useRouter();
   const userIdStore = useUserIdStore();
-  const userId = ref<number | null>(null);
+  const userId = ref<string | null>(null);
   type chartDataType = ChartData<"line">;
   var chartData = ref<chartDataType>({
     labels: [],
@@ -30,6 +31,7 @@ export const IndexViewModel = () => {
 
   const GoGoalSetting = async () =>{
     if(!userId.value) return;
+    router.push('/goalsetting');
   }
 
   return {

@@ -2,13 +2,13 @@
 
 export const useUserIdStore = defineStore('userid', {
   state: () => ({
-    userId: null as number | null,
+    userId: null as string | null,
   }),
   getters: {
     isLoggedIn: (state) => !!state.userId,
   },
   actions: {
-    setUserId(userId:number) {
+    setUserId(userId:string) {
       this.userId = userId;
     },
     clearUserId() {

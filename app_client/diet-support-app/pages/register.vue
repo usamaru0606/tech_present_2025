@@ -53,6 +53,7 @@
             v-model:Month="viewmodel.birthdayItems.month"
             v-model:Day="viewmodel.birthdayItems.day"
             @vue:updated="viewmodel.UpdateBirthday"
+            minmode="true"
           />
 
           <CTextField

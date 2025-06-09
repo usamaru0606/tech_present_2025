@@ -1,6 +1,6 @@
 import type { ChartData } from "chart.js";
 
-export const useGetChartDataServise = async (id: number) => {
+export const useGetChartDataServise = async (id: string) => {
   type chartDataType = ChartData<"line">;
   try {
     return await $fetch<chartDataType | null>(
