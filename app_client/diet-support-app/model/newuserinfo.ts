@@ -3,7 +3,7 @@ export interface newUserInfo {
   lastName: string
   gender:string
   age:number
-  birthday:Date
+  birthday:string
   mailAddress: string
   password: string
 }

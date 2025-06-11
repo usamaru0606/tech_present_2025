@@ -15,14 +15,14 @@
     </v-main>
 
     <v-footer app color="primary">
-  <v-container class="text-center d-flex justify-center align-center">
-    <!-- スマホ：アイコンのみ表示 -->
-    <v-icon class="d-md-none d-inline-block mr-1">mdi-information</v-icon>
+      <v-container class="text-center d-flex justify-center align-center">
+        <!-- スマホ：アイコンのみ表示 -->
+        <v-icon class="d-md-none d-inline-block mr-1">mdi-information</v-icon>
 
-    <!-- タブレット以上：テキスト表示 -->
-    <span class="d-none d-md-inline">© 2025 diet-support-app</span>
-  </v-container>
-</v-footer>
+        <!-- タブレット以上：テキスト表示 -->
+        <span class="d-none d-md-inline">© 2025 diet-support-app</span>
+      </v-container>
+    </v-footer>
   </v-app>
 </template>
 

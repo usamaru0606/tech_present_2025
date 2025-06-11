@@ -2,7 +2,7 @@
   <v-container class="fill-height d-flex align-center justify-center">
     <div class="container">
       <v-card class="pa-3" elevation="2">
-        <v-card-title class="text-h6 text-center mb-2">新規登録</v-card-title>
+        <v-card-title class="text-h6 text-center mb-2 fontblack">新規登録</v-card-title>
 
         <v-card-text>
           <v-row>
@@ -44,7 +44,7 @@
                 class="input_age"
               />
             </v-col>
-            <v-col class="mt-5"><label>歳</label></v-col>
+            <v-col class="mt-5"><p class="fontblack">歳</p></v-col>
           </v-row>
 
           <CDateSelector
@@ -53,7 +53,7 @@
             v-model:Month="viewmodel.birthdayItems.month"
             v-model:Day="viewmodel.birthdayItems.day"
             @vue:updated="viewmodel.UpdateBirthday"
-            minmode="true"
+            :minmode="true"
           />
 
           <CTextField
@@ -117,5 +117,8 @@ const viewmodel = RegisterViewModel();
 .cardbtn :deep(.v-btn__content){
   font-size: 14px;
   font-weight: bold;
+}
+.fontblack{
+  color: black;
 }
 </style>

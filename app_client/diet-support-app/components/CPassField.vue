@@ -1,14 +1,17 @@
 <template>
   <div>
-    <v-label class="label">{{ label }}</v-label>
+    <label class="label" :for="label">{{ label }}</label>
     <v-text-field
+      :id="label"
       :ref="inputRef"
       :model-value="modelValue"
       :type="showPassword ? 'text' : 'password'"
-      density='compact'
-      variant='outlined'
+      density="compact"
+      variant="outlined"
       :hide-details="hideDetails"
       :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+      autocomplete="new-password"
+      name="new-password"
       @click:append-inner="togglePasswordVisibility"
       @keydown.enter="handleEnter"
       @update:model-value="$emit('update:modelValue', $event)"
@@ -19,7 +22,7 @@
       v-model="autoLogin"
       :label="checkboxLabel"
       class="checkbox"
-      density='compact'
+      density="compact"
       :hide-details="hideDetails"
     />
   </div>
@@ -28,42 +31,42 @@
 <script setup lang="ts">
 const props = defineProps({
   modelValue: String,
-  autoLogin:Boolean,
+  autoLogin: Boolean,
   label: String,
   inputRef: String,
   hideDetails: {
     type: Boolean,
-    default: false
+    default: false,
   },
   showAutoLoginCheckbox: {
     type: Boolean,
-    default: false
+    default: false,
   },
   checkboxLabel: {
     type: String,
-    default: '次回から自動でログインする'
+    default: "次回から自動でログインする",
   },
-  onEnter :{
+  onEnter: {
     type: Function,
     default: () => {}, // 未指定でもエラーにならないように
   },
-})
+});
 
-const emit = defineEmits(['update:modelValue', 'update:autoLogin'])
+const emit = defineEmits(["update:modelValue", "update:autoLogin"]);
 
-const showPassword = ref(false)
+const showPassword = ref(false);
 const autoLogin = computed({
   get: () => props.autoLogin,
-  set: (val: Boolean) => emit('update:autoLogin', val)
+  set: (val: Boolean) => emit("update:autoLogin", val),
 });
 
 const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value
-}
+  showPassword.value = !showPassword.value;
+};
 
 const handleEnter = () => {
-  if (props.onEnter) props.onEnter()
-}
+  if (props.onEnter) props.onEnter();
+};
 </script>
 
 <style scoped>
@@ -82,4 +85,3 @@ const handleEnter = () => {
   font-size: 12px;
 }
 </style>
-

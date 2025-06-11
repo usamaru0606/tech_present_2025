@@ -30,7 +30,7 @@ export const IndexViewModel = () => {
   };
 
   const GoGoalSetting = async () =>{
-    if(!userId.value) return;
+    // if(!userId.value) return;
     router.push('/goalsetting');
   }
 

@@ -8,6 +8,8 @@
 
   <CDialog
     v-model="dialog"
+    :width="450"
+    :height="400"
     title="体重を記録する"
     emitBtnLabel="記録する"
     @confirm="OnConfirm"
@@ -40,7 +42,8 @@ const userWeightStore = useUserWeightStore();
 const router = useRouter();
 const dialog = ref(false);
 const recordWeight = reactive({
-  currentWeight: 64.5,
+  userId:userIdStore.getUserId(),
+  currentWeight: userWeightStore.getUserWeight()??64,
   recordDate: new Date(),
 })
 const today = new Date();
@@ -61,9 +64,9 @@ const OnConfirm = async () => {
 };
 
 const Open = async() =>{
-  if(!userIdStore.getUserId()) return;
+  if(!recordWeight.userId) return;
   try {
-      if(!userWeightStore.getUserWeight()) return await router.push('/goalsetting');
+      if(!recordWeight.currentWeight) return await router.push('/goalsetting');
     } catch (e) {
       return;
     }

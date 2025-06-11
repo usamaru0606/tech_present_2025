@@ -12,19 +12,29 @@
     </v-main>
   </v-app>
 
-  <v-dialog v-model="dialog" max-width="400" min-width="360">
-    <v-card>
-      <v-card-title class="bg-primary text-h6 font-weight-medium mb-4 py-1">確認</v-card-title>
-      <v-card-text class="py-1" style="font-size: 14px;">ホーム画面に移動します。</v-card-text>
-      <v-card-text class="py-1" style="font-size: 14px;">入力内容が破棄されますがよろしいですか？</v-card-text>
-      <v-card-actions class="mt-4">
-        <v-spacer />
-        <v-btn color="grey-dark" text @click="OnCancel">キャンセル</v-btn>
-        <v-btn color="primary" text @click="OnConfirm">OK</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <CDialog
+    v-model="dialog"
+    title="確認"
+    :width="400"
+    :height="250"
+    emitBtnLabel="OK"
+    @confirm="OnConfirm"
+  >
+      <p class="fontsize mb-2">
+        ホーム画面に移動します。
+      </p>
+      <p class="fontsize">入力内容が破棄されますがよろしいですか？</p>
+  </CDialog>
 
+  <v-footer app color="primary">
+    <v-container class="text-center d-flex justify-center align-center">
+      <!-- スマホ：アイコンのみ表示 -->
+      <v-icon class="d-md-none d-inline-block mr-1">mdi-information</v-icon>
+
+      <!-- タブレット以上：テキスト表示 -->
+      <span class="d-none d-md-inline">© 2025 diet-support-app</span>
+    </v-container>
+  </v-footer>
 </template>
 
 <script setup lang="ts">
@@ -33,14 +43,16 @@ const dialog = ref(false);
 
 function GoHomePage() {
   dialog.value = true;
-};
+}
 
 const OnConfirm = () => {
   dialog.value = false;
   router.push("/");
 };
-
-const OnCancel = () => {
-  dialog.value = false;
-};
 </script>
+
+<style scoped>
+.fontsize{
+  font-size: 16px;
+}
+</style>

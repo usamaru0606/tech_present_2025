@@ -46,7 +46,11 @@ const initialWeight = 70;
 const currentWeight = 67.5;
 const goalWeight = 65;
 const goalDate = "2025/07/31";
-const today = new Date().toLocaleDateString("ja-JP");
+const today = new Date().toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
 
 // 例: 先月が68.2kgだったとする
 const lastMonthWeight = 68.2;

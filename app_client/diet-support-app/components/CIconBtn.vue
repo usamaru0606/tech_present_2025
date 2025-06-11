@@ -9,11 +9,6 @@
       <v-icon :size="18">{{ icon }}</v-icon>
     </template>
 
-    <!-- テキストのみ -->
-    <template v-else-if="label && !icon">
-      <span>{{ label }}</span>
-    </template>
-
     <!-- 左アイコン + テキスト -->
     <template v-if="icon && label && !iconRight">
       <v-icon :size="18" class="mr-1">{{ icon }}</v-icon>

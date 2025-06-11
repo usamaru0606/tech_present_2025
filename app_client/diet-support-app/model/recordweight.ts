@@ -1,4 +1,5 @@
 export interface RecordWeight {
-recordWeight:number
-  recordDate:Date
+  userId: string;
+  recordWeight: number;
+  recordDate: string;
 }

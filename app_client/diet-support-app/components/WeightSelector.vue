@@ -1,14 +1,16 @@
 <template>
   <div>
-    <v-label class="label">{{ label }}</v-label>
+    <p class="label">{{ label }}</p>
     <div class="d-flex align-center gap-2">
       <CSelect
+        id="integer"
         :items="integerOptions"
         v-model="selectedInteger"
         :hide-details="true"
       />
       <span>.</span>
       <CSelect
+        id="decimal"
         :items="decimalOptions"
         v-model="selectedDecimal"
         :hide-details="true"

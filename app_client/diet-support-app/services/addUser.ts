@@ -12,7 +12,7 @@ export const AddUserServise = async (newUserInfo: newUserInfo) => {
         lastName: newUserInfo.lastName,
         gender: newUserInfo.gender,
         age: newUserInfo.age,
-        birthday: newUserInfo.birthday.toLocaleDateString("ja-JP"),
+        birthday: newUserInfo.birthday,
         mailAddress: newUserInfo.mailAddress,
         password: newUserInfo.password,
       }),

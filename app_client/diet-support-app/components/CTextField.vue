@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-label class="label">{{ label }}</v-label>
+    <label class="label" :for="label">{{ label }}</label>
     <v-text-field
+      :id="label"
       :ref="inputRef"
       :model-value="modelValue"
       :type="type"
@@ -10,6 +11,7 @@
       :hide-details="hideDetails"
       :readonly="readonly"
       :style="inputStyle"
+      autocomplete="off"
       @keydown.enter="handleEnter"
       @update:model-value="$emit('update:modelValue', $event)"
     />
@@ -23,42 +25,42 @@ const props = defineProps({
   inputRef: String,
   type: {
     type: String,
-    default: 'text'
+    default: "text",
   },
   density: {
     type: String,
-    default: 'compact'
+    default: "compact",
   },
   variant: {
     type: String,
-    default: 'outlined'
+    default: "outlined",
   },
   textAlign: {
     type: String,
-    default: 'left'
+    default: "left",
   },
   hideDetails: {
     type: Boolean,
-    default: false
+    default: false,
   },
   readonly: {
-    type:Boolean,
-    default:false
+    type: Boolean,
+    default: false,
   },
-  onEnter :{
+  onEnter: {
     type: Function,
     default: () => {}, // 未指定でもエラーにならないように
   },
-})
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue"]);
 
 const handleEnter = () => {
-  if (props.onEnter) props.onEnter()
-}
+  if (props.onEnter) props.onEnter();
+};
 
 const inputStyle = computed(() => ({
-  '--v-input-input-text-align': props.textAlign,
+  "--v-input-input-text-align": props.textAlign,
 }));
 </script>
 

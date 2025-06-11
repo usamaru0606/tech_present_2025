@@ -8,7 +8,8 @@ export const RecordWeightServise = async (recordWeight: RecordWeight) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        recordDate: recordWeight.recordDate.toLocaleDateString("ja-JP"),
+        userId: recordWeight.userId,
+        recordDate: recordWeight.recordDate,
         weight: recordWeight.recordWeight,
       }),
     });

@@ -1,13 +1,13 @@
 <template>
   <v-dialog
     v-model="internalValue"
-    max-width="500"
-    height="400"
+    :width="width"
+    :height="height"
     persistent
   >
     <v-card>
       <v-card-title class="text-h6 bg-primary">{{ title }}</v-card-title>
-      <v-card-text class="pa-4">
+      <v-card-text class="pa-4 d-flex flex-column justify-center">
         <slot />
       </v-card-text>
       <v-card-actions style="border-top: 1px solid lightgray;">
@@ -20,12 +20,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 
 const props = defineProps<{
   modelValue: boolean;
   title: string;
   emitBtnLabel:string;
+  height:number;
+  width:number;
 }>();
 const emit = defineEmits(['update:modelValue', 'confirm']);
 
