@@ -63,7 +63,7 @@ const datasetStyle = {
 
 const props = defineProps<{
   chartData: ChartData<"line">;
-  userId: number | null;
+  userId: string | null;
 }>();
 
 const periods = ["1週間", "1か月間", "半年間", "1年間"] as const;

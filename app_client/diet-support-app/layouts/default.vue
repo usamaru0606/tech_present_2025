@@ -29,7 +29,7 @@
 <script setup lang="ts">
 const router = useRouter();
 
-function GoLoginPage() {
-  router.push("/login");
+async function GoLoginPage() {
+  await router.push("/login");
 }
 </script>

@@ -13,6 +13,7 @@
       :multiple="multiple"
       :error="error"
       :error-messages="errorMessages"
+      :width="width"
     />
   </div>
 </template>
@@ -41,12 +42,15 @@ const props = defineProps({
     type: String,
     default: "select",
   },
+  width: {
+    type: Number,
+  },
   error: {
     type: Boolean,
     default: false,
   },
   errorMessages: {
-    type: [String, Array],
+    type: String,
     default: "",
   },
 });

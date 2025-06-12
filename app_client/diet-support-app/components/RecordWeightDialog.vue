@@ -3,7 +3,7 @@
     label="体重を記録"
     icon="mdi-pencil"
     :isTextPrimary="true"
-    @click="Open"
+    :onClick="Open"
   />
 
   <CDialog

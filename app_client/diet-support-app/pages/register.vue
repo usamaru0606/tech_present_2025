@@ -1,8 +1,13 @@
 <template>
-  <v-container class="fill-height d-flex align-center justify-center">
+  <v-container
+    fluid
+    class="fill-height d-flex align-center justify-center register-bg"
+  >
     <div class="container">
-      <v-card class="pa-3" elevation="2">
-        <v-card-title class="text-h6 text-center mb-2 fontblack">新規登録</v-card-title>
+      <v-card class="pa-3 mb-10" elevation="2">
+        <v-card-title class="text-h6 text-center mb-2 fontblack"
+          >新規登録
+        </v-card-title>
 
         <v-card-text>
           <v-row>
@@ -14,6 +19,7 @@
                 inputRef="text"
               />
             </v-col>
+
             <v-col class="pb-0 pl-0" dense>
               <CTextField
                 v-model="viewmodel.userInfo.firstName"
@@ -33,6 +39,7 @@
                 class="w-100 pr-1 gender_select"
               />
             </v-col>
+
             <v-col cols="auto" class="py-0 age_field">
               <CTextField
                 v-model="viewmodel.userInfo.age"
@@ -44,7 +51,10 @@
                 class="input_age"
               />
             </v-col>
-            <v-col class="mt-5"><p class="fontblack">歳</p></v-col>
+
+            <v-col class="mt-5">
+              <p class="fontblack">歳</p>
+            </v-col>
           </v-row>
 
           <CDateSelector
@@ -81,7 +91,9 @@
         </v-card-text>
 
         <v-card-actions class="justify-end">
-          <v-btn class="cardbtn bg-primary" @click="viewmodel.Register">登録</v-btn>
+          <v-btn class="cardbtn bg-primary" @click="viewmodel.Register">
+            登録
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -99,26 +111,33 @@ const viewmodel = RegisterViewModel();
 </script>
 
 <style scoped>
-.container{
+.register-bg {
+  background-color: #f4f6f8;
+}
+
+.container {
   width: 100%;
   max-width: 600px;
 }
-.age_field
-{
-  min-width:93px
+
+.age_field {
+  min-width: 93px;
 }
-.gender_select
-{
-  min-width:112px
+
+.gender_select {
+  min-width: 112px;
 }
+
 .input_age ::v-deep(.v-input input) {
   background-color: #eeeeee;
 }
-.cardbtn :deep(.v-btn__content){
+
+.cardbtn :deep(.v-btn__content) {
   font-size: 14px;
   font-weight: bold;
 }
-.fontblack{
+
+.fontblack {
   color: black;
 }
 </style>
