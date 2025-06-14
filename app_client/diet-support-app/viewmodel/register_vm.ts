@@ -2,6 +2,7 @@ export const RegisterViewModel = () => {
   const router = useRouter();
   const passwordConfirm = ref("");
   const genderItems = ["男性", "女性", "その他"];
+  const today = new Date();
   const birthdayItems = reactive({
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
@@ -12,11 +13,19 @@ export const RegisterViewModel = () => {
     lastName: "",
     gender: "",
     age: 0,
-    birthday: new Date(),
+    birthday: today,
     mailAddress: "",
     password: "",
+    signinDate: today.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }),
+    height: 100,
+    weight: 40,
   });
   const error = ref("");
+  const step = ref(1);
 
   const Register = async () => {
     if (!Validate()) return;
@@ -30,6 +39,11 @@ export const RegisterViewModel = () => {
     }
   };
 
+  const NextStep = async () => {
+    if (!Validate()) return;
+    step.value++;
+  };
+
   const Validate = (): boolean => {
     if (
       !userInfo.firstName ||
@@ -41,6 +55,14 @@ export const RegisterViewModel = () => {
       !passwordConfirm
     ) {
       error.value = "すべての項目を入力してください";
+      return false;
+    }
+
+    if (
+      !userInfo.mailAddress.includes("@") ||
+      !userInfo.mailAddress.includes(".")
+    ) {
+      error.value = "メールアドレスの形式が正しくありません";
       return false;
     }
 
@@ -77,7 +99,6 @@ export const RegisterViewModel = () => {
     if (!birthdayItems.year || !birthdayItems.month || !birthdayItems.day) {
       return 0;
     }
-    const today = new Date();
 
     let age = today.getFullYear() - userInfo.birthday.getFullYear();
     const isNotYetBirthday =
@@ -95,6 +116,8 @@ export const RegisterViewModel = () => {
     genderItems,
     userInfo,
     error,
+    step,
+    NextStep,
     Register,
     UpdateBirthday,
   };

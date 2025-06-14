@@ -1,15 +1,14 @@
 <template>
-  <v-container
-    fluid
-    class="fill-height d-flex align-center justify-center register-bg"
-  >
+  <v-container fluid class="d-flex justify-center register-bg pt-0">
     <div class="container">
-      <v-card class="pa-3 mb-10" elevation="2">
+      <RegisterStepIndicator :currentStep="viewmodel.step.value" />
+
+      <v-card v-if="viewmodel.step.value == 0" class="px-3 py-1" elevation="3">
         <v-card-title class="text-h6 text-center mb-2 fontblack"
           >新規登録
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="pb-0">
           <v-row>
             <v-col class="pb-0" dense>
               <CTextField
@@ -91,6 +90,35 @@
         </v-card-text>
 
         <v-card-actions class="justify-end">
+          <v-btn class="cardbtn bg-primary" @click="viewmodel.NextStep">
+            次へ
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <v-card v-if="viewmodel.step.value == 1" class="px-3 py-1" elevation="3">
+        <v-card-title class="text-h6 text-center mb-2 fontblack"
+          >新規登録
+        </v-card-title>
+
+        <v-card-text class="pb-0">
+          <v-col class="py-4">
+            <p class="form-label">今日の日付</p>
+            <p class="form-value">
+              {{ viewmodel.userInfo.signinDate }}
+            </p>
+          </v-col>
+
+          <v-col class="py-4">
+            <SignInHeightSelector v-model="viewmodel.userInfo.height" />
+          </v-col>
+
+          <v-col class="py-4">
+            <SignInWeightSelector v-model="viewmodel.userInfo.weight" />
+          </v-col>
+        </v-card-text>
+
+        <v-card-actions class="justify-end">
           <v-btn class="cardbtn bg-primary" @click="viewmodel.Register">
             登録
           </v-btn>
@@ -112,6 +140,7 @@ const viewmodel = RegisterViewModel();
 
 <style scoped>
 .register-bg {
+  height: 100%;
   background-color: #f4f6f8;
 }
 
@@ -129,7 +158,7 @@ const viewmodel = RegisterViewModel();
 }
 
 .input_age ::v-deep(.v-input input) {
-  background-color: #eeeeee;
+  background-color: #e0e0e0;
 }
 
 .cardbtn :deep(.v-btn__content) {
@@ -139,5 +168,18 @@ const viewmodel = RegisterViewModel();
 
 .fontblack {
   color: black;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.form-value {
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 2px;
 }
 </style>

@@ -9,7 +9,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fluid class="fill-height pa-4">
+      <v-container fluid class="pa-4">
         <slot />
       </v-container>
     </v-main>
@@ -33,3 +33,6 @@ async function GoLoginPage() {
   await router.push("/login");
 }
 </script>
+
+<style scoped>
+</style>

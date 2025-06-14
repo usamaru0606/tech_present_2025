@@ -15,6 +15,9 @@ export const AddUserServise = async (newUserInfo: newUserInfo) => {
         birthday: newUserInfo.birthday,
         mailAddress: newUserInfo.mailAddress,
         password: newUserInfo.password,
+        signinDate: newUserInfo.signinDate,
+        height: newUserInfo.height,
+        weight: newUserInfo.weight,
       }),
     });
 

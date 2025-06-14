@@ -8,4 +8,5 @@ export interface CardItem {
   continuationDays: number | null;
   goalDate: string;
   today: string;
+  registeredDate:Date | null;
 };
