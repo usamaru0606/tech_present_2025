@@ -8,7 +8,7 @@ Pydanticモデルを定義します。
 
 from pydantic import BaseModel, EmailStr
 from datetime import date
-from typing import Optional
+from typing import Optional, List
 
 class UserCreate(BaseModel):
     """
@@ -45,8 +45,17 @@ class UserLogin(BaseModel):
     ユーザーログイン時のリクエストボディスキーマ
     
     Attributes:
-        email (EmailStr): メールアドレス
+        mailAddress (str): メールアドレス
         password (str): パスワード
     """
-    email: EmailStr
+    mailAddress: str
     password: str
+
+class GoalSettingResponse(BaseModel):
+    """目標設定画面用のレスポンススキーマ"""
+    weight: Optional[float] = None
+    problems: List[str]
+
+class UserLoginResponse(BaseModel):
+    """ログイン成功時のレスポンススキーマ"""
+    guid: str

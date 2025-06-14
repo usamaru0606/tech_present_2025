@@ -54,7 +54,7 @@ def authenticate_user(db: Session, user_data: UserLogin) -> Optional[str]:
         Optional[str]: 認証成功時はユーザーのGUID、失敗時はNone
     """
     # メールアドレスでユーザーを検索
-    user = db.query(User).filter(User.email == user_data.email).first()
+    user = db.query(User).filter(User.email == user_data.mailAddress).first()
     
     # ユーザーが存在し、パスワードが一致する場合はGUIDを返す
     if user and user.password == user_data.password:  # 注: 実際の実装ではパスワードハッシュを使用すべき

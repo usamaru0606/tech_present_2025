@@ -7,14 +7,14 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.schemas.user import UserCreate, UserLogin, UserResponse
+from app.schemas.user import UserCreate, UserLogin, UserResponse, UserLoginResponse
 from app.crud.user import create_user, authenticate_user
 from app.db.deps import get_db
-from typing import Dict
 import uuid
 import logging
 import json
 from datetime import datetime
+from pydantic import ValidationError
 
 # ロガーの設定
 logging.basicConfig(level=logging.INFO)
@@ -91,25 +91,54 @@ async def register_user(request: Request, user: UserCreate, db: Session = Depend
             detail=str(e)
         )
 
-@router.post("/users/login/", response_model=Dict[str, str])
-async def login_user(user_data: UserLogin, db: Session = Depends(get_db)):
+@router.post("/user/login", response_model=UserLoginResponse)
+async def login_user(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
     """
     ユーザーログインを処理するエンドポイント
 
     Args:
+        request (Request): リクエストオブジェクト
         user_data (UserLogin): ログイン情報（メールアドレス、パスワード）
         db (Session): データベースセッション（自動で注入）
 
     Returns:
-        Dict[str, str]: 認証成功時はユーザーのGUIDを含む辞書
+        UserLoginResponse: 認証成功時はユーザーのGUIDを含むレスポンス
 
     Raises:
         HTTPException: 認証失敗時は401エラー
     """
-    guid = authenticate_user(db, user_data)
-    if not guid:
+    try:
+        log_section("1. リクエスト受信")
+        logger.info(f"[エンドポイント] /user/login")
+        logger.info(f"[メソッド] POST")
+        
+        log_section("2. リクエストヘッダーの確認")
+        for key, value in request.headers.items():
+            logger.info(f"{key}: {value}")
+
+        log_section("3. リクエストボディの取得")
+        body = await request.body()
+        logger.info(f"Raw request body: {body.decode()}")
+        
+        log_section("4. パース済みデータの確認")
+        logger.info(f"Parsed user_data: {user_data.model_dump_json()}")
+
+        guid = authenticate_user(db, user_data)
+        if not guid:
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password"
+            )
+        return UserLoginResponse(guid=guid)
+    except ValidationError as e:
+        logger.error(f"Validation error: {str(e)}")
         raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password"
+            status_code=422,
+            detail=str(e)
         )
-    return {"guid": guid}
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
