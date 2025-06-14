@@ -1,9 +1,8 @@
 """
-ユーザー関連のPydanticスキーマ定義
+ユーザー関連のスキーマ定義
 
-このモジュールでは、ユーザーデータのバリデーションと
-シリアライゼーション/デシリアライゼーションに使用する
-Pydanticモデルを定義します。
+このモジュールでは、ユーザー管理に関するPydanticモデル
+（リクエスト、レスポンスなど）を定義します。
 """
 
 from pydantic import BaseModel, EmailStr
@@ -51,11 +50,11 @@ class UserLogin(BaseModel):
     mailAddress: str
     password: str
 
+class UserLoginResponse(BaseModel):
+    """ログイン成功時のレスポンススキーマ"""
+    guid: str
+
 class GoalSettingResponse(BaseModel):
     """目標設定画面用のレスポンススキーマ"""
     weight: Optional[float] = None
     problems: List[str]
-
-class UserLoginResponse(BaseModel):
-    """ログイン成功時のレスポンススキーマ"""
-    guid: str

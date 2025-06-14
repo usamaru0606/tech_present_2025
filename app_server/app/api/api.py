@@ -6,7 +6,7 @@ APIルーターの設定モジュール
 """
 
 from fastapi import APIRouter
-from app.api.endpoints import user, goal
+from app.api.endpoints import user, goal, weight
 
 # メインのAPIルーターを作成
 api_router = APIRouter()
@@ -16,3 +16,6 @@ api_router.include_router(user.router, prefix="/users", tags=["users"])
 
 # 目標設定関連のエンドポイントを登録
 api_router.include_router(goal.router, tags=["goals"])
+
+# 体重関連のエンドポイントを登録
+api_router.include_router(weight.router, tags=["weights"])
