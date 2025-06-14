@@ -7,7 +7,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.schemas.user import UserCreate, UserLogin, UserResponse
+from app.schemas.user import UserCreate, UserLogin, UserResponse, UserLoginResponse
 from app.crud.user import create_user, authenticate_user
 from app.db.deps import get_db
 import uuid
@@ -91,7 +91,7 @@ async def register_user(request: Request, user: UserCreate, db: Session = Depend
             detail=str(e)
         )
 
-@router.post("/user/login", response_model=Dict[str, str])
+@router.post("/user/login", response_model=UserLoginResponse)
 async def login_user(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
     """
     ユーザーログインを処理するエンドポイント
@@ -102,7 +102,7 @@ async def login_user(request: Request, user_data: UserLogin, db: Session = Depen
         db (Session): データベースセッション（自動で注入）
 
     Returns:
-        Dict[str, str]: 認証成功時はユーザーのGUIDを含む辞書
+        UserLoginResponse: 認証成功時はユーザーのGUIDを含むレスポンス
 
     Raises:
         HTTPException: 認証失敗時は401エラー
@@ -129,7 +129,7 @@ async def login_user(request: Request, user_data: UserLogin, db: Session = Depen
                 status_code=401,
                 detail="Invalid email or password"
             )
-        return {"guid": guid}
+        return UserLoginResponse(guid=guid)
     except ValidationError as e:
         logger.error(f"Validation error: {str(e)}")
         raise HTTPException(

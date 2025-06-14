@@ -55,3 +55,7 @@ class GoalSettingResponse(BaseModel):
     """目標設定画面用のレスポンススキーマ"""
     weight: Optional[float] = None
     problems: List[str]
+
+class UserLoginResponse(BaseModel):
+    """ログイン成功時のレスポンススキーマ"""
+    guid: str
