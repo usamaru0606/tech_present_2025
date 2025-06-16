@@ -10,8 +10,7 @@ from sqlalchemy.orm import Session
 from app.schemas.goal import GoalSettingCreate, GoalSettingUpdate, GoalSettingResponse
 from app.crud.goal import create_goal_setting, update_goal_setting
 from app.db.deps import get_db
-from app.schemas.user import GoalSettingResponse, WeightRecordRequest, WeightRecordResponse
-from app.crud.weight import create_weight_record
+from app.schemas.user import GoalSettingResponse
 import logging
 import json
 from datetime import datetime
@@ -205,80 +204,6 @@ async def get_goal_setting(request: Request, user_id: str, db: Session = Depends
             problems=["ダイエット", "運動不足", "食事管理"]  # 仮の悩みリスト
         )
 
-    except Exception as e:
-        log_section("エラー発生")
-        logger.error(f"エラー発生箇所: {e.__traceback__.tb_frame.f_code.co_name}")
-        logger.error(f"エラー種類: {type(e).__name__}")
-        logger.error(f"エラー内容: {str(e)}")
-        logger.error("エラー詳細:")
-        import traceback
-        logger.error(traceback.format_exc())
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
-
-@router.post("/recordweight", response_model=WeightRecordResponse)
-async def record_weight(request: Request, weight_data: WeightRecordRequest, db: Session = Depends(get_db)):
-    """
-    体重を記録するエンドポイント
-
-    Args:
-        request (Request): リクエストオブジェクト
-        weight_data (WeightRecordRequest): 体重記録データ
-            - id: ユーザーID
-            - recordDate: 記録日
-            - weight: 体重
-        db (Session): データベースセッション（自動で注入）
-
-    Returns:
-        WeightRecordResponse: 記録成功時はsuccess=True
-
-    Raises:
-        HTTPException: データベースエラー時は500エラー
-    """
-    try:
-        log_section("1. リクエスト受信")
-        logger.info(f"[エンドポイント] /recordweight")
-        logger.info(f"[メソッド] POST")
-        
-        log_section("2. リクエストヘッダーの確認")
-        for key, value in request.headers.items():
-            logger.info(f"{key}: {value}")
-
-        log_section("3. リクエストボディの取得")
-        body = await request.json()
-        logger.info(f"Request body: {body}")
-        
-        log_section("4. データのバリデーション")
-        logger.info("[パース済みデータ]")
-        parsed_data = weight_data.model_dump_json(indent=2)
-        logger.info(parsed_data)
-        logger.info("\n[バリデーション結果] OK")
-
-        log_section("5. データベース処理")
-        logger.info("体重データをデータベースに保存中...")
-        create_weight_record(
-            db=db,
-            user_id=weight_data.id,
-            record_date=weight_data.recordDate,
-            weight=weight_data.weight
-        )
-        logger.info("データベース処理完了")
-        
-        log_section("6. レスポンス送信")
-        logger.info("ステータス: 成功")
-        logger.info("レスポンスデータ: { success: true }")
-        
-        return WeightRecordResponse(success=True)
-
-    except ValueError as e:
-        log_section("日付フォーマットエラー")
-        logger.error(f"日付フォーマットエラー: {str(e)}")
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid date format. Use YYYY-MM-DD"
-        )
     except Exception as e:
         log_section("エラー発生")
         logger.error(f"エラー発生箇所: {e.__traceback__.tb_frame.f_code.co_name}")
