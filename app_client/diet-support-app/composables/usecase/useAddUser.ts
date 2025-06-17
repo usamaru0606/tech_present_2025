@@ -15,9 +15,6 @@ export const useAddUser = () => {
       }),
       mailAddress: newUserInfo.mailAddress,
       password: newUserInfo.password,
-      signinDate: newUserInfo.today,
-      height: newUserInfo.height,
-      weight: newUserInfo.weight,
     };
 
     return AddUserServise(userInfo);

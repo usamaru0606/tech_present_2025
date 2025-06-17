@@ -13,7 +13,7 @@
           <!-- 今日の日付 -->
           <div class="form-group">
             <p class="form-label">今日の日付</p>
-            <p class="form-value">{{ goalsettingviewmodel.today }}</p>
+            <p class="form-value">{{ goalsettingviewmodel.settingItem.startDate }}</p>
           </div>
 
           <!-- 目標日付 -->
@@ -30,7 +30,7 @@
           <!-- 悩みの選択 -->
           <div class="form-group">
             <CSelect
-              v-model="goalsettingviewmodel.settingItem.selectedProblem"
+              v-model="goalsettingviewmodel.settingItem.problem"
               :items="goalsettingviewmodel.problemOptions"
               label="悩み"
               :error="goalsettingviewmodel.problemError.value"
@@ -47,7 +47,7 @@
           <div class="form-group">
             <p class="form-label">現在の体重</p>
             <p class="form-value">
-              {{ goalsettingviewmodel.currentWeight.value }} kg
+              {{ goalsettingviewmodel.settingItem.weight }} kg
             </p>
           </div>
 
@@ -55,7 +55,7 @@
           <div class="form-group">
             <WeightSelector
               v-model="goalsettingviewmodel.settingItem.goalWeight"
-              :currentWeight="goalsettingviewmodel.currentWeight.value"
+              :currentWeight="goalsettingviewmodel.settingItem.weight"
               label="目標体重"
             />
           </div>

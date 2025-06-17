@@ -1,12 +1,12 @@
 <template>
-  <v-card class="px-6 pt-4 fill-height" elevation="4" rounded="xl">
+  <v-card class="px-6 py-4 fill-height" elevation="4" rounded="xl">
     <v-row dense>
       <v-col cols="4" class="mb-4">
         <CLabelValue
           icon="mdi-weight"
           icon-color="primary"
           label="登録時体重"
-          :value="`${viewmodel.cardItem.initialWeight??'--'} kg`"
+          :value="`${viewmodel.cardItem.weight??'--'} kg`"
         />
       </v-col>
 
@@ -15,7 +15,7 @@
           icon="mdi-scale-bathroom"
           icon-color="blue-darken-2"
           label="現在の体重"
-          :value="`${viewmodel.cardItem.currentWeight??'--'} kg`"
+          :value="`${viewmodel.currentWeight.value??'--'} kg`"
         />
       </v-col>
 
@@ -62,7 +62,7 @@
           icon="mdi-calendar-end"
           icon-color="deep-purple-accent-2"
           label="目標期限"
-          :value="viewmodel.cardItem.goalDate == '' ? '--' : viewmodel.cardItem.goalDate"
+          :value="viewmodel.cardItem.goalDate?? '目標未設定'"
         />
       </v-col>
 
@@ -70,8 +70,8 @@
         <CLabelValue
           icon="mdi-calendar-today"
           icon-color="indigo"
-          label="今日"
-          :value="viewmodel.cardItem.today"
+          label="開始日"
+          :value="viewmodel.cardItem.startDate?? '目標未設定'"
         />
       </v-col>
 
@@ -80,7 +80,7 @@
           icon="mdi-calendar-clock"
           icon-color="teal"
           label="継続日数"
-          :value="`${viewmodel.cardItem.continuationDays} 日`"
+          :value="`${viewmodel.continuationDays.value} 日` "
         />
       </v-col>
     </v-row>
@@ -92,8 +92,8 @@ import { RecordWeightCardViewModel } from '~/viewmodel/component/recordweightcar
 
 
 const viewmodel = RecordWeightCardViewModel();
-const weightDiffAll = viewmodel.cardItem.weightDiffAllDate ?? 0;
-const weightDiff = viewmodel.cardItem.weightDiff ?? 0;
+const weightDiffAll = viewmodel.weightDiffAllDate.value ?? 0;
+const weightDiff = viewmodel.weightDiff.value ?? 0;
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
 <template>
   <v-container fluid class="d-flex justify-center register-bg pt-0">
     <div class="container">
-      <RegisterStepIndicator :currentStep="viewmodel.step.value" />
+      <RegisterStepIndicator :currentStep="0" />
 
-      <v-card v-if="viewmodel.step.value == 0" class="px-3 py-1" elevation="3">
+      <v-card class="px-3 py-1" elevation="3">
         <v-card-title class="text-h6 text-center mb-2 fontblack"
           >新規登録
         </v-card-title>
@@ -90,37 +90,8 @@
         </v-card-text>
 
         <v-card-actions class="justify-end">
-          <v-btn class="cardbtn bg-primary" @click="viewmodel.NextStep">
+          <v-btn class="cardbtn bg-primary" @click="viewmodel.RegisterGoal">
             次へ
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-
-      <v-card v-if="viewmodel.step.value == 1" class="px-3 py-1" elevation="3">
-        <v-card-title class="text-h6 text-center mb-2 fontblack"
-          >新規登録
-        </v-card-title>
-
-        <v-card-text class="pb-0">
-          <v-col class="py-4">
-            <p class="form-label">今日の日付</p>
-            <p class="form-value">
-              {{ viewmodel.userInfo.signinDate }}
-            </p>
-          </v-col>
-
-          <v-col class="py-4">
-            <SignInHeightSelector v-model="viewmodel.userInfo.height" />
-          </v-col>
-
-          <v-col class="py-4">
-            <SignInWeightSelector v-model="viewmodel.userInfo.weight" />
-          </v-col>
-        </v-card-text>
-
-        <v-card-actions class="justify-end">
-          <v-btn class="cardbtn bg-primary" @click="viewmodel.Register">
-            登録
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -168,18 +139,5 @@ const viewmodel = RegisterViewModel();
 
 .fontblack {
   color: black;
-}
-
-.form-label {
-  font-weight: 600;
-  font-size: 15px;
-  color: #555;
-  margin-bottom: 4px;
-}
-
-.form-value {
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-top: 2px;
 }
 </style>

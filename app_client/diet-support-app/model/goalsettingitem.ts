@@ -1,6 +1,9 @@
 export interface GoalSettingItems{
-    userId:string;
-    problem:string;
-    goalDate: string;
-    goalWeight: number;
+    userId:string|null;
+    height:number;
+    weight:number;
+    problem:string|null;
+    startDate:string|null;
+    goalDate: string|null;
+    goalWeight: number|null;
 }

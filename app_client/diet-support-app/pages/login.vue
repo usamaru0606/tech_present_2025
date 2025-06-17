@@ -40,7 +40,7 @@
         <CTextBtn
           label="新規登録"
           color="primary"
-          :onClick="viewmodel.GoRegisterPage"
+          :onClick="viewmodel.GoToRegisterPage"
         />
       </div>
     </div>

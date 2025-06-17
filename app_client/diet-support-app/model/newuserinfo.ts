@@ -6,7 +6,4 @@ export interface newUserInfo {
   birthday: string;
   mailAddress: string;
   password: string;
-  signinDate: string;
-  height: number;
-  weight: number;
 }

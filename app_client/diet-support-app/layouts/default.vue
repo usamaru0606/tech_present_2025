@@ -9,7 +9,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fluid class="pa-4">
+      <v-container fluid class="maincontainer">
         <slot />
       </v-container>
     </v-main>
@@ -35,4 +35,7 @@ async function GoLoginPage() {
 </script>
 
 <style scoped>
+.maincontainer{
+  min-height: 100%;
+}
 </style>

@@ -25,7 +25,7 @@
 <script setup lang="ts">
 const props = defineProps({
   modelValue: {
-    type: Number,
+    type: [Number,null],
     default: 60,
   },
   currentWeight: {
@@ -50,15 +50,15 @@ const integerOptions = computed(() => {
 const decimalOptions = Array.from({ length: 10 }, (_, i) => i);
 
 // 選択中の整数・小数部
-const selectedInteger = ref(Math.floor(props.modelValue));
-const selectedDecimal = ref(Math.round((props.modelValue % 1) * 10));
+const selectedInteger = ref(Math.floor(props.modelValue!));
+const selectedDecimal = ref(Math.round((props.modelValue! % 1) * 10));
 
 // props.modelValueが変わったら反映
 watch(
   () => props.modelValue,
   (val) => {
-    selectedInteger.value = Math.floor(val);
-    selectedDecimal.value = Math.round((val % 1) * 10);
+    selectedInteger.value = Math.floor(val!);
+    selectedDecimal.value = Math.round((val! % 1) * 10);
   },
   { immediate: true }
 );

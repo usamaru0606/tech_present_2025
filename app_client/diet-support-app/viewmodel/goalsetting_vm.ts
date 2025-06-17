@@ -1,27 +1,50 @@
 import { useRouter } from "vue-router";
+import type { GoalSettingItems } from "~/model/goalsettingitem";
 
 export const GoalSettingViewModel = () => {
   const router = useRouter();
-  const userWeightStore = useUserWeightStore();
   const userIdStore = useUserIdStore();
 
-  const settingItem = reactive({
-    userId: userIdStore.getUserId(),
-    selectedProblem: "",
-    goalWeight: userWeightStore.getUserWeight() ?? 0,
-    goaldate: new Date().toLocaleDateString("ja-JP", {
+  const formatDate = (date: Date) =>
+    date.toLocaleDateString("ja-JP", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
-    }),
+    });
+
+  const parseDateString = (str: string | null): { year: number; month: number; day: number } => {
+    if (!str) {
+      const now = new Date();
+      return {
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+        day: now.getDate(),
+      };
+    }
+    const [y, m, d] = str.split("/").map(Number);
+    return { year: y, month: m, day: d };
+  };
+
+  const today = formatDate(new Date());
+
+  const goaldate = reactive({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
   });
-  const today = computed(() =>
-    new Date().toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-  );
+
+  const problemError = ref(false);
+
+  const settingItem = reactive<GoalSettingItems>({
+    userId: userIdStore.getUserId(),
+    height: 0,
+    weight: 0,
+    startDate: today,
+    problem: "",
+    goalDate: today,
+    goalWeight: 0,
+  });
+
   const problemOptions = [
     "",
     "体重を減らしたい",
@@ -30,51 +53,70 @@ export const GoalSettingViewModel = () => {
     "生活習慣を改善したい",
     "その他",
   ];
-  const currentWeight = ref(userWeightStore.getUserWeight() ?? 0);
-  const goaldate = reactive({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
-  });
-  const problemError = ref(false);
+
+  const loadInitialSettings = async () => {
+    const userId = userIdStore.getUserId();
+    if (!userId) return;
+
+    try {
+      const data: GoalSettingItems|null = await useGetGoalSettingServise().Execute(userId);
+      if(!data) return console.error("目標設定データの取得に失敗しました");
+
+      Object.assign(settingItem, {
+        ...data,
+        userId,
+      });
+
+      const parsed = parseDateString(data.goalDate);
+      goaldate.year = parsed.year;
+      goaldate.month = parsed.month;
+      goaldate.day = parsed.day;
+    } catch (e) {
+      console.error("目標設定データの取得に失敗しました", e);
+    }
+  };
 
   const OnConfirm = async () => {
-    if (!settingItem.selectedProblem) {
-      return (problemError.value = true);
+    if (!settingItem.problem) {
+      problemError.value = true;
+      return;
     }
+
     problemError.value = false;
 
-    if (!(await SaveGoalSettings())){
-       return alert('設定に失敗しました');
-    } 
+    const success = await saveGoalSettings();
+    if (!success) {
+      alert("設定に失敗しました");
+      return;
+    }
+
     await router.push("/");
   };
 
-  const SaveGoalSettings = async () => {
-    settingItem.goaldate = new Date(
-      goaldate.year,
-      goaldate.month,
-      goaldate.day
-    ).toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
+  const saveGoalSettings = async () => {
+    const formattedGoalDate = formatDate(
+      new Date(goaldate.year, goaldate.month - 1, goaldate.day)
+    );
+
+    const payload: GoalSettingItems = {
+      ...settingItem,
+      goalDate: formattedGoalDate,
+    };
 
     try {
-      var res = await useUpdateGoalSetting().Execute(settingItem);
-      return res;
-    } catch {
+      return await useUpdateGoalSetting().Execute(payload);
+    } catch (e) {
+      console.error("保存に失敗:", e);
       return false;
     }
   };
 
+  onMounted(loadInitialSettings);
+
   return {
-    today,
     settingItem,
     problemOptions,
     problemError,
-    currentWeight,
     goaldate,
     OnConfirm,
   };

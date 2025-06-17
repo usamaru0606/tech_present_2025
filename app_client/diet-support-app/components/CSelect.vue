@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  modelValue: [String, Number],
+  modelValue: [String, Number, null],
   label: String,
   items: {
     type: Array,

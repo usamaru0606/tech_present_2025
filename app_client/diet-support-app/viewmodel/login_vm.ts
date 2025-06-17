@@ -1,55 +1,81 @@
+import { useRouter } from "vue-router";
+
 export const LoginViewModel = () => {
   const router = useRouter();
   const userIdStore = useUserIdStore();
+
   const loginInfo = reactive({
     mailaddress: "",
     password: "",
   });
+
   const error = ref("");
   const autoLogin = ref(false);
 
-  onMounted(async () => {
-    const savedMailaddress = localStorage.getItem("saved_mailAddress");
-    const savedPassword = localStorage.getItem("saved_password");
+  const LOCAL_STORAGE_KEYS = {
+    mail: "saved_mailAddress",
+    pass: "saved_password",
+  };
 
-    if (savedMailaddress && savedPassword) {
-      loginInfo.mailaddress = savedMailaddress;
-      loginInfo.password = savedPassword;
+  const loadSavedCredentials = () => {
+    const savedMail = localStorage.getItem(LOCAL_STORAGE_KEYS.mail);
+    const savedPass = localStorage.getItem(LOCAL_STORAGE_KEYS.pass);
+
+    if (savedMail && savedPass) {
+      loginInfo.mailaddress = savedMail;
+      loginInfo.password = savedPass;
+      autoLogin.value = true; // UI に反映したい場合
       Login();
     }
-  });
+  };
+
+  const saveLoginInfo = () => {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.mail, loginInfo.mailaddress);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.pass, loginInfo.password);
+  };
 
   const Login = async () => {
     try {
+      // 仮ログイン（テスト用）
+      if (loginInfo.mailaddress === "test" && loginInfo.password === "test") {
+        userIdStore.setUserId("1");
+        error.value = "";
+        await router.push("/");
+        return;
+      }
+
       const userId = await useLogin().Execute(loginInfo);
-      if(!userId) return  error.value = "ログインに失敗しました";
+
+      if (!userId) {
+        error.value = "ログインに失敗しました";
+        return;
+      }
+
       userIdStore.setUserId(userId);
       error.value = "";
 
-      if (userId && autoLogin.value) {
-        SaveLoginInfo();
+      if (autoLogin.value) {
+        saveLoginInfo();
       }
 
       await router.push("/");
-    } catch {
-      error.value =  "ログインに失敗しました";
+    } catch (e) {
+      console.error("ログインエラー:", e);
+      error.value = "ログインに失敗しました";
     }
   };
 
-  const GoRegisterPage = async () => {
-    await router.push("/register");
+  const GoToRegisterPage = () => {
+    router.push("/register");
   };
 
-  const SaveLoginInfo = () => {
-    localStorage.setItem("saved_mailAddress", loginInfo.mailaddress);
-    localStorage.setItem("saved_password", loginInfo.password);
-  };
+  onMounted(loadSavedCredentials);
 
   return {
     loginInfo,
     error,
     autoLogin,
     Login,
-    GoRegisterPage,
+    GoToRegisterPage,
   };
 };

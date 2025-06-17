@@ -73,14 +73,14 @@ const selectedPeriod = ref<Period>(periods[0]);
 const periodLengthMap = {
   "1週間": 7,
   "1か月間": 30,
-  半年間: 180,
+  "半年間": 180,
   "1年間": 365,
 } as const;
 
 const intervalMap = {
   "1週間": 1,
   "1か月間": 1,
-  半年間: 7,
+  "半年間": 7,
   "1年間": 15,
 } as const;
 

@@ -11,9 +11,6 @@ export const useUserInfoStore = defineStore('userInfo', {
       birthday: '',
       mailAddress: '',
       password: '',
-      signinDate: '',
-      height: 0,
-      weight: 0,
     },
   }),
   actions: {
@@ -29,9 +26,6 @@ export const useUserInfoStore = defineStore('userInfo', {
         birthday: '',
         mailAddress: '',
         password: '',
-        signinDate: '',
-        height: 0,
-        weight: 0,
       }
     },
   },

@@ -1,13 +1,20 @@
+import { useRouter } from "vue-router";
+
 export const RegisterViewModel = () => {
   const router = useRouter();
-  const passwordConfirm = ref("");
-  const genderItems = ["男性", "女性", "その他"];
   const today = new Date();
+
+  const genderItems = ["男性", "女性", "その他"];
+  const step = ref(1);
+  const error = ref("");
+  const passwordConfirm = ref("");
+
   const birthdayItems = reactive({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    day: today.getDate(),
   });
+
   const userInfo = reactive({
     firstName: "",
     lastName: "",
@@ -16,62 +23,58 @@ export const RegisterViewModel = () => {
     birthday: today,
     mailAddress: "",
     password: "",
-    signinDate: today.toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }),
-    height: 100,
-    weight: 40,
   });
-  const error = ref("");
-  const step = ref(1);
 
-  const Register = async () => {
-    if (!Validate()) return;
+  const UpdateBirthday = () => {
+    const { year, month, day } = birthdayItems;
 
-    try {
-      const res = await useAddUser().Execute(userInfo);
-      if (!res) return (error.value = "登録に失敗しました");
-      await router.push("/login");
-    } catch (e) {
-      error.value = "登録に失敗しました";
+    // 有効な日付かチェック
+    if (!year || !month || !day) {
+      userInfo.age = 0;
+      return;
     }
+
+    const date = new Date(year, month - 1, day);
+    userInfo.birthday = date;
+    userInfo.age = CalculateAge(date);
   };
 
-  const NextStep = async () => {
-    if (!Validate()) return;
-    step.value++;
+  const CalculateAge = (birthday: Date): number => {
+    let age = today.getFullYear() - birthday.getFullYear();
+    const isBeforeBirthday =
+      today.getMonth() < birthday.getMonth() ||
+      (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate());
+    if (isBeforeBirthday) age--;
+    return age;
   };
 
   const Validate = (): boolean => {
-    if (
-      !userInfo.firstName ||
-      !userInfo.lastName ||
-      !userInfo.gender ||
-      !userInfo.birthday ||
-      !userInfo.mailAddress ||
-      !userInfo.password ||
-      !passwordConfirm
-    ) {
+    const {
+      firstName,
+      lastName,
+      gender,
+      birthday,
+      mailAddress,
+      password,
+    } = userInfo;
+
+    if (!firstName || !lastName || !gender || !birthday || !mailAddress || !password || !passwordConfirm.value) {
       error.value = "すべての項目を入力してください";
       return false;
     }
 
-    if (
-      !userInfo.mailAddress.includes("@") ||
-      !userInfo.mailAddress.includes(".")
-    ) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(mailAddress)) {
       error.value = "メールアドレスの形式が正しくありません";
       return false;
     }
 
-    if (userInfo.password !== passwordConfirm.value) {
+    if (password !== passwordConfirm.value) {
       error.value = "パスワードと確認用パスワードが一致しません";
       return false;
     }
 
-    if (userInfo.age < 0) {
+    if (userInfo.age <= 0) {
       error.value = "生年月日を正しく入力してください";
       return false;
     }
@@ -80,35 +83,29 @@ export const RegisterViewModel = () => {
     return true;
   };
 
-  const UpdateBirthday = async () => {
-    const year = Number(birthdayItems.year);
-    const month = Number(birthdayItems.month);
-    const day = Number(birthdayItems.day);
+  const RegisterUser = async (onSuccess: () => void) => {
+    if (!Validate()) return;
 
-    // 入力がすべて有効な数字か確認
-    if (!year || !month || !day) {
-      userInfo.age = 0;
-      return;
+    try {
+      const result = await useAddUser().Execute(userInfo);
+      if (!result) {
+        error.value = "登録に失敗しました";
+        return;
+      }
+      onSuccess();
+    } catch (e) {
+      console.error("登録エラー:", e);
+      error.value = "登録に失敗しました";
     }
-
-    userInfo.birthday = new Date(year, month - 1, day);
-    userInfo.age = await CalculateAge();
   };
 
-  async function CalculateAge(): Promise<number> {
-    if (!birthdayItems.year || !birthdayItems.month || !birthdayItems.day) {
-      return 0;
-    }
+  const RegisterGoal = () => {
+    RegisterUser(() => router.push("/registersub"));
+  };
 
-    let age = today.getFullYear() - userInfo.birthday.getFullYear();
-    const isNotYetBirthday =
-      today.getMonth() < userInfo.birthday.getMonth() ||
-      (today.getMonth() === userInfo.birthday.getMonth() &&
-        today.getDate() < userInfo.birthday.getDate());
-    if (isNotYetBirthday) age--;
-
-    return age;
-  }
+  const RegisterUserInfo = () => {
+    RegisterUser(() => step.value++);
+  };
 
   return {
     passwordConfirm,
@@ -117,8 +114,8 @@ export const RegisterViewModel = () => {
     userInfo,
     error,
     step,
-    NextStep,
-    Register,
+    RegisterGoal,
+    RegisterUserInfo,
     UpdateBirthday,
   };
 };

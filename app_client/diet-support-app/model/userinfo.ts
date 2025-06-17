@@ -6,7 +6,4 @@ export interface UserInfo {
   birthday: string;
   mailAddress: string;
   password: string;
-  signinDate: string;
-  height: number;
-  weight: number;
 }

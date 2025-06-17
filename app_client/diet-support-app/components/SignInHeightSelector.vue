@@ -3,7 +3,7 @@
     <p class="label">{{ label }}</p>
     <div class="d-flex align-center  gap-2">
       <CSelect
-        id="integer"
+        id="heighttinteger"
         :width="100"
         :items="integerOptions"
         v-model="selectedInteger"
@@ -11,7 +11,7 @@
       />
       <span>.</span>
       <CSelect
-        id="decimal"
+        id="heightdecimal"
         :width="80"
         :items="decimalOptions"
         v-model="selectedDecimal"
