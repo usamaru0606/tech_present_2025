@@ -13,13 +13,14 @@
       :multiple="multiple"
       :error="error"
       :error-messages="errorMessages"
+      :width="width"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-  modelValue: [String, Number],
+  modelValue: [String, Number, null],
   label: String,
   items: {
     type: Array,
@@ -41,12 +42,15 @@ const props = defineProps({
     type: String,
     default: "select",
   },
+  width: {
+    type: Number,
+  },
   error: {
     type: Boolean,
     default: false,
   },
   errorMessages: {
-    type: [String, Array],
+    type: String,
     default: "",
   },
 });

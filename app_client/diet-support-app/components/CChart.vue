@@ -11,8 +11,8 @@
     </v-col>
   </v-row>
 
-  <v-card class="chart-card" elevation="2">
-    <v-card-text class="pa-0 chart-card-text position-relative">
+  <v-card class="fill-height" elevation="2">
+    <v-card-text class="pa-0 chart-card-text">
       <Line :data="computedChartData" :options="chartOptions" />
       <div v-if="!userId" class="overlay d-flex align-center justify-center">
         <v-card flat color="transparent" class="text-center">
@@ -63,7 +63,7 @@ const datasetStyle = {
 
 const props = defineProps<{
   chartData: ChartData<"line">;
-  userId: number | null;
+  userId: string | null;
 }>();
 
 const periods = ["1週間", "1か月間", "半年間", "1年間"] as const;
@@ -91,7 +91,7 @@ function changePeriod(period: (typeof periods)[number]) {
 // 加工済み chartData を返す
 const computedChartData = computed(() => {
   const datasets = props.chartData.datasets || [];
-  const originalLabels = props.chartData.labels as (string | number)[] || [];
+  const originalLabels = (props.chartData.labels as (string | number)[]) || [];
 
   if (originalLabels.length === 0) {
     return props.chartData;
@@ -102,7 +102,11 @@ const computedChartData = computed(() => {
   const latestLabel = originalLabels[originalLabels.length - 1].toString();
   const expectedLabels = createDateLabels(latestLabel, limit, interval);
   const labelIndexMap = createLabelIndexMap(originalLabels);
-  const paddedDatasets = padDatasetsWithLabels(datasets, expectedLabels, labelIndexMap);
+  const paddedDatasets = padDatasetsWithLabels(
+    datasets,
+    expectedLabels,
+    labelIndexMap
+  );
 
   return {
     ...props.chartData,
@@ -156,8 +160,6 @@ function padDatasetsWithLabels(
   });
 }
 
-
-
 const chartOptions = computed<ChartOptions<"line">>(() => ({
   responsive: true,
   maintainAspectRatio: false,
@@ -195,26 +197,6 @@ function GoLoginPage() {
 </script>
 
 <style scoped>
-.chart-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-.chart-card-text {
-  flex: 1;
-  display: flex;
-  min-height: 0;
-}
-
-.chart-card-text canvas {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .overlay {
   position: absolute;
   top: 0;
@@ -235,5 +217,19 @@ function GoLoginPage() {
 .chart_Btn.selected {
   background-color: #1976d2;
   color: white;
+}
+
+.chart-card-text {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  height: 44vh;
+}
+
+.chart-card-text canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

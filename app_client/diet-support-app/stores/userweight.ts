@@ -11,7 +11,7 @@ export const useUserWeightStore = defineStore('userweight', {
     clearUserWeight() {
       this.userWeight = null;
     },
-    getUserWeight(){
+    getUserWeight(): number | null{
       return this.userWeight;
     }
   },

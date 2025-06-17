@@ -3,7 +3,7 @@
     <p class="label">{{ label }}</p>
     <div class="d-flex align-center  gap-2">
       <CSelect
-        id="integer"
+        id="weightinteger"
         :width="100"
         :items="integerOptions"
         v-model="selectedInteger"
@@ -11,7 +11,7 @@
       />
       <span>.</span>
       <CSelect
-        id="decimal"
+        id="weightdecimal"
         :width="80"
         :items="decimalOptions"
         v-model="selectedDecimal"
@@ -25,10 +25,6 @@
 <script setup lang="ts">
 const props = defineProps({
   modelValue: {
-    type: [Number,null],
-    default: 60,
-  },
-  currentWeight: {
     type: Number,
     default: 60,
   },
@@ -40,25 +36,24 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-// 整数部：currentWeight ±30
+// 整数部：currentWeight
 const integerOptions = computed(() => {
-  const base = Math.floor(props.currentWeight);
-  return Array.from({ length: 61 }, (_, i) => base - 30 + i);
+  return Array.from({ length: 200 }, (_, i) => i);
 });
 
 // 小数部：0〜9（0.0〜0.9）
 const decimalOptions = Array.from({ length: 10 }, (_, i) => i);
 
 // 選択中の整数・小数部
-const selectedInteger = ref(Math.floor(props.modelValue!));
-const selectedDecimal = ref(Math.round((props.modelValue! % 1) * 10));
+const selectedInteger = ref(Math.floor(props.modelValue));
+const selectedDecimal = ref(Math.round((props.modelValue % 1) * 10));
 
 // props.modelValueが変わったら反映
 watch(
   () => props.modelValue,
   (val) => {
-    selectedInteger.value = Math.floor(val!);
-    selectedDecimal.value = Math.round((val! % 1) * 10);
+    selectedInteger.value = Math.floor(val);
+    selectedDecimal.value = Math.round((val % 1) * 10);
   },
   { immediate: true }
 );

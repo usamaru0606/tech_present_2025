@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="pa-0 fill-height">
-    <v-row class="fill-height">
+  <v-container fluid class="py-4 px-2">
+    <v-row>
       <v-col cols="12" md="7" class="pa-0 d-flex flex-column fill-height">
         <div class="pa-2 left-top-container">
           <CChart
@@ -14,7 +14,7 @@
             <CIconBtn
               icon="mdi-refresh"
               :isTextPrimary="true"
-              :onClick="viewmodel.Reload"
+              :onClick="viewmodel.loadChartData"
             />
 
             <RecordWeightDialog />
@@ -38,12 +38,12 @@
       >
         <v-btn
           class="relaodBtn w-auto"
-          @click="viewmodel.Reload"
+          @click="viewmodel.loadChartData"
           text="トレーニングメニュー"
         />
         <v-btn
           class="relaodBtn w-auto"
-          @click="viewmodel.Reload"
+          @click="viewmodel.loadChartData"
           text="食事メニュー"
         />
       </v-col>
@@ -58,7 +58,9 @@ const viewmodel = IndexViewModel();
 </script>
 
 <style scoped>
+
 .left-top-container {
+  min-height: 100vh;
   min-height: 0;
   display: flex;
   flex-direction: column;

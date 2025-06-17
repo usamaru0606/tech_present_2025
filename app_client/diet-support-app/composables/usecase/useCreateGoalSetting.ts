@@ -1,10 +1,10 @@
 import type { GoalSettingItems } from "~/model/goalsettingitem";
-import { UpdateGoalSettingServise } from "~/services/goalsetting";
+import { CreateGoalSettingServise } from "~/services/goalsetting";
 
-export const useUpdateGoalSetting = () => {
+export const useCreateGoalSetting = () => {
   const Execute = async (goalSettingItems: any) => {
     const goalSettingItem: GoalSettingItems = {
-      userId: goalSettingItems.userId,
+      userId: null,
       height: goalSettingItems.height,
       weight: goalSettingItems.weight,
       startDate: goalSettingItems.startDate,
@@ -13,7 +13,7 @@ export const useUpdateGoalSetting = () => {
       goalDate: goalSettingItems.goalDate,
     };
 
-    return UpdateGoalSettingServise(goalSettingItem);
+    return CreateGoalSettingServise(goalSettingItem);
   };
 
   return {

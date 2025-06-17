@@ -9,10 +9,10 @@ export const useAddUser = () => {
       gender: newUserInfo.gender,
       age: newUserInfo.age,
       birthday: newUserInfo.birthday.toLocaleDateString("ja-JP", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }),
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }),
       mailAddress: newUserInfo.mailAddress,
       password: newUserInfo.password,
     };

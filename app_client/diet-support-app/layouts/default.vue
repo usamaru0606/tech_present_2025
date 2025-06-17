@@ -9,7 +9,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fluid class="fill-height pa-4">
+      <v-container fluid class="maincontainer">
         <slot />
       </v-container>
     </v-main>
@@ -29,7 +29,13 @@
 <script setup lang="ts">
 const router = useRouter();
 
-function GoLoginPage() {
-  router.push("/login");
+async function GoLoginPage() {
+  await router.push("/login");
 }
 </script>
+
+<style scoped>
+.maincontainer{
+  min-height: 100%;
+}
+</style>

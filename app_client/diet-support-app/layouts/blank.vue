@@ -41,13 +41,13 @@
 const router = useRouter();
 const dialog = ref(false);
 
-function GoHomePage() {
+async function GoHomePage() {
   dialog.value = true;
 }
 
-const OnConfirm = () => {
+const OnConfirm = async() => {
   dialog.value = false;
-  router.push("/");
+  await router.push("/");
 };
 </script>
 

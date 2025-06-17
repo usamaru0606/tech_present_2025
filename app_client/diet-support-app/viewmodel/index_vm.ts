@@ -15,29 +15,31 @@ export const IndexViewModel = () => {
     ],
   });
 
-  onMounted(async () => {
-    userId.value = userIdStore.getUserId();
-    Reload();
-  });
-
-
-  const Reload = async () => {
+  const loadChartData = async () => {
+    try{
+    userId.value = userIdStore.userId;
     if(!userId.value) return;
 
     const newChartData = await useGetChartData().Execute(userId.value);
     if(!newChartData) return;
     chartData.value = newChartData
+    }
+    catch{
+      return;
+    }
   };
 
   const GoGoalSetting = async () =>{
-    // if(!userId.value) return;
-    router.push('/goalsetting');
+    if(!userId.value) return;
+    await router.push('/goalsetting');
   }
+
+  onMounted(loadChartData);
 
   return {
     userId,
     chartData,
-    Reload,
+    loadChartData,
     GoGoalSetting
   };
 };
