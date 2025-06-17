@@ -30,29 +30,30 @@ export const RecordWeightCardViewModel = () => {
     }
   };
 
-watchEffect(() => {
-  const cw = currentWeight.value;
-  const { lastMonthWeight, weight } = cardItem;
+  watchEffect(() => {
+    const cw = currentWeight.value;
+    const { lastMonthWeight, weight } = cardItem;
 
-  if (cw != null && lastMonthWeight != null) {
-    weightDiff.value = +(cw - lastMonthWeight).toFixed(1);
-  } else {
-    weightDiff.value = null;
-  }
+    if (cw != null && lastMonthWeight != null) {
+      weightDiff.value = +(cw - lastMonthWeight).toFixed(1);
+    } else {
+      weightDiff.value = null;
+    }
 
-  if (cw != null && weight != null) {
-    weightDiffAllDate.value = +(cw - weight).toFixed(1);
-  } else {
-    weightDiffAllDate.value = null;
-  }
+    if (cw != null && weight != null) {
+      weightDiffAllDate.value = +(cw - weight).toFixed(1);
+    } else {
+      weightDiffAllDate.value = null;
+    }
 
-  if (cardItem.startDate) {
-    const diffTime = todayDate.getTime() - parseDateString(cardItem.startDate).getTime();
-    continuationDays.value = Math.max(0, Math.floor(diffTime / MS_PER_DAY));
-  } else {
-    continuationDays.value = 0;
-  }
-});
+    if (cardItem.startDate) {
+      const diffTime =
+        todayDate.getTime() - parseDateString(cardItem.startDate).getTime();
+      continuationDays.value = Math.max(0, Math.floor(diffTime / MS_PER_DAY));
+    } else {
+      continuationDays.value = 0;
+    }
+  });
 
   function parseDateString(str: string): Date {
     const [y, m, d] = str.split("/").map(Number);
@@ -67,9 +68,12 @@ watchEffect(() => {
     { immediate: true }
   );
 
-watch(() => userIdStore.userId, (newUserId) => {
-  if (newUserId) loadCardItem();
-});
+  watch(
+    () => userIdStore.userId,
+    (newUserId) => {
+      if (newUserId) loadCardItem();
+    }
+  );
 
   onMounted(loadCardItem);
 

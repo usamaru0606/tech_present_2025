@@ -16,23 +16,22 @@ export const IndexViewModel = () => {
   });
 
   const loadChartData = async () => {
-    try{
-    userId.value = userIdStore.userId;
-    if(!userId.value) return;
+    try {
+      userId.value = userIdStore.userId;
+      if (!userId.value) return;
 
-    const newChartData = await useGetChartData().Execute(userId.value);
-    if(!newChartData) return;
-    chartData.value = newChartData
-    }
-    catch{
+      const newChartData = await useGetChartData().Execute(userId.value);
+      if (!newChartData) return;
+      chartData.value = newChartData;
+    } catch {
       return;
     }
   };
 
-  const GoGoalSetting = async () =>{
-    if(!userId.value) return;
-    await router.push('/goalsetting');
-  }
+  const GoGoalSetting = async () => {
+    if (!userId.value) return;
+    await router.push("/goalsetting");
+  };
 
   onMounted(loadChartData);
 
@@ -40,6 +39,6 @@ export const IndexViewModel = () => {
     userId,
     chartData,
     loadChartData,
-    GoGoalSetting
+    GoGoalSetting,
   };
 };

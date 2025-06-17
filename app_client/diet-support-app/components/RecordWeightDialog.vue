@@ -42,10 +42,10 @@ const userWeightStore = useUserWeightStore();
 const router = useRouter();
 const dialog = ref(false);
 const recordWeight = reactive({
-  userId:userIdStore.getUserId(),
-  currentWeight: userWeightStore.getUserWeight()??64,
+  userId: userIdStore.getUserId(),
+  currentWeight: userWeightStore.getUserWeight() ?? 64,
   recordDate: new Date(),
-})
+});
 const today = new Date();
 const currentDate = reactive({
   year: today.getFullYear(),
@@ -55,27 +55,37 @@ const currentDate = reactive({
 
 const OnConfirm = async () => {
   try {
-      const res = await useRecordWeight().Execute(recordWeight);
-      if(!res) return alert('記録に失敗しました');
-    } catch (e) {
-      alert('記録に失敗しました');
+    if (userIdStore.userId == "test") {
+      userWeightStore.setUserWeight(recordWeight.currentWeight);
+      dialog.value = false;
+      return;
     }
+    const res = await useRecordWeight().Execute(recordWeight);
+    if (!res) return alert("記録に失敗しました");
+    userWeightStore.setUserWeight(recordWeight.currentWeight);
+  } catch (e) {
+    alert("記録に失敗しました");
+  }
   dialog.value = false;
 };
 
-const Open = async() =>{
-  if(!recordWeight.userId) return;
+const Open = async () => {
+  if (!recordWeight.userId) return;
   try {
-      if(!recordWeight.currentWeight) return await router.push('/goalsetting');
-    } catch (e) {
-      return;
-    }
+    if (!recordWeight.currentWeight) return await router.push("/goalsetting");
+  } catch (e) {
+    return;
+  }
   dialog.value = true;
-}
+};
 
 const UpdateBirthday = async () => {
-    recordWeight.recordDate = new Date(Number(currentDate.year),Number(currentDate.month) - 1, Number(currentDate.day));
-  };
+  recordWeight.recordDate = new Date(
+    Number(currentDate.year),
+    Number(currentDate.month) - 1,
+    Number(currentDate.day)
+  );
+};
 
 function ResetForm() {
   currentDate.year = today.getFullYear();

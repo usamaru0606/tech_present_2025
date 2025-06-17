@@ -62,12 +62,15 @@ export const RegisterSubViewModel = () => {
   };
 
   const Validate = (): boolean => {
-    if(expandedIndex.value != null){
-        if(!userInfo.selectedProblem || !userInfo.goalWeight || !userInfo.goaldate)
-        {
-            error.value = "すべての項目を入力してください";
-            return false;
-        }
+    if (expandedIndex.value != null) {
+      if (
+        !userInfo.selectedProblem ||
+        !userInfo.goalWeight ||
+        !userInfo.goaldate
+      ) {
+        error.value = "すべての項目を入力してください";
+        return false;
+      }
     }
     error.value = "";
     return true;

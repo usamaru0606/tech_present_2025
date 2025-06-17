@@ -12,7 +12,9 @@ export const GoalSettingViewModel = () => {
       day: "2-digit",
     });
 
-  const parseDateString = (str: string | null): { year: number; month: number; day: number } => {
+  const parseDateString = (
+    str: string | null
+  ): { year: number; month: number; day: number } => {
     if (!str) {
       const now = new Date();
       return {
@@ -59,8 +61,9 @@ export const GoalSettingViewModel = () => {
     if (!userId) return;
 
     try {
-      const data: GoalSettingItems|null = await useGetGoalSettingServise().Execute(userId);
-      if(!data) return console.error("目標設定データの取得に失敗しました");
+      const data: GoalSettingItems | null =
+        await useGetGoalSettingServise().Execute(userId);
+      if (!data) return console.error("目標設定データの取得に失敗しました");
 
       Object.assign(settingItem, {
         ...data,

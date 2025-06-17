@@ -6,9 +6,19 @@ export const GetGoalSettingServise = async (id: string) => {
       `http://127.0.0.1:8000/goalsetting/${id}`
     );
   } catch {
-    return null;
+    return mockData;
   }
 };
+
+const mockData : GoalSettingItems ={
+  userId: 'test',
+  height: 170,
+  weight: 65,
+  problem: null,
+  startDate: null,
+  goalDate: null,
+  goalWeight: null
+}
 
 export const CreateGoalSettingServise = async (
   goalSettingItems: GoalSettingItems

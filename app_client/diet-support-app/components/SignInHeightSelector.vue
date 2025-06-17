@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="label">{{ label }}</p>
-    <div class="d-flex align-center  gap-2">
+    <div class="d-flex align-center gap-2">
       <CSelect
         id="heighttinteger"
         :width="100"
@@ -38,7 +38,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 // 整数部：currentHeight
 const integerOptions = computed(() => {
-  return Array.from({ length:  100}, (_, i) => 100 + i);
+  return Array.from({ length: 100 }, (_, i) => 100 + i);
 });
 
 // 小数部：0〜9（0.0〜0.9）

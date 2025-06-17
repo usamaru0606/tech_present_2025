@@ -43,22 +43,25 @@ export const RegisterViewModel = () => {
     let age = today.getFullYear() - birthday.getFullYear();
     const isBeforeBirthday =
       today.getMonth() < birthday.getMonth() ||
-      (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate());
+      (today.getMonth() === birthday.getMonth() &&
+        today.getDate() < birthday.getDate());
     if (isBeforeBirthday) age--;
     return age;
   };
 
   const Validate = (): boolean => {
-    const {
-      firstName,
-      lastName,
-      gender,
-      birthday,
-      mailAddress,
-      password,
-    } = userInfo;
+    const { firstName, lastName, gender, birthday, mailAddress, password } =
+      userInfo;
 
-    if (!firstName || !lastName || !gender || !birthday || !mailAddress || !password || !passwordConfirm.value) {
+    if (
+      !firstName ||
+      !lastName ||
+      !gender ||
+      !birthday ||
+      !mailAddress ||
+      !password ||
+      !passwordConfirm.value
+    ) {
       error.value = "すべての項目を入力してください";
       return false;
     }

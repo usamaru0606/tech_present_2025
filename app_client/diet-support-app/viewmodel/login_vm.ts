@@ -38,7 +38,7 @@ export const LoginViewModel = () => {
     try {
       // 仮ログイン（テスト用）
       if (loginInfo.mailaddress === "test" && loginInfo.password === "test") {
-        userIdStore.setUserId("1");
+        userIdStore.setUserId("test");
         error.value = "";
         await router.push("/");
         return;
