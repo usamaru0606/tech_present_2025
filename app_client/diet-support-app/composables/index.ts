@@ -3,6 +3,5 @@ export * from "./usecase/useAddUser";
 export * from "./usecase/useGetChartData";
 export * from "./usecase/useRecordWeight";
 export * from "./usecase/useUpdateGoalSetting";
-export * from "./usecase/useCreateGoalSetting";
 export * from "./usecase/useGetWeightCardItem";
 export * from "./usecase/useGetGoalSetting";
