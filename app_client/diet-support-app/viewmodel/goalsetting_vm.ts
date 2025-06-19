@@ -62,7 +62,7 @@ export const GoalSettingViewModel = () => {
 
     try {
       const data: GoalSettingItems | null =
-        await useGetGoalSettingServise().Execute(userId);
+        await useGetGoalSetting().Execute(userId);
       if (!data) return console.error("目標設定データの取得に失敗しました");
 
       Object.assign(settingItem, {

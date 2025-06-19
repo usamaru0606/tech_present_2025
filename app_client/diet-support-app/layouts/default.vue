@@ -9,7 +9,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fluid class="maincontainer">
+      <v-container fluid class="maincontainer py-2">
         <slot />
       </v-container>
     </v-main>

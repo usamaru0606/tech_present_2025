@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-6 py-4 fill-height" elevation="4" rounded="xl">
+  <v-card class="px-4 pt-4 fill-height" elevation="4" rounded="lg">
     <v-row dense>
       <v-col cols="4" class="mb-4">
         <CLabelValue

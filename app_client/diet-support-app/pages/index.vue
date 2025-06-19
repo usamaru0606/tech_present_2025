@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="py-4 px-2">
+  <v-container fluid class="py-2 px-2">
     <v-row>
       <v-col cols="12" md="7" class="pa-0 d-flex flex-column fill-height">
         <div class="pa-2 left-top-container">
@@ -34,18 +34,15 @@
       <v-col
         cols="12"
         md="5"
-        class="d-none d-md-flex flex-column align-center justify-space-between right-side-container pa-10"
+        class="d-none d-md-flex flex-column align-center justify-space-between right-side-container pa-0"
       >
-        <v-btn
-          class="relaodBtn w-auto"
-          @click="viewmodel.loadChartData"
-          text="トレーニングメニュー"
-        />
-        <v-btn
-          class="relaodBtn w-auto"
-          @click="viewmodel.loadChartData"
-          text="食事メニュー"
-        />
+        <div class="pa-2 right-top-container">
+          <MealCard/>
+        </div>
+
+        <div class="pa-2 right-bottom-container">
+          <MealCard/>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -60,24 +57,21 @@ const viewmodel = IndexViewModel();
 <style scoped>
 
 .left-top-container {
-  min-height: 100vh;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
   flex: 6.5;
 }
 
 .left-bottom-container {
-  border: 1px #e8f5f0;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
   flex: 3.5;
 }
 
-.right-side-container {
-  background-color: #fff3e0;
-  border: 1px solid #ffcc80;
+.right-top-container {
+  flex: 4.5;
+  min-width: 100%;
+}
+
+.right-bottom-container {
+  flex: 5.5;
+  min-width: 100%;
 }
 
 .button-row {
