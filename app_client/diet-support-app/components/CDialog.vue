@@ -7,7 +7,7 @@
   >
     <v-card>
       <v-card-title class="text-h6 bg-primary">{{ title }}</v-card-title>
-      <v-card-text class="pa-4 d-flex flex-column justify-center">
+      <v-card-text class="pa-4" style="overflow-y: auto; flex: 1;">
         <slot />
       </v-card-text>
       <v-card-actions style="border-top: 1px solid lightgray;">

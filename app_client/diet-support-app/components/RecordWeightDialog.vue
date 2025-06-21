@@ -71,11 +71,6 @@ const OnConfirm = async () => {
 
 const Open = async () => {
   if (!recordWeight.userId) return;
-  try {
-    if (!recordWeight.currentWeight) return await router.push("/goalsetting");
-  } catch (e) {
-    return;
-  }
   dialog.value = true;
 };
 

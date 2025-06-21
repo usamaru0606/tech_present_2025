@@ -1,6 +1,15 @@
 <template>
   <div>
-    <label class="label" :for="label">{{ label }}</label>
+    <label class="label" :for="label"
+      ><v-icon
+        v-if="icon"
+        :icon="icon"
+        size="18"
+        class="mr-1"
+        :color="iconColor"
+      />
+      {{ label }}</label
+    >
     <v-text-field
       :id="label"
       :ref="inputRef"
@@ -47,6 +56,8 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  icon: { type: String, default: "" },
+  iconColor: { type: String, default: "primary" },
   onEnter: {
     type: Function,
     default: () => {}, // 未指定でもエラーにならないように

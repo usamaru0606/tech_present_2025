@@ -1,4 +1,4 @@
-import { GetToDayMenuServise } from "~/services/getMenu";
+import { GetToDayMenuServise } from "~/services/meal";
 
 export const useGetToDayMenu = () => {
   const Execute = async (userId:string) => {

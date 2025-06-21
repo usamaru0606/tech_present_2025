@@ -6,3 +6,4 @@ export * from "./usecase/useUpdateGoalSetting";
 export * from "./usecase/useGetWeightCardItem";
 export * from "./usecase/useGetGoalSetting";
 export * from "./usecase/useGetTodayMenu";
+export * from "./usecase/useRecordMeal";
