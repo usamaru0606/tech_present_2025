@@ -319,7 +319,8 @@ cython_debug/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -795,3 +796,4 @@ FodyWeavers.xsd
 *.drawio.svg
 *.drawio.png
 
+app_server/app/db/health_data.db

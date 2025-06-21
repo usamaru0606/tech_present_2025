@@ -93,6 +93,7 @@ def save_meal_menu_to_db(user_id: str, menu_text: str):
     conn.close()
 
 # ユーザーから送られてきたデータ
+# ここにフロントから入力されたデータorデータベースから取得
 user_id = "u001"
 height = 170
 weight = 75
