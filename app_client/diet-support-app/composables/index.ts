@@ -8,3 +8,4 @@ export * from "./usecase/useGetGoalSetting";
 export * from "./usecase/useGetTodayMenu";
 export * from "./usecase/useRecordMeal";
 export * from "./usecase/useGetWeeklyMeal";
+export * from "./usecase/useGetTrainingMenu";

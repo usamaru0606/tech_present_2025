@@ -1,6 +1,6 @@
 import type { RecordWeight } from "~/model/recordweight";
 
-export const RecordWeightServise = async (recordWeight: RecordWeight) => {
+export const RecordWeightService = async (recordWeight: RecordWeight) => {
   try {
     const res = await $fetch("http://127.0.0.1:8000/recordweight", {
       method: "POST",

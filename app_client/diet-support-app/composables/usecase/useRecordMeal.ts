@@ -1,5 +1,5 @@
 import type { RecordMeal } from "~/model/recoradmeal";
-import { RecordMealServise } from "~/services/meal";
+import { RecordMealService } from "~/services/meal";
 
 export const useRecordMeal= () => {
   const Execute = async (id:string, mealitem:any, mealTiming:string) => {
@@ -19,7 +19,7 @@ export const useRecordMeal= () => {
         totalCalories: mealitem.totalCalories,
     };
 
-    return RecordMealServise(RecordMeal);
+    return RecordMealService(RecordMeal);
   };
 
   return {

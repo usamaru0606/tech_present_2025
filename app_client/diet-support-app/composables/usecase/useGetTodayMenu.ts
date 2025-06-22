@@ -1,9 +1,9 @@
-import { GetToDayMenuServise } from "~/services/meal";
+import { GetToDayMenuService } from "~/services/meal";
 
 export const useGetToDayMenu = () => {
   const Execute = async (userId:string) => {
 
-    return GetToDayMenuServise(userId);
+    return GetToDayMenuService(userId);
   };
 
   return {

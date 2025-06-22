@@ -1,5 +1,5 @@
 import type { LoginForm } from "~/model/loginform";
-import { LoginServise } from "~/services/login";
+import { LoginService } from "~/services/login";
 
 export const useLogin = () => {
   const Execute = async (loginInfo: any) => {
@@ -8,7 +8,7 @@ export const useLogin = () => {
       password: loginInfo.password,
     };
 
-    return LoginServise(loginform);
+    return LoginService(loginform);
   };
 
   return {

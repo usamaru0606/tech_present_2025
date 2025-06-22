@@ -1,9 +1,9 @@
-import { useGetWeeklyMealService } from "~/services/meal";
+import { GetWeeklyMealService } from "~/services/meal";
 
 export const useGetWeeklyMeal = () => {
   const Execute = async (userId:string) => {
 
-    return useGetWeeklyMealService(userId);
+    return GetWeeklyMealService(userId);
   };
 
   return {

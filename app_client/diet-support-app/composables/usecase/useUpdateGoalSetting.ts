@@ -1,5 +1,5 @@
 import type { GoalSettingItems } from "~/model/goalsettingitem";
-import { UpdateGoalSettingServise } from "~/services/goalsetting";
+import { UpdateGoalSettingService } from "~/services/goalsetting";
 
 export const useUpdateGoalSetting = () => {
   const Execute = async (goalSettingItems: any) => {
@@ -13,7 +13,7 @@ export const useUpdateGoalSetting = () => {
       goalDate: goalSettingItems.goalDate,
     };
 
-    return UpdateGoalSettingServise(goalSettingItem);
+    return UpdateGoalSettingService(goalSettingItem);
   };
 
   return {

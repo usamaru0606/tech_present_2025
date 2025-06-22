@@ -1,7 +1,7 @@
 import type { GoalSettingItems } from "~/model/goalsettingitem";
 import type { UserInfo } from "~/model/userinfo";
 
-export const AddUserServise = async (
+export const AddUserService = async (
   newUserInfo: UserInfo & GoalSettingItems
 ) => {
   try {

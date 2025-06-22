@@ -1,7 +1,7 @@
 import type { Meal, MealKey } from "~/model/meal";
 import type { RecordMeal } from "~/model/recoradmeal";
 
-export const GetToDayMenuServise = async (id: string) => {
+export const GetToDayMenuService = async (id: string) => {
   try {
     return await $fetch<Record<MealKey, Meal> | null>(
       `http://127.0.0.1:8000/todaymenu/${id}`
@@ -38,7 +38,7 @@ const mock: Record<MealKey, Meal> = {
   },
 };
 
-export const RecordMealServise = async(recordMeal:RecordMeal) =>{
+export const RecordMealService = async (recordMeal: RecordMeal) => {
   try {
     const res = await $fetch("http://127.0.0.1:8000/recordmeal", {
       method: "POST",
@@ -61,17 +61,17 @@ export const RecordMealServise = async(recordMeal:RecordMeal) =>{
   } catch {
     return false;
   }
-}
+};
 
-export const useGetWeeklyMealService = async(id:string) =>{
-    try {
+export const GetWeeklyMealService = async (id: string) => {
+  try {
     return await $fetch<Record<MealKey, Meal>[] | null>(
       `http://127.0.0.1:8000/weeklymeal/${id}`
     );
   } catch {
     return weeklyMockMeals;
   }
-}
+};
 
 const weeklyMockMeals: Record<MealKey, Meal>[] = [
   {

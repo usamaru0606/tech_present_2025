@@ -1,6 +1,6 @@
 import type { GoalSettingItems } from "~/model/goalsettingitem";
 import type { UserInfo } from "~/model/userinfo";
-import { AddUserServise } from "~/services/addUser";
+import { AddUserService } from "~/services/addUser";
 
 export const useAddUser = () => {
   const Execute = async (newUserInfo: any) => {
@@ -25,7 +25,7 @@ export const useAddUser = () => {
       goalDate: newUserInfo.goalDate,
     };
 
-    return AddUserServise(userInfo);
+    return AddUserService(userInfo);
   };
 
   return {

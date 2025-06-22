@@ -1,5 +1,5 @@
 import type { RecordWeight } from "~/model/recordweight";
-import { RecordWeightServise } from "~/services/recordWeight";
+import { RecordWeightService } from "~/services/recordWeight";
 
 export const useRecordWeight = () => {
   const Execute = async (recordWeight: any) => {
@@ -13,7 +13,7 @@ export const useRecordWeight = () => {
         })
     };
 
-    return RecordWeightServise(Recordweight);
+    return RecordWeightService(Recordweight);
   };
 
   return {
