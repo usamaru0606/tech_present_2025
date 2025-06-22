@@ -67,7 +67,6 @@
           "
           v-model="viewmodel.isOpenRecordMealDialog.value"
           :modelMeal="viewmodel.menuItem[viewmodel.selectedMeal.value].value"
-          @confirm="viewmodel.RecordMeal"
         />
       </v-col>
       <v-col cols="5">
