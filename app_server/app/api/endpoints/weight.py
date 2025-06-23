@@ -9,9 +9,10 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from app.schemas.weight import WeightRecordRequest, WeightRecordResponse, WeightHistoryResponse
 from app.crud.weight import create_weight_record, get_weight_history
+from app.crud.goal import get_goal_setting_by_user_id
 from app.db.deps import get_db
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # ロガーの設定
 logging.basicConfig(level=logging.INFO)
@@ -156,4 +157,30 @@ async def get_weight_records(request: Request, user_id: str, db: Session = Depen
         raise HTTPException(
             status_code=500,
             detail=str(e)
-        ) 
+        )
+
+@router.get("/weightcarditem/{user_id}")
+async def get_weight_card_item(user_id: str, db: Session = Depends(get_db)):
+    """
+    ユーザーの体重カード情報を返すエンドポイント
+    """
+    # 最新の体重履歴を取得
+    history = get_weight_history(db, user_id)
+    weight = None
+    lastMonthWeight = None
+    if history and history["datasets"] and history["datasets"][0]["data"]:
+        weight = history["datasets"][0]["data"][0]
+        # 仮実装: 1ヶ月前の体重は今の体重-2kgとする
+        lastMonthWeight = weight - 2 if weight is not None else None
+    # 目標設定情報を取得
+    goal = get_goal_setting_by_user_id(db, user_id)
+    goalWeight = goal.goal_weight if goal else None
+    goalDate = goal.deadline.strftime("%Y-%m-%d") if goal and goal.deadline else None
+    startDate = goal.start_date.strftime("%Y-%m-%d") if goal and hasattr(goal, "start_date") and goal.start_date else None
+    return {
+        "weight": weight,
+        "lastMonthWeight": lastMonthWeight,
+        "goalWeight": goalWeight,
+        "goalDate": goalDate,
+        "startDate": startDate
+    } 

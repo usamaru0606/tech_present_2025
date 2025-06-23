@@ -60,4 +60,10 @@ def update_goal_setting(db: Session, goal_setting: GoalSettingUpdate) -> bool:
         return True
     except Exception as e:
         db.rollback()
-        raise e 
+        raise e
+
+def get_goal_setting_by_user_id(db: Session, user_id: str):
+    """
+    ユーザーIDから目標設定を取得する
+    """
+    return db.query(GoalSetting).filter(GoalSetting.id == user_id).first() 

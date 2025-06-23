@@ -91,4 +91,36 @@ async def record_meal(
         raise HTTPException(
             status_code=500,
             detail=str(e)
-        ) 
+        )
+
+@router.get("/todaymenu/{user_id}")
+async def get_today_menu(user_id: str):
+    """
+    ユーザーの本日の食事メニュー（朝昼晩）を返すエンドポイント（仮実装）
+    """
+    return {
+        "breakfast": {
+            "stapleFood": "パン",
+            "mainDish": "目玉焼き",
+            "sideDish": "フルーツ",
+            "soup": "スープ",
+            "other": "コーヒー",
+            "totalCalories": 450
+        },
+        "lunch": {
+            "stapleFood": "パスタ",
+            "mainDish": "ミートソース",
+            "sideDish": "サラダ",
+            "soup": "コンソメスープ",
+            "other": "ヨーグルト",
+            "totalCalories": 650
+        },
+        "dinner": {
+            "stapleFood": "白ごはん",
+            "mainDish": "焼き鮭",
+            "sideDish": "お浸し",
+            "soup": "味噌汁",
+            "other": "なし",
+            "totalCalories": 500
+        }
+    } 

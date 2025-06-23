@@ -5,7 +5,7 @@ export const LoginViewModel = () => {
   const userIdStore = useUserIdStore();
 
   const loginInfo = reactive({
-    mailaddress: "",
+    mailAddress: "",
     password: "",
   });
 
@@ -22,7 +22,7 @@ export const LoginViewModel = () => {
     const savedPass = localStorage.getItem(LOCAL_STORAGE_KEYS.pass);
 
     if (savedMail && savedPass) {
-      loginInfo.mailaddress = savedMail;
+      loginInfo.mailAddress = savedMail;
       loginInfo.password = savedPass;
       autoLogin.value = true; // UI に反映したい場合
       Login();
@@ -30,14 +30,14 @@ export const LoginViewModel = () => {
   };
 
   const saveLoginInfo = () => {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.mail, loginInfo.mailaddress);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.mail, loginInfo.mailAddress);
     localStorage.setItem(LOCAL_STORAGE_KEYS.pass, loginInfo.password);
   };
 
   const Login = async () => {
     try {
       // 仮ログイン（テスト用）
-      if (loginInfo.mailaddress === "test" && loginInfo.password === "test") {
+      if (loginInfo.mailAddress === "test" && loginInfo.password === "test") {
         userIdStore.setUserId("test");
         error.value = "";
         await router.push("/");

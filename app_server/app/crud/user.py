@@ -30,7 +30,7 @@ def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     user_dict['email'] = user_dict.pop('mailAddress')
     
     # 文字列の日付をdate型に変換
-    user_dict['birthday'] = datetime.strptime(user_dict['birthday'], '%Y-%m-%d').date()
+    user_dict['birthday'] = datetime.strptime(user_dict['birthday'], '%Y/%m/%d').date()
     
     # GUIDを追加
     user_dict['guid'] = guid
@@ -53,6 +53,10 @@ def authenticate_user(db: Session, user_data: UserLogin) -> Optional[str]:
     Returns:
         Optional[str]: 認証成功時はユーザーのGUID、失敗時はNone
     """
+    # メールアドレスが空の場合は認証しない
+    if not user_data.mailAddress:
+        return None
+
     # メールアドレスでユーザーを検索
     user = db.query(User).filter(User.email == user_data.mailAddress).first()
     

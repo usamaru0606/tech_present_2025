@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 FastAPIアプリケーションのサーバー設定モジュール
 
@@ -7,10 +6,13 @@ FastAPIアプリケーションのサーバー設定モジュール
 """
 
 from fastapi import FastAPI
-from app.api.endpoints import user  # userモジュールをインポート
+from app.api.endpoints import goal, meal, user, weight  # userモジュールをインポート
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import logging
+from app.db import get_db_connection
+from typing import List
+from app.schemas.mealmenu import MealMenu
 
 # ロギングの設定
 logging.basicConfig(
@@ -19,16 +21,6 @@ logging.basicConfig(
 )
 
 # FastAPIアプリケーションのインスタンスを作成
-=======
-from fastapi import FastAPI, HTTPException
-#from app.api.api import api_router
-from fastapi.middleware.cors import CORSMiddleware
-
-from typing import List
-from db import get_db_connection
-from schemas.mealmenu import MealMenu
-
->>>>>>> db-health-setup
 app = FastAPI(
     title="My FastAPI App",
     description="FastAPI と Nuxt.js を組み合わせたアプリケーション",
@@ -49,7 +41,10 @@ app.add_middleware(
 )
 
 # ユーザールーターの登録
+app.include_router(goal.router)
+app.include_router(meal.router)
 app.include_router(user.router)
+app.include_router(weight.router)
 
 # ルートエンドポイント
 @app.get("/")
@@ -61,7 +56,6 @@ def read_root():
     return {"message": "Welcome to FastAPI with Nuxt.js"}
 
 def start():
-<<<<<<< HEAD
     """
     アプリケーションサーバーを起動する関数
     
@@ -78,9 +72,6 @@ def start():
         log_level="info",
         access_log=True
     )
-=======
-    import uvicorn
-    uvicorn.run("app.server:app", host="0.0.0.0", port=8000, reload=True)
 
 # ユーザーIDを指定して、そのユーザーの食事メニューを取得するエンドポイント
 @app.get("/mealmenu/{user_id}", response_model=List[MealMenu])
@@ -115,4 +106,3 @@ def get_meal_menu(user_id: str):
 
     # 取得した行を Pydantic モデル MealMenu のリストに変換して返す
     return [MealMenu(**dict(row)) for row in rows]
->>>>>>> db-health-setup

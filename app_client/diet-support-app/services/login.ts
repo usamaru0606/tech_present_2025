@@ -8,7 +8,7 @@ export const LoginServise = async (loginform: LoginForm) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: loginform.mailAddress,
+        mailAddress: loginform.mailAddress,
         password: loginform.password,
       }),
     });

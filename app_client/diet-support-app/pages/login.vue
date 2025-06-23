@@ -8,7 +8,7 @@
         <v-card-title class="text-h6 text-center mb-2 fontblack">ログイン</v-card-title>
         <v-card-text>
           <CTextField
-            v-model="viewmodel.loginInfo.mailaddress"
+            v-model="viewmodel.loginInfo.mailAddress"
             label="メールアドレス"
             type="email"
             inputRef="emailField"
