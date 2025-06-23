@@ -1,6 +1,6 @@
 import type { GoalSettingItems } from "~/model/goalsettingitem";
 
-export const GetGoalSettingServise = async (id: string) => {
+export const GetGoalSettingService = async (id: string) => {
   try {
     return await $fetch<GoalSettingItems | null>(
       `http://127.0.0.1:8000/api/goalsetting/${id}`
@@ -20,7 +20,7 @@ const mockData : GoalSettingItems ={
   goalWeight: null
 }
 
-export const UpdateGoalSettingServise = async (
+export const UpdateGoalSettingService = async (
   goalSettingItems: GoalSettingItems
 ) => {
   try {

@@ -1,9 +1,9 @@
-import { GetGoalSettingServise } from "~/services/goalsetting";
+import { GetGoalSettingService } from "~/services/goalsetting";
 
 export const useGetGoalSetting = () => {
   const Execute = async (userId:string) => {
 
-    return GetGoalSettingServise(userId);
+    return GetGoalSettingService(userId);
   };
 
   return {

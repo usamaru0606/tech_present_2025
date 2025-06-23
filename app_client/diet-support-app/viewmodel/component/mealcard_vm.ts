@@ -1,6 +1,7 @@
 import type { Meal, MealCategoryKey, MealKey } from "../../model/meal"; // 任意で分離した型をインポート
 
 export const MealCardViewModel = () => {
+    const router = useRouter();
   const userId = useUserIdStore().getUserId();
   const isOpenRecordMealDialog = ref(false);
   const mealTabs: { key: MealKey; label: string }[] = [
@@ -65,14 +66,14 @@ export const MealCardViewModel = () => {
   };
 
   const GoWeeklyMealPage = () => {
-    console.log("1週間の献立を確認");
+    if(!userId) return;
+    router.push("/weeklymeal")
   };
 
   const OpenRecordMealDialog = () => {
+    if(!userId) return;
     isOpenRecordMealDialog.value = true;
   };
-
-  const RecordMeal = async (meal: Meal) => {};
 
   return {
     isOpenRecordMealDialog,
@@ -82,6 +83,5 @@ export const MealCardViewModel = () => {
     menuItem,
     OpenRecordMealDialog,
     GoWeeklyMealPage,
-    RecordMeal
   };
 };

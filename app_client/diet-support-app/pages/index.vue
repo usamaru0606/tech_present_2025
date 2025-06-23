@@ -37,7 +37,7 @@
         class="d-none d-md-flex flex-column align-center justify-space-between right-side-container pa-0"
       >
         <div class="pa-2 right-top-container">
-          <MealCard/>
+          <TrainingCard/>
         </div>
 
         <div class="pa-2 right-bottom-container">

@@ -67,10 +67,9 @@
           "
           v-model="viewmodel.isOpenRecordMealDialog.value"
           :modelMeal="viewmodel.menuItem[viewmodel.selectedMeal.value].value"
-          @confirm="viewmodel.RecordMeal"
         />
       </v-col>
-      <v-col cols="5">
+      <v-col cols="5" class="text-right">
         <CTextBtn
           class="text-btn"
           label="1週間の献立はこちら"
