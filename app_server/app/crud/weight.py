@@ -10,7 +10,7 @@ from sqlalchemy import desc
 
 def create_weight_record(db: Session, user_id: str, record_date: str, weight: float) -> WeightRecord:
     """
-    体重記録を作成する
+    体重記録を作成または更新する（同日・同user_idなら上書き、違う日ならInsert）
 
     Args:
         db (Session): データベースセッション
@@ -19,23 +19,30 @@ def create_weight_record(db: Session, user_id: str, record_date: str, weight: fl
         weight (float): 体重
 
     Returns:
-        WeightRecord: 作成された体重記録
+        WeightRecord: 作成または更新された体重記録
     """
     # 文字列の日付をdatetime型に変換
     date_obj = datetime.strptime(record_date, "%Y/%m/%d")
-    
-    # 体重記録を作成
-    db_weight = WeightRecord(
-        user_id=user_id,
-        record_date=date_obj,
-        weight=weight
-    )
-    
-    # データベースに保存
-    db.add(db_weight)
+
+    # 既存レコードがあるか確認
+    db_weight = db.query(WeightRecord).filter(
+        WeightRecord.user_id == user_id,
+        WeightRecord.record_date == date_obj
+    ).first()
+
+    if db_weight:
+        # 上書き
+        db_weight.weight = weight
+    else:
+        # 新規作成
+        db_weight = WeightRecord(
+            user_id=user_id,
+            record_date=date_obj,
+            weight=weight
+        )
+        db.add(db_weight)
     db.commit()
     db.refresh(db_weight)
-    
     return db_weight
 
 def get_weight_records(db: Session, user_id: str) -> list[WeightRecord]:
