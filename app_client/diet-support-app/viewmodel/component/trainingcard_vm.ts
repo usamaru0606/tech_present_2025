@@ -1,4 +1,3 @@
-import { ref, onMounted } from "vue";
 import type { Exercise, Training } from "~/model/training";
 import { GetTrainingMenuService } from '~/services/training';
 

@@ -19,7 +19,7 @@ export const useAddUser = () => {
       }),
       mailAddress: newUserInfo.mailAddress,
       password: newUserInfo.password,
-       height: newUserInfo.height,
+      height: newUserInfo.height,
       weight: newUserInfo.weight,
       startDate: newUserInfo.startDate,
       problem: newUserInfo.selectedProblem,

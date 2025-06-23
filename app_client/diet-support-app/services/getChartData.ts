@@ -2,11 +2,10 @@ import type { ChartData } from "chart.js";
 
 export const GetChartDataService = async (
   id: string,
-  period: "weekly" | "monthly" | "yearly"
 ) => {
   try {
     return await $fetch<ChartData<"line"> | null>(
-      `http://127.0.0.1:8000/api/recordweight/${id}?period=${period}`
+      `http://127.0.0.1:8000/api/recordweight/${id}?period=yearly`
     );
   } catch (e) {
     return null;

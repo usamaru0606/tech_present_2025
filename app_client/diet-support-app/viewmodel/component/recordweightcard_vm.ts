@@ -25,6 +25,7 @@ export const RecordWeightCardViewModel = () => {
     try {
       const res = await useGetWeightCardItem().Execute(userId);
       Object.assign(cardItem, res);
+      useUserInitWeightStore().setUserInitWeight(res!.weight!);
     } catch (e) {
       console.error("体重カードデータの取得に失敗しました", e);
     }

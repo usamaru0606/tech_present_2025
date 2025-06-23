@@ -61,9 +61,13 @@ export const WeeklyMealViewModel = () => {
     if (!userId) return;
     const res = await useGetWeeklyMeal().Execute(userId);
     if (!res || !res.weekMeals) return;
-    weeklyMeals.value = res.weekMeals.map((day: any, i: number) => {
+
+    // APIのデータと「今日からの日付」を結びつけて表示
+    weeklyMeals.value = Array.from({ length: 7 }, (_, i) => {
       const date = addDays(today, i);
-      // calories→totalCalories変換用関数
+      const dayOfWeek = daysOfWeek[date.getDay()];
+      const mealData = res.weekMeals[i] || {};
+
       const normalizeMeal = (meal: any) => {
         if (!meal) return { ...initMeal };
         return {
@@ -72,13 +76,14 @@ export const WeeklyMealViewModel = () => {
           totalCalories: meal.totalCalories ?? meal.calories ?? 0,
         };
       };
+
       return {
-        date: day.date ?? format(date, "M月d日", { locale: ja }),
-        label: day.label ?? daysOfWeek[date.getDay()],
+        date: format(date, "M月d日", { locale: ja }),
+        label: dayOfWeek,
         meals: {
-          breakfast: normalizeMeal(day.breakfast),
-          lunch: normalizeMeal(day.lunch),
-          dinner: normalizeMeal(day.dinner),
+          breakfast: normalizeMeal(mealData.breakfast),
+          lunch: normalizeMeal(mealData.lunch),
+          dinner: normalizeMeal(mealData.dinner),
         },
       };
     });

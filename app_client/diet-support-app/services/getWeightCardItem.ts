@@ -9,11 +9,3 @@ export const GetWeightCardItemService = async (id: string) => {
     return null;
   }
 };
-
-const mockData: CardItem = {
-  weight: 65,
-  lastMonthWeight: 67,
-  goalWeight: 60,
-  goalDate: "2024-12-31",
-  startDate: "2024-01-01",
-};

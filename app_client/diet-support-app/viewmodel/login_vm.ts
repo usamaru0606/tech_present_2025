@@ -3,7 +3,6 @@ import { useRouter } from "vue-router";
 export const LoginViewModel = () => {
   const router = useRouter();
   const userIdStore = useUserIdStore();
-
   const loginInfo = reactive({
     mailAddress: "",
     password: "",
@@ -46,12 +45,12 @@ export const LoginViewModel = () => {
 
       const res = await useLogin().Execute(loginInfo);
 
-      if (!res || !res.guid) {
+      if (!res) {
         error.value = "ログインに失敗しました";
         return;
       }
 
-      userIdStore.setUserId(res.guid);
+      userIdStore.setUserId(res);
       error.value = "";
 
       if (autoLogin.value) {
