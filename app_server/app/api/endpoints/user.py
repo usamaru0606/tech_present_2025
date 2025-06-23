@@ -8,7 +8,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from app.schemas.user import UserCreate, UserLogin, UserResponse, UserLoginResponse
-from app.crud.user import create_user, authenticate_user
+from app.crud.user import create_user, authenticate_user, delete_user
 from app.db.deps import get_db
 import uuid
 import logging
@@ -76,7 +76,7 @@ async def register_user(request: Request, user: UserCreate, db: Session = Depend
         logger.info("ステータス: 成功")
         logger.info("レスポンスデータ: { success: true }")
         
-        return UserResponse(success=True)
+        return UserResponse(success=True, guid=user_guid)
         
     except Exception as e:
         log_section("エラー発生")
@@ -142,3 +142,14 @@ async def login_user(request: Request, user_data: UserLogin, db: Session = Depen
             status_code=500,
             detail="Internal server error"
         )
+
+@router.delete("/user/delete/{user_id}")
+async def delete_user_endpoint(user_id: str, db: Session = Depends(get_db)):
+    """
+    ユーザーID（guid）指定でユーザーを削除するエンドポイント
+    """
+    try:
+        delete_user(db, user_id)
+        return {"success": True}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

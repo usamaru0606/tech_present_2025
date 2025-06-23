@@ -45,3 +45,33 @@ export const UpdateGoalSettingService = async (
     return false;
   }
 };
+
+export const CreateGoalSettingService = async (
+  goalSettingItems: GoalSettingItems
+) => {
+  try {
+    if (!goalSettingItems.userId) {
+      throw new Error("userId is required");
+    }
+    if (!goalSettingItems.goalDate) {
+      throw new Error("goalDate is required");
+    }
+    const res = await $fetch(`http://127.0.0.1:8000/api/goalsetting/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: goalSettingItems.userId,
+        height: goalSettingItems.height,
+        weight: goalSettingItems.weight,
+        problem: goalSettingItems.problem,
+        goalDate: goalSettingItems.goalDate,
+        goal_weight: goalSettingItems.goalWeight,
+      }),
+    });
+    return res;
+  } catch {
+    return false;
+  }
+};

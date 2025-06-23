@@ -27,30 +27,26 @@ def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     user_dict = user_data.model_dump()
     
     # 目標設定が全て埋まっている場合のみGoalSettingを作成
-    if all([
-        user_dict.get("height") is not None,
-        user_dict.get("weight") is not None,
-        user_dict.get("goalDate"),
-        user_dict.get("goalWeight") is not None,
-        user_dict.get("problem")
-    ]):
-        goal_setting_data = {
-            "user_id": guid,
-            "height": user_dict.pop("height"),
-            "weight": user_dict.pop("weight"),
-            "problem": {"name": user_dict.pop("problem")},
-            "deadline": datetime.strptime(user_dict.pop("goalDate"), '%Y/%m/%d').date(),
-            "goal_weight": user_dict.pop("goalWeight"),
-        }
-        new_goal_setting = GoalSetting(**goal_setting_data)
-        db.add(new_goal_setting)
-    else:
-        user_dict.pop("height", None)
-        user_dict.pop("weight", None)
-        user_dict.pop("problem", None)
-        user_dict.pop("goalDate", None)
-        user_dict.pop("goalWeight", None)
+    # height = float(user_dict.get("height", 0) or 0)
+    # weight = float(user_dict.get("weight", 0) or 0)
+    # problem = user_dict.get("problem", "")
+    # goalDate = user_dict.get("goalDate", "")
+    # goalWeight = float(user_dict.get("goalWeight", 0) or 0)
 
+    # if all([height, weight, goalDate, goalWeight, problem]):
+    #     goal_setting_data = {
+    #         "user_id": guid,
+    #         "height": height,
+    #         "weight": weight,
+    #         "problem": {"name": problem},
+    #         "deadline": datetime.strptime(goalDate, '%Y/%m/%d').date() if goalDate else None,
+    #         "goal_weight": goalWeight,
+    #     }
+    #     new_goal_setting = GoalSetting(**goal_setting_data)
+    #     db.add(new_goal_setting)
+    # Userモデルに存在しないフィールドを除去
+    for k in ["height", "weight", "problem", "goalDate", "goalWeight"]:
+        user_dict.pop(k, None)
     # startDateはUserCreateスキーマにはないので削除
     user_dict.pop("startDate", None)
 
@@ -93,3 +89,18 @@ def authenticate_user(db: Session, user_data: UserLogin) -> Optional[str]:
         return user.guid
     
     return None
+
+def get_user_by_guid(db: Session, guid: str) -> Optional[User]:
+    """
+    GUIDでユーザー情報を取得する
+    """
+    return db.query(User).filter(User.guid == guid).first()
+
+def delete_user(db: Session, user_id: str):
+    """
+    ユーザーID（guid）指定でユーザーを削除する
+    """
+    user = db.query(User).filter(User.guid == user_id).first()
+    if user:
+        db.delete(user)
+        db.commit()

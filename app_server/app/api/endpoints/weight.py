@@ -175,7 +175,7 @@ async def get_weight_card_item(user_id: str, db: Session = Depends(get_db)):
     # 目標設定情報を取得
     goal = get_goal_setting_by_user_id(db, user_id)
     goalWeight = goal.goal_weight if goal else None
-    goalDate = goal.deadline.strftime("%Y-%m-%d") if goal and goal.deadline else None
+    goalDate = goal.goal_date.strftime("%Y-%m-%d") if goal and goal.goal_date else None
     startDate = goal.start_date.strftime("%Y-%m-%d") if goal and hasattr(goal, "start_date") and goal.start_date else None
     return {
         "weight": weight,

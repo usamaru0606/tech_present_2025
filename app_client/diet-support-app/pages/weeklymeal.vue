@@ -1,6 +1,18 @@
 <template>
   <v-container fluid class="pa-2 weekly-container">
-    <h2 class="text-h5 font-weight-bold mb-2">1週間の献立</h2>
+    <div class="d-flex justify-space-between align-center mb-2">
+      <div class="d-flex align-center">
+        <v-btn color="secondary" class="mr-2" @click="generateWeeklyMeal" :loading="isLoading" :disabled="isLoading">一週間分の食事メニューを作成</v-btn>
+        <h2 class="text-h5 font-weight-bold">1週間の献立</h2>
+      </div>
+      <v-btn color="primary" @click="$router.push('/')">ホームへ戻る</v-btn>
+    </div>
+    <v-row v-if="isLoading" class="justify-center my-4">
+      <v-col cols="auto">
+        <v-progress-circular indeterminate color="primary" size="40" class="mr-2" />
+        <span>食事メニューを作成中です。しばらくお待ちください...</span>
+      </v-col>
+    </v-row>
 
     <v-tabs v-model="viewmodel.currentTab.value" class="border">
       <v-tab
@@ -73,6 +85,9 @@
 
 <script setup lang="ts">
 import { WeeklyMealViewModel } from "~/viewmodel/weeklymeal_vm";
+import { useGenerateWeeklyMeal } from "~/composables/usecase/useGetWeeklyMeal";
+import { useUserIdStore } from "~/stores/userid";
+import { ref } from 'vue';
 
 const viewmodel = WeeklyMealViewModel();
 const getTabClass = (label: string): string => {
@@ -81,6 +96,16 @@ const getTabClass = (label: string): string => {
   return "";
 };
 
+const isLoading = ref(false);
+
+const generateWeeklyMeal = async () => {
+  const userId = useUserIdStore().getUserId();
+  if (!userId) return;
+  isLoading.value = true;
+  await useGenerateWeeklyMeal().Execute(userId); // 生成API
+  await viewmodel.fetchWeeklyMeals(); // 取得APIで再取得
+  isLoading.value = false;
+};
 </script>
 
 <style scoped>

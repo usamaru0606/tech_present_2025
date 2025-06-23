@@ -38,18 +38,14 @@ def get_user_info(user_id: str):
 
 def generate_meal_menu_text(user_data: dict) -> str:
     """
-    GPTでユーザーに合った1日の食事メニューを生成する関数
+    GPTでユーザーに合った1週間分の食事メニューを生成する関数
     :param user_data: ユーザー情報（辞書）
     :return: GPTが生成したメニュー文字列
     """
+    age = user_data['age']
+    age_note = "\n※年齢が12歳以下の場合も、13~19歳と同じ基準で食事を考えてください。" if age <= 12 else ""
     prompt = f"""
-    性別: {user_data['gender']}、年齢: {user_data['age']}歳、
-    身長: {user_data['height']}cm、体重: {user_data['weight']}kg、目標体重: {user_data['goal_weight']}kg、
-    悩み: {user_data['problem']}。
-    この人に合った1日の食事メニュー（朝・昼・夜）を提案してください。
-    各食に「主食」「主菜」「副菜」「汁物」「その他」が含まれるようにしてください。
-    """
-
+    性別: {user_data['gender']}、年齢: {user_data['age']}歳、\n身長: {user_data['height']}cm、体重: {user_data['weight']}kg、目標体重: {user_data['goal_weight']}kg、\n悩み: {user_data['problem']}。\nこの人に合った本日から一週間分の食事メニュー（朝食・昼食・夕食）を提案してください。\n各日付ごとに「朝食」「昼食」「夕食」それぞれに「主食」「主菜」「副菜」「汁物」「その他」と「カロリー（数値, kcal）」を含めてください。\n以下のJSON形式で出力してください。\n[\n  {{"date": "YYYY-MM-DD", "朝食": {{"主食": "ごはん", "主菜": "焼き魚", "副菜": "サラダ", "汁物": "味噌汁", "その他": "果物", "カロリー": 450}}, "昼食": {{...}}, "夕食": {{...}}}},\n  ...（7日分）\n]\n各食の例: {{"主食": "ごはん", "主菜": "焼き魚", "副菜": "サラダ", "汁物": "味噌汁", "その他": "果物", "カロリー": 450}}{age_note}\n"""
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -57,7 +53,6 @@ def generate_meal_menu_text(user_data: dict) -> str:
             {"role": "user", "content": prompt}
         ]
     )
-
     return response.choices[0].message["content"]
 
 def parse_meal_menu(menu_text: str):
@@ -117,21 +112,20 @@ def save_meal_menu_to_db(user_id: str, parsed_menu: list):
     conn.commit()
     conn.close()
 
-# ===== 実行部 =====
+if __name__ == "__main__":
+    user_id = "u001"  # ← 対象ユーザーIDを指定
 
-user_id = "u001"  # ← 対象ユーザーIDを指定
+    # DBからユーザー情報を取得
+    user_info = get_user_info(user_id)
 
-# DBからユーザー情報を取得
-user_info = get_user_info(user_id)
+    if not user_info:
+        print(f"ユーザーID '{user_id}' は見つかりませんでした。")
+    else:
+        # GPTで食事メニューを生成
+        meal_text = generate_meal_menu_text(user_info)
 
-if not user_info:
-    print(f"ユーザーID '{user_id}' は見つかりませんでした。")
-else:
-    # GPTで食事メニューを生成
-    meal_text = generate_meal_menu_text(user_info)
+        # 整形して登録
+        parsed = parse_meal_menu(meal_text)
+        save_meal_menu_to_db(user_id, parsed)
 
-    # 整形して登録
-    parsed = parse_meal_menu(meal_text)
-    save_meal_menu_to_db(user_id, parsed)
-
-    print(f"ユーザー '{user_id}' の食事メニューをDBに登録しました。")
+        print(f"ユーザー '{user_id}' の食事メニューをDBに登録しました。")

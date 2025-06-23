@@ -48,7 +48,7 @@ export const RegisterViewModel = () => {
     }) as string | null,
     selectedProblem: "" as string | null,
     goalWeight: 0 as number | null,
-    goaldate: "" as string | null,
+    goalDate: "" as string | null,
   });
 
   const UpdateBirthday = () => {
@@ -144,10 +144,10 @@ export const RegisterViewModel = () => {
       userInfo.startDate = null;
       userInfo.selectedProblem = null;
       userInfo.goalWeight = null;
-      userInfo.goaldate = null;
+      userInfo.goalDate = null;
     } else {
       const { year, month, day } = goalDateInput;
-      userInfo.goaldate = new Date(year, month - 1, day).toLocaleDateString(
+      userInfo.goalDate = new Date(year, month - 1, day).toLocaleDateString(
         "ja-JP",
         {
           year: "numeric",
@@ -185,7 +185,7 @@ export const RegisterViewModel = () => {
     passwordConfirm,
     expandedIndex,
     birthdayItems,
-    goaldate: goalDateInput,
+    goalDate: goalDateInput,
     genderItems,
     problemOptions,
     userInfo,

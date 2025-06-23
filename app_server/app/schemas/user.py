@@ -48,6 +48,7 @@ class UserResponse(BaseModel):
     ユーザー作成レスポンススキーマ
     """
     success: bool
+    guid: str
 
 class UserLogin(BaseModel):
     """

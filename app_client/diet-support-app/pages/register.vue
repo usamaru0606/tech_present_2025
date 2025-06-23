@@ -126,9 +126,9 @@
                 <div class="form-group">
                   <CDateSelector
                     label="目標期日"
-                    v-model:Year="viewmodel.goaldate.year"
-                    v-model:Month="viewmodel.goaldate.month"
-                    v-model:Day="viewmodel.goaldate.day"
+                    v-model:Year="viewmodel.goalDate.year"
+                    v-model:Month="viewmodel.goalDate.month"
+                    v-model:Day="viewmodel.goalDate.day"
                     :feature="true"
                   />
                 </div>

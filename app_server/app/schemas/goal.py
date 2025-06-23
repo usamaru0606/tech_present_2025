@@ -1,14 +1,15 @@
 from pydantic import BaseModel
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Union
 from datetime import date
 
 class GoalSettingCreate(BaseModel):
     """目標設定の作成用スキーマ"""
-    id: int
+    user_id: str
+    id: Optional[int] = None
     height: float
     weight: float
-    problem: Dict[str, str]
-    deadline: date
+    problem: Union[str, Dict[str, str]]
+    goalDate: str
     goal_weight: float
 
 class GoalSettingUpdate(BaseModel):

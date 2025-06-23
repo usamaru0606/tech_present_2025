@@ -56,28 +56,26 @@ export const WeeklyMealViewModel = () => {
       0
     );
 
-  onMounted(async () => {
+  const fetchWeeklyMeals = async () => {
     const userId = useUserIdStore().getUserId();
     if (!userId) return;
-
     const res = await useGetWeeklyMeal().Execute(userId);
-    if (!res) return;
-
-    weeklyMeals.value = res.map((day: any, i: number) => {
-      // 日付・曜日は自分で再セットしても良いし、
-      // APIに入っていればそちらを優先してもOK
+    if (!res || !res.weekMeals) return;
+    weeklyMeals.value = res.weekMeals.map((day: any, i: number) => {
       const date = addDays(today, i);
       return {
         date: day.date ?? format(date, "M月d日", { locale: ja }),
         label: day.label ?? daysOfWeek[date.getDay()],
-        meals: day.meals ?? {
+        meals: {
           breakfast: { ...initMeal, ...day.breakfast },
           lunch: { ...initMeal, ...day.lunch },
           dinner: { ...initMeal, ...day.dinner },
         },
       };
     });
-  });
+  };
+
+  onMounted(fetchWeeklyMeals);
 
   return {
     currentTab,
@@ -85,5 +83,6 @@ export const WeeklyMealViewModel = () => {
     mealTabs,
     weeklyMeals,
     GetTotalCalories,
+    fetchWeeklyMeals,
   };
 };

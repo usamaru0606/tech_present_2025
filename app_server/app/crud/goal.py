@@ -14,12 +14,27 @@ def create_goal_setting(db: Session, goal_setting: GoalSettingCreate) -> GoalSet
     Returns:
         GoalSetting: 作成された目標設定オブジェクト
     """
+    # goal_date: str → date
+    goal_date_val = goal_setting.goalDate
+    if isinstance(goal_date_val, str):
+        # 形式が"YYYY-MM-DD"または"YYYY/MM/DD"どちらも対応
+        try:
+            if "/" in goal_date_val:
+                goal_date_val = datetime.strptime(goal_date_val, "%Y/%m/%d").date()
+            else:
+                goal_date_val = datetime.strptime(goal_date_val, "%Y-%m-%d").date()
+        except Exception:
+            goal_date_val = None
+    # problem: str → dict
+    problem_val = goal_setting.problem
+    if isinstance(problem_val, str):
+        problem_val = {"name": problem_val}
     db_goal_setting = GoalSetting(
-        id=goal_setting.id,
+        user_id=goal_setting.user_id,
         height=goal_setting.height,
         weight=goal_setting.weight,
-        problem=goal_setting.problem,
-        deadline=goal_setting.deadline,
+        problem=problem_val,
+        goal_date=goal_date_val,
         goal_weight=goal_setting.goal_weight
     )
     
@@ -55,7 +70,7 @@ def update_goal_setting(db: Session, user_id: str, goal_setting_update: GoalSett
             height=getattr(goal_setting_update, "height", 0) or 0,
             weight=getattr(goal_setting_update, "weight", 0) or 0,
             problem={"name": getattr(goal_setting_update, "problem", None)} if getattr(goal_setting_update, "problem", None) else {},
-            deadline=datetime.strptime(getattr(goal_setting_update, "goalDate", None), "%Y/%m/%d").date() if getattr(goal_setting_update, "goalDate", None) else None,
+            goal_date=datetime.strptime(getattr(goal_setting_update, "goalDate", None), "%Y/%m/%d").date() if getattr(goal_setting_update, "goalDate", None) else None,
             goal_weight=getattr(goal_setting_update, "goalWeight", 0) or 0,
         )
         db.add(new_goal)
@@ -68,7 +83,7 @@ def update_goal_setting(db: Session, user_id: str, goal_setting_update: GoalSett
     for key, value in update_data.items():
         # フロントエンドとバックエンドのキー名が異なる場合のマッピング
         if key == "goalDate":
-            setattr(db_goal_setting, "deadline", datetime.strptime(value, "%Y/%m/%d").date() if value else None)
+            setattr(db_goal_setting, "goal_date", datetime.strptime(value, "%Y/%m/%d").date() if value else None)
         elif key == "goalWeight":
             setattr(db_goal_setting, "goal_weight", value)
         elif key == "startDate":
@@ -84,4 +99,4 @@ def get_goal_setting_by_user_id(db: Session, user_id: str):
     """
     ユーザーIDから目標設定を取得する
     """
-    return db.query(GoalSetting).filter(GoalSetting.id == user_id).first() 
+    return db.query(GoalSetting).filter(GoalSetting.user_id == user_id).first() 

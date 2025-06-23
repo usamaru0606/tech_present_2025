@@ -1,6 +1,8 @@
 import type { GoalSettingItems } from "~/model/goalsettingitem";
 import type { UserInfo } from "~/model/userinfo";
 import { AddUserService } from "~/services/addUser";
+import { CreateGoalSettingService } from "~/services/goalsetting";
+import { DeleteUserService } from "~/services/deleteUser";
 
 export const useAddUser = () => {
   const Execute = async (newUserInfo: any) => {
@@ -25,7 +27,27 @@ export const useAddUser = () => {
       goalDate: newUserInfo.goalDate,
     };
 
-    return AddUserService(userInfo);
+    // 1. ユーザー登録
+    const userRes = await AddUserService(userInfo);
+    if (!userRes || !userRes.guid) return false;
+
+    // 2. 目標設定登録
+    const goalSettingRes = await CreateGoalSettingService({
+      userId: userRes.guid,
+      height: userInfo.height,
+      weight: userInfo.weight,
+      problem: userInfo.problem,
+      startDate: userInfo.startDate,
+      goalDate: userInfo.goalDate,
+      goalWeight: userInfo.goalWeight,
+    });
+    if (!goalSettingRes) {
+      // 目標設定登録失敗時はユーザー登録をロールバック
+      await DeleteUserService(userRes.guid);
+      return false;
+    }
+
+    return userRes;
   };
 
   return {

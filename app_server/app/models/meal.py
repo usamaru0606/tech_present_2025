@@ -2,7 +2,7 @@
 食事記録関連のデータベースモデル
 """
 
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, Float
 from app.db.base_class import Base
 
 class MealRecord(Base):
@@ -17,4 +17,5 @@ class MealRecord(Base):
     main_side = Column(String, default="")  # 主菜
     sub_side = Column(String, default="")  # 副菜
     soup = Column(String, default="")  # 汁物
-    other = Column(String, default="")  # その他 
+    other = Column(String, default="")  # その他
+    calories = Column(Float, nullable=True)  # 各食のカロリー 

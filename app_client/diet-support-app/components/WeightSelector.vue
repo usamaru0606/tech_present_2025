@@ -40,10 +40,9 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-// 整数部：currentWeight ±30
+// 整数部：10〜200kgの絶対値
 const integerOptions = computed(() => {
-  const base = Math.floor(props.currentWeight);
-  return Array.from({ length: 61 }, (_, i) => base - 30 + i);
+  return Array.from({ length: 191 }, (_, i) => 10 + i); // 10〜200
 });
 
 // 小数部：0〜9（0.0〜0.9）

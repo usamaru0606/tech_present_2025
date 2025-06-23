@@ -39,45 +39,35 @@ async def create_new_goal_setting(
 ):
     """
     新規目標設定を登録するエンドポイント
-
-    Args:
-        request (Request): リクエストオブジェクト
-        goal_setting (GoalSettingCreate): 登録する目標設定の情報
-        db (Session): データベースセッション（自動で注入）
-
-    Returns:
-        GoalSettingResponse: 登録成功時はsuccess=True
+    user_id必須
     """
     try:
         log_section("1. リクエスト受信")
         logger.info(f"[エンドポイント] /goalsetting/create")
         logger.info(f"[メソッド] POST")
-        
         log_section("2. リクエストヘッダーの確認")
         for key, value in request.headers.items():
             logger.info(f"{key}: {value}")
-
         log_section("3. リクエストボディの取得")
         body = await request.json()
         logger.info(json.dumps(body, ensure_ascii=False, indent=2))
-        
         log_section("4. データのバリデーション")
         logger.info("[パース済みデータ]")
         parsed_data = goal_setting.model_dump_json(indent=2)
         logger.info(parsed_data)
         logger.info("\n[バリデーション結果] OK")
-        
         log_section("5. データベース処理開始")
         logger.info("目標設定データをデータベースに挿入中...")
         create_goal_setting(db, goal_setting)
         logger.info("データベース処理完了")
-        
         log_section("6. レスポンス送信")
         logger.info("ステータス: 成功")
         logger.info("レスポンスデータ: { success: true }")
-        
-        return GoalSettingResponse(success=True)
-        
+        # 仮の値でレスポンスを返す（本来はDBから取得した値を返すべき）
+        return GoalSettingResponse(
+            weight=goal_setting.weight,
+            problems=[goal_setting.problem["name"] if isinstance(goal_setting.problem, dict) and "name" in goal_setting.problem else str(goal_setting.problem)]
+        )
     except ValidationError as e:
         log_section("バリデーションエラー")
         logger.error(f"バリデーションエラー: {str(e)}")
