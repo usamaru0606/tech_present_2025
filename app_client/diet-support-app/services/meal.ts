@@ -40,22 +40,26 @@ const mock: Record<MealKey, Meal> = {
 
 export const RecordMealService = async (recordMeal: RecordMeal) => {
   try {
+    // バックエンドのMealRecordRequestスキーマに合わせて変換
+    const payload = {
+      id: recordMeal.userId,
+      recordDate: recordMeal.recordDate,
+      mealTiming: recordMeal.mealTiming,
+      content: {
+        "主食": recordMeal.stapleFood ?? "",
+        "主菜": recordMeal.mainDish ?? "",
+        "副菜": recordMeal.sideDish ?? "",
+        "汁物": recordMeal.soup ?? "",
+        "その他": recordMeal.other ?? "",
+        "カロリー": recordMeal.totalCalories ?? 0
+      }
+    };
     const res = await $fetch("http://127.0.0.1:8000/api/recordmeal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        userId: recordMeal.userId,
-        recordDate: recordMeal.recordDate,
-        mealTiming: recordMeal.mealTiming,
-        stapleFood: recordMeal.stapleFood,
-        mainDish: recordMeal.mainDish,
-        sideDish: recordMeal.sideDish,
-        soup: recordMeal.soup,
-        other: recordMeal.other,
-        totalCalories: recordMeal.totalCalories,
-      }),
+      body: JSON.stringify(payload),
     });
     return res;
   } catch {

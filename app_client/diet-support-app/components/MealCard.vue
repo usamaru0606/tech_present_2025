@@ -67,6 +67,7 @@
           "
           v-model="viewmodel.isOpenRecordMealDialog.value"
           :modelMeal="viewmodel.menuItem[viewmodel.selectedMeal.value].value"
+          @update:modelValue="onDialogClosed"
         />
       </v-col>
       <v-col cols="5" class="text-right">
@@ -82,8 +83,17 @@
 
 <script setup lang="ts">
 import { MealCardViewModel } from "~/viewmodel/component/mealcard_vm";
+import { nextTick } from "vue";
 
 const viewmodel = MealCardViewModel();
+
+// RecordMealDialogの保存完了時にGetMenuを再取得
+const onDialogClosed = async (val: boolean) => {
+  if (!val) {
+    await nextTick(); // ダイアログ閉じた直後に
+    if (viewmodel.GetMenu) await viewmodel.GetMenu();
+  }
+};
 </script>
 
 <style scoped>

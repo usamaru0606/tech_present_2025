@@ -11,7 +11,7 @@ export const useRecordMeal= () => {
           day: "2-digit",
         }),
         mealTiming: mealTiming,
-        stapleFood: mealitem.selectedMeal,
+        stapleFood: mealitem.stapleFood,
         mainDish: mealitem.mainDish,
         sideDish: mealitem.sideDish,
         soup: mealitem.soup,

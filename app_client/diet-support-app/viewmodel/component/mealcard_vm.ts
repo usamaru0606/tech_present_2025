@@ -83,5 +83,6 @@ export const MealCardViewModel = () => {
     menuItem,
     OpenRecordMealDialog,
     GoWeeklyMealPage,
+    GetMenu,
   };
 };

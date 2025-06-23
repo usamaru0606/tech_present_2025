@@ -103,36 +103,39 @@ async def record_meal(
         )
 
 @router.get("/todaymenu/{user_id}")
-async def get_today_menu(user_id: str):
+async def get_today_menu(user_id: str, db: Session = Depends(get_db)):
     """
-    ユーザーの本日の食事メニュー（朝昼晩）を返すエンドポイント（仮実装）
+    ユーザーの本日の食事メニュー（朝昼晩）をDBから返すエンドポイント
     """
-    return {
-        "breakfast": {
-            "stapleFood": "パン",
-            "mainDish": "目玉焼き",
-            "sideDish": "フルーツ",
-            "soup": "スープ",
-            "other": "コーヒー",
-            "totalCalories": 450
-        },
-        "lunch": {
-            "stapleFood": "パスタ",
-            "mainDish": "ミートソース",
-            "sideDish": "サラダ",
-            "soup": "コンソメスープ",
-            "other": "ヨーグルト",
-            "totalCalories": 650
-        },
-        "dinner": {
-            "stapleFood": "白ごはん",
-            "mainDish": "焼き鮭",
-            "sideDish": "お浸し",
-            "soup": "味噌汁",
-            "other": "なし",
-            "totalCalories": 500
-        }
-    }
+    from datetime import date
+    today = date.today()
+    timings = ["朝食", "昼食", "夕食"]
+    key_map = {"朝食": "breakfast", "昼食": "lunch", "夕食": "dinner"}
+    result = {k: {
+        "stapleFood": "",
+        "mainDish": "",
+        "sideDish": "",
+        "soup": "",
+        "other": "",
+        "totalCalories": 0
+    } for k in ["breakfast", "lunch", "dinner"]}
+
+    records = db.query(MealRecord).filter(
+        MealRecord.user_id == user_id,
+        MealRecord.record_date == today
+    ).all()
+    for rec in records:
+        key = key_map.get(rec.meal_timing)
+        if key:
+            result[key] = {
+                "stapleFood": rec.main_dish or "",
+                "mainDish": rec.main_side or "",
+                "sideDish": rec.sub_side or "",
+                "soup": rec.soup or "",
+                "other": rec.other or "",
+                "totalCalories": rec.calories if rec.calories is not None else 0
+            }
+    return result
 
 @router.post("/generate_weekly_meal/{user_id}")
 async def generate_weekly_meal(user_id: str, db: Session = Depends(get_db)):

@@ -16,8 +16,8 @@ class MealContent(BaseModel):
 
 class MealRecordRequest(BaseModel):
     """食事記録リクエストのスキーマ"""
-    id: int
-    recordDate: date
+    id: str
+    recordDate: str
     mealTiming: str  # "朝食", "昼食", "夕食" など
     content: MealContent
 
