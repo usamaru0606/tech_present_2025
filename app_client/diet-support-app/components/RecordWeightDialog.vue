@@ -42,7 +42,7 @@ const userWeightStore = useUserWeightStore();
 const router = useRouter();
 const dialog = ref(false);
 const recordWeight = reactive({
-  userId: userIdStore.getUserId(),
+  userId: userIdStore.getUserId()?.guid ?? userIdStore.getUserId() ?? "",
   currentWeight: userWeightStore.getUserWeight() ?? 64,
   recordDate: new Date(),
 });
@@ -54,18 +54,24 @@ const currentDate = reactive({
 });
 
 const OnConfirm = async () => {
+  console.log("[調査] OnConfirm called", JSON.stringify(recordWeight));
   try {
     if (userIdStore.userId == "test") {
       userWeightStore.setUserWeight(recordWeight.currentWeight);
       dialog.value = false;
+      console.log("[調査] test user, set weight and close dialog");
       return;
     }
+    console.log("[調査] before Execute", JSON.stringify(recordWeight));
     const res = await useRecordWeight().Execute(recordWeight);
+    console.log("[調査] after Execute", res);
     if (!res) return alert("記録に失敗しました");
     userWeightStore.setUserWeight(recordWeight.currentWeight);
   } catch (e) {
+    console.log("[調査] catch error", e);
     alert("記録に失敗しました");
   }
+  console.log("[調査] dialog.value = false");
   dialog.value = false;
 };
 

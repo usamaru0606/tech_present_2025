@@ -3,7 +3,7 @@ import type { CardItem } from "~/model/weightCardItem";
 export const GetWeightCardItemServise = async (id: string) => {
   try {
     return await $fetch<CardItem | null>(
-      `http://127.0.0.1:8000/weightcarditem/${id}`
+      `http://127.0.0.1:8000/api/weightcarditem/${id}`
     );
   } catch {
     return mockCardItemData;

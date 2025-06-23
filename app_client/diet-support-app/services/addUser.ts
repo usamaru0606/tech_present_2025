@@ -5,7 +5,7 @@ export const AddUserServise = async (
   newUserInfo: UserInfo & GoalSettingItems
 ) => {
   try {
-    const res = await $fetch("http://127.0.0.1:8000/user/add", {
+    const res = await $fetch("http://127.0.0.1:8000/api/user/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

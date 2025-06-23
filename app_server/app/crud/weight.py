@@ -22,11 +22,11 @@ def create_weight_record(db: Session, user_id: str, record_date: str, weight: fl
         WeightRecord: 作成された体重記録
     """
     # 文字列の日付をdatetime型に変換
-    date_obj = datetime.strptime(record_date, "%Y-%m-%d")
+    date_obj = datetime.strptime(record_date, "%Y/%m/%d")
     
     # 体重記録を作成
     db_weight = WeightRecord(
-        id=user_id,
+        user_id=user_id,
         record_date=date_obj,
         weight=weight
     )
@@ -49,7 +49,7 @@ def get_weight_records(db: Session, user_id: str) -> list[WeightRecord]:
     Returns:
         list[WeightRecord]: 体重記録のリスト
     """
-    return db.query(WeightRecord).filter(WeightRecord.id == user_id).all()
+    return db.query(WeightRecord).filter(WeightRecord.user_id == user_id).all()
 
 def get_weight_history(db: Session, user_id: str) -> Dict:
     """
@@ -71,7 +71,7 @@ def get_weight_history(db: Session, user_id: str) -> Dict:
     """
     # 体重記録を日付の降順で取得
     records = db.query(WeightRecord)\
-        .filter(WeightRecord.id == user_id)\
+        .filter(WeightRecord.user_id == user_id)\
         .order_by(desc(WeightRecord.record_date))\
         .all()
     

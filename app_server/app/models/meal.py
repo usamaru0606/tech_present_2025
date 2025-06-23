@@ -10,7 +10,7 @@ class MealRecord(Base):
     __tablename__ = "meal_records"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_id = Column(String(36), ForeignKey("users.guid"), nullable=False)
     record_date = Column(Date, nullable=False)
     meal_timing = Column(String, nullable=False)  # "朝食", "昼食", "夕食" など
     main_dish = Column(String, default="")  # 主食

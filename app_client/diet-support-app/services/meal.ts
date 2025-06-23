@@ -4,7 +4,7 @@ import type { RecordMeal } from "~/model/recoradmeal";
 export const GetToDayMenuServise = async (id: string) => {
   try {
     return await $fetch<Record<MealKey, Meal> | null>(
-      `http://127.0.0.1:8000/todaymenu/${id}`
+      `http://127.0.0.1:8000/api/todaymenu/${id}`
     );
   } catch {
     return mock;
@@ -40,7 +40,7 @@ const mock: Record<MealKey, Meal> = {
 
 export const RecordMealServise = async(recordMeal:RecordMeal) =>{
   try {
-    const res = await $fetch("http://127.0.0.1:8000/recordmeal", {
+    const res = await $fetch("http://127.0.0.1:8000/api/recordmeal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

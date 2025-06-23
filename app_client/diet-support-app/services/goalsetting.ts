@@ -3,7 +3,7 @@ import type { GoalSettingItems } from "~/model/goalsettingitem";
 export const GetGoalSettingServise = async (id: string) => {
   try {
     return await $fetch<GoalSettingItems | null>(
-      `http://127.0.0.1:8000/goalsetting/${id}`
+      `http://127.0.0.1:8000/api/goalsetting/${id}`
     );
   } catch {
     return mockData;
@@ -24,19 +24,19 @@ export const UpdateGoalSettingServise = async (
   goalSettingItems: GoalSettingItems
 ) => {
   try {
-    const res = await $fetch("http://127.0.0.1:8000/goalsetting/update", {
+    if (!goalSettingItems.userId) {
+      throw new Error("userId is required");
+    }
+    const res = await $fetch(`http://127.0.0.1:8000/api/goalsetting/${goalSettingItems.userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: goalSettingItems.userId,
-        height: goalSettingItems.height,
-        weight: goalSettingItems.weight,
-        startDate: goalSettingItems.startDate,
         problem: goalSettingItems.problem,
-        goalWeight: goalSettingItems.goalWeight,
+        startDate: goalSettingItems.startDate,
         goalDate: goalSettingItems.goalDate,
+        goalWeight: goalSettingItems.goalWeight,
       }),
     });
 

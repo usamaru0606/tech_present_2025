@@ -4,7 +4,7 @@ export const GetChartDataServise = async (id: string) => {
   type chartDataType = ChartData<"line">;
   try {
     return await $fetch<chartDataType | null>(
-      `http://127.0.0.1:8000/recordweight/${id}`
+      `http://127.0.0.1:8000/api/recordweight/${id}`
     );
   } catch {
     return mockChartData;
