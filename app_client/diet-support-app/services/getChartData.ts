@@ -1,27 +1,39 @@
 import type { ChartData } from "chart.js";
 
-export const GetChartDataService = async (id: string) => {
-  type chartDataType = ChartData<"line">;
+export const GetChartDataService = async (
+  id: string,
+  period: "weekly" | "monthly" | "yearly"
+) => {
   try {
-    return await $fetch<chartDataType | null>(
-      `http://127.0.0.1:8000/api/recordweight/${id}`
+    return await $fetch<ChartData<"line"> | null>(
+      `http://127.0.0.1:8000/api/recordweight/${id}?period=${period}`
     );
-  } catch {
-    return mockChartData;
+  } catch (e) {
+    return null;
   }
 };
 
-const startDate = new Date(2025, 4, 1)
-const mockChartData: ChartData<'line'> = {
-  labels: Array.from({ length: 365 }, (_, i) => {
-  const d = new Date(startDate);
-  d.setDate(startDate.getDate() + i);
-  return `${d.getMonth() + 1}/${d.getDate()}`;
-}),
+const mockChartData = {
+  labels: [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+  ],
   datasets: [
     {
-      label: '体重 (kg)',
-      data: Array.from({ length: 365 }, () => +(60 + Math.random() * 5).toFixed(1)),
+      label: "体重(kg)",
+      data: [65, 66, 65.5, 66.5, 67, 66, 67.5, 68, 67, 66, 65, 64],
+      borderColor: "#36A2EB",
+      backgroundColor: "#9BD0F5",
     },
   ],
-}
+};

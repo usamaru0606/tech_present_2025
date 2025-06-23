@@ -66,7 +66,7 @@ export const RecordMealService = async (recordMeal: RecordMeal) => {
 export const GetWeeklyMealService = async (id: string) => {
   try {
     return await $fetch<Record<MealKey, Meal>[] | null>(
-      `http://127.0.0.1:8000/weeklymeal/${id}`
+      `http://127.0.0.1:8000/api/weeklymeal/${id}`
     );
   } catch {
     return weeklyMockMeals;

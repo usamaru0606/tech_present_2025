@@ -44,14 +44,14 @@ export const LoginViewModel = () => {
         return;
       }
 
-      const userId = await useLogin().Execute(loginInfo);
+      const res = await useLogin().Execute(loginInfo);
 
-      if (!userId) {
+      if (!res || !res.guid) {
         error.value = "ログインに失敗しました";
         return;
       }
 
-      userIdStore.setUserId(userId);
+      userIdStore.setUserId(res.guid);
       error.value = "";
 
       if (autoLogin.value) {

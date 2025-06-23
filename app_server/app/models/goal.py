@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, Date, JSON
+from sqlalchemy import Column, Integer, Float, String, Date, JSON, ForeignKey
 from app.db.base_class import Base
 
 class GoalSetting(Base):
@@ -6,6 +6,7 @@ class GoalSetting(Base):
     __tablename__ = "goal_settings"
 
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String, ForeignKey("users.guid"), nullable=False, index=True)
     height = Column(Float, nullable=False)
     weight = Column(Float, nullable=False)
     problem = Column(JSON, nullable=False)

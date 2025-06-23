@@ -21,6 +21,11 @@ class UserCreate(BaseModel):
         birthday (str): 生年月日（YYYY-MM-DD形式の文字列）
         mailAddress (EmailStr): メールアドレス
         password (str): パスワード
+        height: Optional[float] = None
+        weight: Optional[float] = None
+        problem: Optional[str] = None
+        goalDate: Optional[str] = None
+        goalWeight: Optional[float] = None
     """
     firstName: str
     lastName: str
@@ -29,6 +34,11 @@ class UserCreate(BaseModel):
     birthday: str
     mailAddress: EmailStr
     password: str
+    height: Optional[float] = None
+    weight: Optional[float] = None
+    problem: Optional[str] = None
+    goalDate: Optional[str] = None
+    goalWeight: Optional[float] = None
 
     class Config:
         from_attributes = True

@@ -7,6 +7,7 @@
 
 from sqlalchemy.orm import Session
 from app.models.user import User
+from app.models.goal import GoalSetting
 from app.schemas.user import UserCreate, UserLogin
 from typing import Optional
 from datetime import datetime
@@ -23,14 +24,41 @@ def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     Returns:
         None
     """
-    # ユーザーデータを辞書に変換
     user_dict = user_data.model_dump()
     
+    # 目標設定が全て埋まっている場合のみGoalSettingを作成
+    if all([
+        user_dict.get("height") is not None,
+        user_dict.get("weight") is not None,
+        user_dict.get("goalDate"),
+        user_dict.get("goalWeight") is not None,
+        user_dict.get("problem")
+    ]):
+        goal_setting_data = {
+            "user_id": guid,
+            "height": user_dict.pop("height"),
+            "weight": user_dict.pop("weight"),
+            "problem": {"name": user_dict.pop("problem")},
+            "deadline": datetime.strptime(user_dict.pop("goalDate"), '%Y/%m/%d').date(),
+            "goal_weight": user_dict.pop("goalWeight"),
+        }
+        new_goal_setting = GoalSetting(**goal_setting_data)
+        db.add(new_goal_setting)
+    else:
+        user_dict.pop("height", None)
+        user_dict.pop("weight", None)
+        user_dict.pop("problem", None)
+        user_dict.pop("goalDate", None)
+        user_dict.pop("goalWeight", None)
+
+    # startDateはUserCreateスキーマにはないので削除
+    user_dict.pop("startDate", None)
+
     # メールアドレスのフィールド名を変更
     user_dict['email'] = user_dict.pop('mailAddress')
     
     # 文字列の日付をdate型に変換
-    user_dict['birthday'] = datetime.strptime(user_dict['birthday'], '%Y/%m/%d').date()
+    user_dict['birthday'] = datetime.strptime(user_dict.pop('birthday'), '%Y/%m/%d').date()
     
     # GUIDを追加
     user_dict['guid'] = guid
@@ -38,7 +66,7 @@ def create_user(db: Session, user_data: UserCreate, guid: str) -> None:
     # ユーザーモデルを作成
     new_user = User(**user_dict)
     
-    # データベースに新規ユーザーを追加
+    # データベースに新規ユーザーと目標設定を追加
     db.add(new_user)
     db.commit()
 

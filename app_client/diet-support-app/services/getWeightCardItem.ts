@@ -5,15 +5,15 @@ export const GetWeightCardItemService = async (id: string) => {
     return await $fetch<CardItem | null>(
       `http://127.0.0.1:8000/api/weightcarditem/${id}`
     );
-  } catch {
-    return mockCardItemData;
+  } catch (e) {
+    return null;
   }
 };
 
-const mockCardItemData: CardItem= {
-    weight: 60,
-    lastMonthWeight: 58,
-    goalWeight: 55,
-    goalDate: '2026/01/01',
-    startDate: '2025/01/01'
-}
+const mockData: CardItem = {
+  weight: 65,
+  lastMonthWeight: 67,
+  goalWeight: 60,
+  goalDate: "2024-12-31",
+  startDate: "2024-01-01",
+};

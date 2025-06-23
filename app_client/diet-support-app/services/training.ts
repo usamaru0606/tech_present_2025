@@ -3,7 +3,7 @@ import type { Exercise } from "~/model/training";
 export const GetTrainingMenuService = async (id: string) => {
   try {
     return await $fetch<Exercise[] | null>(
-      `http://127.0.0.1:8000/trainingmenu/${id}`
+      `http://127.0.0.1:8000/api/trainingmenu/${id}`
     );
   } catch {
     return mockExercises;

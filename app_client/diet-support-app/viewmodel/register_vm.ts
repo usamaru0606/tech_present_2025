@@ -120,7 +120,9 @@ export const RegisterViewModel = () => {
       if (
         !userInfo.selectedProblem ||
         !userInfo.goalWeight ||
-        !userInfo.goaldate
+        !goalDateInput.year ||
+        !goalDateInput.month ||
+        !goalDateInput.day
       ) {
         error.value = "すべての項目を入力してください";
         return false;

@@ -7,7 +7,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.schemas.goal import GoalSettingCreate, GoalSettingUpdate, GoalSettingResponse
+from app.schemas.goal import GoalSettingCreate, GoalSettingUpdate, GoalSettingResponse, GoalSettingUpdateResponse
 from app.crud.goal import create_goal_setting, update_goal_setting
 from app.db.deps import get_db
 from app.schemas.user import GoalSettingResponse
@@ -98,27 +98,20 @@ async def create_new_goal_setting(
             detail="Internal server error"
         )
 
-@router.post("/goalsetting/update", response_model=GoalSettingResponse)
+@router.put("/goalsetting/{user_id}", response_model=GoalSettingUpdateResponse)
 async def update_existing_goal_setting(
-    request: Request,
+    user_id: str,
     goal_setting: GoalSettingUpdate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request: Request = None,
 ):
     """
     既存の目標設定を更新するエンドポイント
-
-    Args:
-        request (Request): リクエストオブジェクト
-        goal_setting (GoalSettingUpdate): 更新する目標設定の情報
-        db (Session): データベースセッション（自動で注入）
-
-    Returns:
-        GoalSettingResponse: 更新成功時はsuccess=True
     """
     try:
         log_section("1. リクエスト受信")
         logger.info(f"[エンドポイント] /goalsetting/update")
-        logger.info(f"[メソッド] POST")
+        logger.info(f"[メソッド] PUT")
         
         log_section("2. リクエストヘッダーの確認")
         for key, value in request.headers.items():
@@ -136,14 +129,14 @@ async def update_existing_goal_setting(
         
         log_section("5. データベース処理開始")
         logger.info("目標設定データを更新中...")
-        update_goal_setting(db, goal_setting)
+        update_goal_setting(db, user_id=user_id, goal_setting_update=goal_setting)
         logger.info("データベース処理完了")
         
         log_section("6. レスポンス送信")
         logger.info("ステータス: 成功")
         logger.info("レスポンスデータ: { success: true }")
         
-        return GoalSettingResponse(success=True)
+        return GoalSettingUpdateResponse(success=True)
         
     except ValidationError as e:
         log_section("バリデーションエラー")

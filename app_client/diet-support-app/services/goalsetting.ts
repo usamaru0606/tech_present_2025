@@ -28,7 +28,7 @@ export const UpdateGoalSettingService = async (
       throw new Error("userId is required");
     }
     const res = await $fetch(`http://127.0.0.1:8000/api/goalsetting/${goalSettingItems.userId}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
