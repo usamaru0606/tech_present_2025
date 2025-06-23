@@ -63,13 +63,22 @@ export const WeeklyMealViewModel = () => {
     if (!res || !res.weekMeals) return;
     weeklyMeals.value = res.weekMeals.map((day: any, i: number) => {
       const date = addDays(today, i);
+      // calories→totalCalories変換用関数
+      const normalizeMeal = (meal: any) => {
+        if (!meal) return { ...initMeal };
+        return {
+          ...initMeal,
+          ...meal,
+          totalCalories: meal.totalCalories ?? meal.calories ?? 0,
+        };
+      };
       return {
         date: day.date ?? format(date, "M月d日", { locale: ja }),
         label: day.label ?? daysOfWeek[date.getDay()],
         meals: {
-          breakfast: { ...initMeal, ...day.breakfast },
-          lunch: { ...initMeal, ...day.lunch },
-          dinner: { ...initMeal, ...day.dinner },
+          breakfast: normalizeMeal(day.breakfast),
+          lunch: normalizeMeal(day.lunch),
+          dinner: normalizeMeal(day.dinner),
         },
       };
     });

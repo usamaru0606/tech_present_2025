@@ -241,7 +241,8 @@ async def get_weekly_meal(user_id: str, db: Session = Depends(get_db)):
                     "mainDish": rec.main_side or "",
                     "sideDish": rec.sub_side or "",
                     "soup": rec.soup or "",
-                    "other": rec.other or ""
+                    "other": rec.other or "",
+                    "totalCalories": rec.calories if hasattr(rec, "calories") else None
                 }
                 if rec.meal_timing == "朝食":
                     day["breakfast"] = meal
