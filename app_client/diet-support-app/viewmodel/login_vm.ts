@@ -50,7 +50,7 @@ export const LoginViewModel = () => {
         return;
       }
 
-      userIdStore.setUserId(res.toString());
+      userIdStore.setUserId(res);
       error.value = "";
 
       if (autoLogin.value) {
