@@ -60,13 +60,13 @@ export const WeeklyMealViewModel = () => {
     const userId = useUserIdStore().getUserId();
     if (!userId) return;
     const res = await useGetWeeklyMeal().Execute(userId);
-    if (!res || !res.weekMeals) return;
+    if (!res) return;
 
     // APIのデータと「今日からの日付」を結びつけて表示
     weeklyMeals.value = Array.from({ length: 7 }, (_, i) => {
       const date = addDays(today, i);
       const dayOfWeek = daysOfWeek[date.getDay()];
-      const mealData = res.weekMeals[i] || {};
+      const mealData = res[i] || {};
 
       const normalizeMeal = (meal: any) => {
         if (!meal) return { ...initMeal };

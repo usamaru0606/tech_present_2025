@@ -2,33 +2,46 @@
   <v-container fluid class="pa-2 weekly-container">
     <div class="d-flex justify-space-between align-center mb-2">
       <div class="d-flex align-center">
-        <v-btn color="secondary" class="mr-2" @click="generateWeeklyMeal" :loading="isLoading" :disabled="isLoading">一週間分の食事メニューを作成</v-btn>
+        <v-btn
+          color="secondary"
+          class="mr-2"
+          @click="generateWeeklyMeal"
+          :loading="isLoading"
+          :disabled="isLoading"
+          >一週間分の食事メニューを作成</v-btn
+        >
         <h2 class="text-h5 font-weight-bold">1週間の献立</h2>
       </div>
       <v-btn color="primary" @click="$router.push('/')">ホームへ戻る</v-btn>
     </div>
     <v-row v-if="isLoading" class="justify-center my-4">
       <v-col cols="auto">
-        <v-progress-circular indeterminate color="primary" size="40" class="mr-2" />
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          size="40"
+          class="mr-2"
+        />
         <span>食事メニューを作成中です。しばらくお待ちください...</span>
       </v-col>
     </v-row>
 
     <v-tabs v-model="viewmodel.currentTab.value" class="border">
       <v-tab
-  v-for="(day, index) in viewmodel.weeklyMeals.value"
-  :key="index"
-  :class="getTabClass(day.label)"
->
-  {{ day.date }}<br />{{ day.label }}
-</v-tab>
-
+        v-for="(day, index) in viewmodel.weeklyMeals.value"
+        :key="index"
+         :value="index"
+        :class="getTabClass(day.label)"
+      >
+        {{ day.date }}<br />{{ day.label }}
+      </v-tab>
     </v-tabs>
 
     <v-window v-model="viewmodel.currentTab.value" class="scroll-y pt-6 px-4">
       <v-window-item
         v-for="(day, index) in viewmodel.weeklyMeals.value"
         :key="index"
+        :value="index"
       >
         <v-row>
           <v-col
@@ -87,7 +100,7 @@
 import { WeeklyMealViewModel } from "~/viewmodel/weeklymeal_vm";
 import { useGenerateWeeklyMeal } from "~/composables/usecase/useGetWeeklyMeal";
 import { useUserIdStore } from "~/stores/userid";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const viewmodel = WeeklyMealViewModel();
 const getTabClass = (label: string): string => {
@@ -151,5 +164,4 @@ const generateWeeklyMeal = async () => {
   color: #d32f2f; /* 赤系 */
   font-weight: bold;
 }
-
 </style>

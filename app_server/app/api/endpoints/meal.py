@@ -227,7 +227,7 @@ async def get_weekly_meal(user_id: str, db: Session = Depends(get_db)):
     """
     from datetime import date, timedelta
     today = date.today()
-    week_dates = [(today - timedelta(days=i)) for i in range(6, -1, -1)]
+    week_dates = [(today + timedelta(days=i)) for i in range(0, 7)]
     records = db.query(MealRecord).filter(
         MealRecord.user_id == user_id,
         MealRecord.record_date.in_(week_dates)
