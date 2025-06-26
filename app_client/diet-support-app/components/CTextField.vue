@@ -15,6 +15,7 @@
       :ref="inputRef"
       :model-value="modelValue"
       :type="type"
+      :min="min"
       :density="density"
       :variant="variant"
       :hide-details="hideDetails"
@@ -35,6 +36,10 @@ const props = defineProps({
   type: {
     type: String,
     default: "text",
+  },
+  min: {
+    type: Number,
+    default: 0,
   },
   density: {
     type: String,

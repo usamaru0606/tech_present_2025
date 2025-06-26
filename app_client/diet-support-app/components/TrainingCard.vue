@@ -1,12 +1,12 @@
 <template>
-  <v-card class="px-4 pt-2 fill-height custom-card" elevation="4" rounded="lg">
+  <v-card class="pt-2 fill-height custom-card" elevation="4" rounded="lg">
     <v-card-title class="text-h6 font-weight-bold pb-0">
       今日のトレーニング
     </v-card-title>
 
     <v-divider class="my-2" />
 
-    <v-row dense class="ml-1 min-height-row" align="center">
+    <v-row dense class="px-4 ml-2 min-height-row" align="center">
       <template v-if="viewmodel.trainingMenu.value.trainings.length > 0">
         <v-col
           cols="12"
@@ -19,7 +19,7 @@
               <strong>{{ item.trainingMenu }}</strong>
             </v-col>
             <v-col cols="3" class="text-center">
-              回数: {{ item.trainingTime }} 回
+              時間: {{ item.trainingTime }} 分
             </v-col>
             <v-col cols="5" class="text-right">
               消費カロリー: {{ item.calories }} kcal
@@ -36,8 +36,8 @@
 
     <v-divider class="my-3" />
 
-    <v-row class="pb-4">
-      <v-col cols="8">
+    <v-row class="py-1">
+      <v-col cols="6">
         <CIconBtn
           class="ml-3 py-0 px-4 custom-btn"
           label="トレーニングを記録"
@@ -49,11 +49,19 @@
           :modelTraining="viewmodel.trainingMenu.value"
         />
       </v-col>
-      <v-col cols="4" class="pa-1 text-center">
+      <v-col cols="3" class="pa-1 pl-4">
+        <CLabelValue
+          icon="mdi-timer"
+          icon-color="green"
+          label="合計"
+          :value="`${viewmodel.totalTime.value ?? '--'} 分`"
+        />
+      </v-col>
+      <v-col cols="3" class="pa-1 pl-4">
         <CLabelValue
           icon="mdi-fire"
           icon-color="deep-orange"
-          label="合計消費カロリー"
+          label="合計"
           :value="`${viewmodel.trainingMenu.value.totalCalories ?? '--'} kcal`"
         />
       </v-col>

@@ -1,9 +1,7 @@
 <template>
   <v-container fluid class="pa-2 weekly-container">
     <div class="mb-2">
-      <div
-        class=" flex-column flex-sm-row align-md-center"
-      >
+      <div class="flex-column flex-sm-row align-md-center">
         <!-- 左側：ボタン2つを横並び -->
         <div class="d-flex mb-2 mb-sm-0">
           <v-btn
@@ -20,23 +18,35 @@
           <h2 class="text-h5 font-weight-bold mt-2 mt-sm-0 d-none d-md-flex">
             1週間の献立
           </h2>
-          <v-spacer/>
-           <v-btn style="width: auto; max-width: max-content;" color="primary" @click="$router.push('/')"> ホームへ戻る </v-btn>
+          <v-spacer />
+          <v-btn
+            style="width: auto; max-width: max-content"
+            color="primary"
+            @click="$router.push('/')"
+          >
+            ホームへ戻る
+          </v-btn>
         </div>
       </div>
     </div>
 
-    <v-row v-if="viewmodel.isLoading.value" class="justify-center my-4">
-      <v-col cols="auto">
+    <v-overlay
+      :model-value="viewmodel.isLoading.value"
+      persistent
+      class="loading-overlay d-flex justify-center align-center"
+    >
+      <v-card class="pa-6 text-center" elevation="8" color="white" width="300">
         <v-progress-circular
           indeterminate
           color="primary"
-          size="40"
-          class="mr-2"
+          size="50"
+          class="mb-4"
         />
-        <span>食事メニューを作成中です。しばらくお待ちください...</span>
-      </v-col>
-    </v-row>
+        <div class="text-subtitle-1 font-weight-medium">
+          食事メニューを作成中です。<br />しばらくお待ちください...
+        </div>
+      </v-card>
+    </v-overlay>
 
     <!-- モバイル表示（v-slide-group--mobileが自動で入る） -->
     <v-tabs
@@ -189,5 +199,11 @@ const { mobile } = useDisplay();
 .sunday-tab {
   color: #d32f2f; /* 赤系 */
   font-weight: bold;
+}
+
+.loading-overlay {
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="d-flex justify-center register-bg pt-0">
+  <v-container fluid class="d-flex justify-center register-bg pt-1">
     <div class="container">
       <RegisterStepIndicator :currentStep="viewmodel.step.value" />
 

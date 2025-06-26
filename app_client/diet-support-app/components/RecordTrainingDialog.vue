@@ -40,7 +40,6 @@
             icon-color="deep-orange"
             label="消費カロリー"
             type="number"
-            :min="0"
             v-model.number="train.calories"
           />
         </v-col>

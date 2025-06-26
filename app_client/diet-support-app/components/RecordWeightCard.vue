@@ -1,7 +1,7 @@
 <template>
-  <v-card class="px-4 pt-4 fill-height" elevation="4" rounded="lg">
-    <v-row dense>
-      <v-col cols="4" class="mb-4">
+  <v-card class="pa-4" elevation="4" rounded="lg">
+    <v-row dense class="ml-4 pt-2">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-weight"
           icon-color="primary"
@@ -10,7 +10,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-scale-bathroom"
           icon-color="blue-darken-2"
@@ -19,7 +19,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-scale-bathroom"
           icon-color="blue-darken-2"
@@ -28,7 +28,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-target"
           icon-color="green-darken-1"
@@ -37,7 +37,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           :icon="`mdi-trending-${
             weightDiffAll < 0 ? 'down' : weightDiffAll > 0 ? 'up' : 'neutral'
@@ -57,7 +57,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           :icon="`mdi-trending-${
             weightDiff < 0 ? 'down' : weightDiff > 0 ? 'up' : 'neutral'
@@ -77,7 +77,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-calendar-end"
           icon-color="deep-purple-accent-2"
@@ -86,7 +86,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-calendar-today"
           icon-color="indigo"
@@ -95,7 +95,7 @@
         />
       </v-col>
 
-      <v-col cols="4" class="mb-4">
+      <v-col cols="4" class="mb-5">
         <CLabelValue
           icon="mdi-calendar-clock"
           icon-color="teal"
