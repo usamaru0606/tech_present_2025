@@ -89,14 +89,27 @@ export const WeeklyMealViewModel = () => {
     });
   };
 
+const isLoading = ref(false);
+
+const generateWeeklyMeal = async () => {
+  const userId = useUserIdStore().getUserId();
+  if (!userId) return;
+  isLoading.value = true;
+  await useGenerateWeeklyMeal().Execute(userId); // 生成API
+  await fetchWeeklyMeals(); // 取得APIで再取得
+  isLoading.value = false;
+};
+
   onMounted(fetchWeeklyMeals);
 
   return {
+    isLoading,
     currentTab,
     mealCategories,
     mealTabs,
     weeklyMeals,
     GetTotalCalories,
     fetchWeeklyMeals,
+    generateWeeklyMeal
   };
 };

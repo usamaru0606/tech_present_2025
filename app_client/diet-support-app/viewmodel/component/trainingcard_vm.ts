@@ -19,8 +19,6 @@ export const TrainingCardViewModel = () => {
     return exercises.reduce((sum, item) => sum + (item.calories ?? 0), 0);
   };
 
-  const totalCalories = computed(() => CalculateTotalCalories(trainingMenu.value.exercises));
-
   // APIから取得してtrainingMenuを更新する処理例
   onMounted(async () => {
     if (!userId) return;

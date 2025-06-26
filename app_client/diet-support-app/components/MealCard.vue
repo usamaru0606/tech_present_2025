@@ -51,7 +51,7 @@
 
     <v-divider class="my-3" />
 
-    <v-row>
+    <v-row dense>
       <v-col cols="7">
         <CIconBtn
           class="ml-3 py-0 px-4 custom-btn"

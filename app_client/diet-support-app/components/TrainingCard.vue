@@ -44,11 +44,10 @@
           icon="mdi-pencil"
           :onClick="viewmodel.OpenRecordTrainingDialog"
         />
-        <!-- <RecordTrainingDialog
-          session="今日"
+        <RecordTrainingDialog
           v-model="viewmodel.isOpenRecordTrainingDialog.value"
           :modelTraining="viewmodel.trainingMenu.value"
-        /> -->
+        />
       </v-col>
       <v-col cols="4" class="pa-1 text-center">
         <CLabelValue

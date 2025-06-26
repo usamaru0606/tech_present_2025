@@ -1,3 +1,32 @@
+<template>
+  <v-row class="button-row" dense no-gutters>
+    <v-col cols="auto" v-for="period in periods" :key="period">
+      <v-btn
+        class="chart_Btn"
+        :class="{ selected: selectedPeriod === period }"
+        @click="changePeriod(period)"
+      >
+        {{ period }}
+      </v-btn>
+    </v-col>
+  </v-row>
+
+  <v-card elevation="2">
+    <v-card-text class="pa-0 chart-card-text">
+      <Line :data="computedChartData" :options="chartOptions" />
+      <div v-if="!userId" class="overlay d-flex align-center justify-center">
+        <v-card flat color="transparent" class="text-center">
+          <CTextBtn
+            label="ログインして下さい"
+            color="primary"
+            @click="GoLoginPage"
+          />
+        </v-card>
+      </div>
+    </v-card-text>
+  </v-card>
+</template>
+
 <script setup lang="ts">
 import {
   Chart as ChartJS,
@@ -164,35 +193,6 @@ function GoLoginPage() {
   router.push("/login");
 }
 </script>
-
-<template>
-  <v-row class="button-row" dense no-gutters>
-    <v-col cols="auto" v-for="period in periods" :key="period">
-      <v-btn
-        class="chart_Btn"
-        :class="{ selected: selectedPeriod === period }"
-        @click="changePeriod(period)"
-      >
-        {{ period }}
-      </v-btn>
-    </v-col>
-  </v-row>
-
-  <v-card class="fill-height" elevation="2">
-    <v-card-text class="pa-0 chart-card-text">
-      <Line :data="computedChartData" :options="chartOptions" />
-      <div v-if="!userId" class="overlay d-flex align-center justify-center">
-        <v-card flat color="transparent" class="text-center">
-          <CTextBtn
-            label="ログインして下さい"
-            color="primary"
-            @click="GoLoginPage"
-          />
-        </v-card>
-      </div>
-    </v-card-text>
-  </v-card>
-</template>
 
 <style scoped>
 .overlay {

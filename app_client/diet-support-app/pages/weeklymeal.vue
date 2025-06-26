@@ -1,20 +1,32 @@
 <template>
   <v-container fluid class="pa-2 weekly-container">
-    <div class="d-flex justify-space-between align-center mb-2">
-      <div class="d-flex align-center">
-        <v-btn
-          color="secondary"
-          class="mr-2"
-          @click="generateWeeklyMeal"
-          :loading="isLoading"
-          :disabled="isLoading"
-          >一週間分の食事メニューを作成</v-btn
-        >
-        <h2 class="text-h5 font-weight-bold">1週間の献立</h2>
+    <div class="mb-2">
+      <div
+        class=" flex-column flex-sm-row align-md-center"
+      >
+        <!-- 左側：ボタン2つを横並び -->
+        <div class="d-flex mb-2 mb-sm-0">
+          <v-btn
+            color="secondary"
+            class="mr-2"
+            @click="viewmodel.generateWeeklyMeal"
+            :loading="viewmodel.isLoading.value"
+            :disabled="viewmodel.isLoading.value"
+          >
+            一週間分の食事メニューを作成
+          </v-btn>
+
+          <!-- 右側 or 下：タイトル -->
+          <h2 class="text-h5 font-weight-bold mt-2 mt-sm-0 d-none d-md-flex">
+            1週間の献立
+          </h2>
+          <v-spacer/>
+           <v-btn style="width: auto; max-width: max-content;" color="primary" @click="$router.push('/')"> ホームへ戻る </v-btn>
+        </div>
       </div>
-      <v-btn color="primary" @click="$router.push('/')">ホームへ戻る</v-btn>
     </div>
-    <v-row v-if="isLoading" class="justify-center my-4">
+
+    <v-row v-if="viewmodel.isLoading.value" class="justify-center my-4">
       <v-col cols="auto">
         <v-progress-circular
           indeterminate
@@ -26,18 +38,38 @@
       </v-col>
     </v-row>
 
-    <v-tabs v-model="viewmodel.currentTab.value" class="border">
+    <!-- モバイル表示（v-slide-group--mobileが自動で入る） -->
+    <v-tabs
+      v-if="isMounted && mobile"
+      v-model="viewmodel.currentTab.value"
+      class="border"
+    >
       <v-tab
         v-for="(day, index) in viewmodel.weeklyMeals.value"
         :key="index"
-         :value="index"
+        :value="index"
         :class="getTabClass(day.label)"
       >
         {{ day.date }}<br />{{ day.label }}
       </v-tab>
     </v-tabs>
 
-    <v-window v-model="viewmodel.currentTab.value" class="scroll-y pt-6 px-4">
+    <!-- PC表示 -->
+    <v-tabs v-else v-model="viewmodel.currentTab.value" class="border">
+      <v-tab
+        v-for="(day, index) in viewmodel.weeklyMeals.value"
+        :key="index"
+        :value="index"
+        :class="getTabClass(day.label)"
+      >
+        {{ day.date }}<br />{{ day.label }}
+      </v-tab>
+    </v-tabs>
+
+    <v-window
+      v-model="viewmodel.currentTab.value"
+      class="scroll-y mt-2 pt-4 px-4"
+    >
       <v-window-item
         v-for="(day, index) in viewmodel.weeklyMeals.value"
         :key="index"
@@ -97,10 +129,8 @@
 </template>
 
 <script setup lang="ts">
+import { useDisplay } from "vuetify";
 import { WeeklyMealViewModel } from "~/viewmodel/weeklymeal_vm";
-import { useGenerateWeeklyMeal } from "~/composables/usecase/useGetWeeklyMeal";
-import { useUserIdStore } from "~/stores/userid";
-import { ref } from "vue";
 
 const viewmodel = WeeklyMealViewModel();
 const getTabClass = (label: string): string => {
@@ -109,16 +139,12 @@ const getTabClass = (label: string): string => {
   return "";
 };
 
-const isLoading = ref(false);
+const isMounted = ref(false);
+onMounted(() => {
+  isMounted.value = true;
+});
 
-const generateWeeklyMeal = async () => {
-  const userId = useUserIdStore().getUserId();
-  if (!userId) return;
-  isLoading.value = true;
-  await useGenerateWeeklyMeal().Execute(userId); // 生成API
-  await viewmodel.fetchWeeklyMeals(); // 取得APIで再取得
-  isLoading.value = false;
-};
+const { mobile } = useDisplay();
 </script>
 
 <style scoped>

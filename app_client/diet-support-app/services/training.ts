@@ -1,3 +1,4 @@
+import type { RecordTraining } from "~/model/recordtraining";
 import type { Exercise } from "~/model/training";
 
 export const GetTrainingMenuService = async (id: string) => {
@@ -18,3 +19,23 @@ const mockExercises: Exercise[] = [
   { trainingMenu: "準備運動", trainingTime: 5, calories: 10 },
   { trainingMenu: "準備運動", trainingTime: 5, calories: 10 },
 ];
+
+export const RecordTrainingService = async(recordTraining:RecordTraining) => {
+  try {
+    const res = await $fetch("http://127.0.0.1:8000/api/recordtraining", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: recordTraining.userId,
+        recordDate: recordTraining.recordDate,
+        training:recordTraining.trainingMenu
+      }),
+    });
+
+    return res;
+  } catch {
+    return false;
+  }
+}

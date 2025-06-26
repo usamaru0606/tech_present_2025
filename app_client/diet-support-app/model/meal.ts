@@ -12,3 +12,7 @@ export type Meal = {
 } & {
   totalCalories: number|null;
 };
+
+export type DayMeal = {
+  date: string;
+} & Record<MealKey, Meal>;
