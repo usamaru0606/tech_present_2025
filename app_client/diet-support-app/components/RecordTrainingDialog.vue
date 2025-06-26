@@ -14,7 +14,7 @@
       </v-row>
 
       <v-row dense class="px-4 pt-4 flex-grow-1 scroll-y">
-        <template v-for="train in tempTraining.exercises">
+        <template v-for="train in tempTraining.trainings">
         <v-col cols="6" class="pb-4">
           <CTextField
             icon="mdi-dumbbell"
@@ -70,7 +70,7 @@ const internalValue = computed({
 
 // 入力対象
 const tempTraining = reactive<Training>({
-  exercises: [{ trainingMenu: null, trainingTime: null, calories: null }],
+  trainings: [{ trainingMenu: null, trainingTime: null, calories: null }],
   totalCalories: 0,
 });
 
@@ -93,7 +93,7 @@ watch(
   () => props.modelValue,
   (opened) => {
     if (opened && props.modelTraining) {
-      tempTraining.exercises = JSON.parse(JSON.stringify(props.modelTraining.exercises));
+      tempTraining.trainings = JSON.parse(JSON.stringify(props.modelTraining.trainings));
       tempTraining.totalCalories = props.modelTraining.totalCalories;
     }
   },

@@ -7,10 +7,10 @@
     <v-divider class="my-2" />
 
     <v-row dense class="ml-1 min-height-row" align="center">
-      <template v-if="viewmodel.trainingMenu.value.exercises.length > 0">
+      <template v-if="viewmodel.trainingMenu.value.trainings.length > 0">
         <v-col
           cols="12"
-          v-for="(item, index) in viewmodel.trainingMenu.value.exercises"
+          v-for="(item, index) in viewmodel.trainingMenu.value.trainings"
           :key="index"
           class="my-2"
         >

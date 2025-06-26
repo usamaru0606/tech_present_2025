@@ -1,6 +1,6 @@
-export type Exercise = { trainingMenu: string|null; trainingTime: number|null; calories: number|null };
+export type TrainingSet = { trainingMenu: string | null; trainingTime: number | null; calories: number | null };
 
 export type Training = {
- exercises: Exercise[];
-  totalCalories: number|null;
+  trainings: TrainingSet[];
+  totalCalories: number | null;
 };

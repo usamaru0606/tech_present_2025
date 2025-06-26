@@ -1,4 +1,4 @@
-import type { Exercise, Training } from "~/model/training";
+import type { TrainingSet, Training } from "~/model/training";
 import { GetTrainingMenuService } from '~/services/training';
 
 export const TrainingCardViewModel = () => {
@@ -8,11 +8,11 @@ export const TrainingCardViewModel = () => {
 
   // 今日のトレーニングメニュー（単一セッション）
   const trainingMenu = ref<Training>({
-    exercises: [],
+    trainings: [],
     totalCalories: null,
   });
 
-  const CalculateTotalCalories = (exercises: Exercise[] | null): number => {
+  const CalculateTotalCalories = (exercises: TrainingSet[] | null): number => {
     if (!Array.isArray(exercises)) {
       return 0;
     }
@@ -24,7 +24,7 @@ export const TrainingCardViewModel = () => {
     if (!userId) return;
     const exercises = await GetTrainingMenuService(userId);
     if (!exercises) return;
-    trainingMenu.value.exercises = exercises;
+    trainingMenu.value.trainings = exercises;
     trainingMenu.value.totalCalories = CalculateTotalCalories(exercises);
   });
 

@@ -1,9 +1,9 @@
 import type { RecordTraining } from "~/model/recordtraining";
-import type { Exercise } from "~/model/training";
+import type { TrainingSet } from "~/model/training";
 
 export const GetTrainingMenuService = async (id: string) => {
   try {
-    return await $fetch<Exercise[] | null>(
+    return await $fetch<TrainingSet[] | null>(
       `http://127.0.0.1:8000/api/trainingmenu/${id}`
     );
   } catch {
@@ -11,7 +11,7 @@ export const GetTrainingMenuService = async (id: string) => {
   }
 };
 
-const mockExercises: Exercise[] = [
+const mockExercises: TrainingSet[] = [
   { trainingMenu: "ジョギング", trainingTime: 30, calories: 200 },
   { trainingMenu: "腕立て伏せ", trainingTime: 20, calories: 100 },
   { trainingMenu: "肩ストレッチ", trainingTime: 10, calories: 20 },
