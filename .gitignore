@@ -319,7 +319,8 @@ cython_debug/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -782,3 +783,19 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Draw.io temporary/backup files
+*~   
+*.tmp
+*.drawio.bak
+*.drawio~
+*.bkp
+.*.drawio.bkp 
+*$* 
+
+# Optional: exclude exported images (if you auto-export and don't want them in Git)
+*.drawio.svg
+*.drawio.png
+
+app_server/app/db/health_data.db
+"app_server/app/import.ini" 
+"app_server/app/import.ini"
